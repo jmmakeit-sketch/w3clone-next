@@ -197,3 +197,6 @@ tr:hover td { background: #f5f5f5; }
 .sidebar a:not(.active):not(.sidebar-header) {
   background: #fff;
 }
+
+/* Hide dropdown scrollbar */
+.grade-dropdown::-webkit-scrollbar { display: none; }

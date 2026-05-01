@@ -91,7 +91,7 @@ export default function GradeNav() {
 
       {/* Dropdown */}
       {openGrade && (
-        <div style={{ position: "fixed", left: 0, top: "132px", width: "228px", background: "#fff", borderTop: `3px solid ${openGrade.color}`, borderRight: "1px solid #ddd", zIndex: 9998, height: "calc(100vh - 132px)", overflowY: "auto" }}>
+        <div style={{ position: "fixed", left: 0, top: "132px", width: "228px", background: "#fff", borderTop: `3px solid ${openGrade.color}`, borderRight: "1px solid #ddd", zIndex: 9998, height: "calc(100vh - 132px)", overflowY: "auto", scrollbarWidth: "none" }}>
           <div style={{ padding: "11px 16px", background: openGrade.color, color: "#fff", fontWeight: 700, fontSize: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span>{openGrade.label}</span>
             <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 9px", borderRadius: "10px" }}>{openGrade.pathway}</span>
