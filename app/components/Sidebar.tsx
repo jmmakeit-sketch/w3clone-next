@@ -21,23 +21,20 @@ export default function Sidebar({ grade, subject }: { grade?: string; subject?: 
   const pathname = usePathname();
   const [topics, setTopics] = useState<any[]>([]);
   const [subjectData, setSubjectData] = useState<any>(null);
-  const [hidden, setHidden] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // Listen for GradeNav dropdown open/close events
   useEffect(() => {
     function onDropdown(e: Event) {
-      const detail = (e as CustomEvent).detail;
-      setHidden(detail !== null);
+      setDropdownOpen((e as CustomEvent).detail !== null);
     }
     window.addEventListener("gradenav:open", onDropdown);
     return () => window.removeEventListener("gradenav:open", onDropdown);
   }, []);
 
-  // When route changes, show sidebar again
-  useEffect(() => { setHidden(false); }, [pathname]);
+  useEffect(() => { setDropdownOpen(false); }, [pathname]);
 
   useEffect(() => {
-    if (grade && subject) { fetchTopics(); }
+    if (grade && subject) fetchTopics();
     else { setTopics([]); setSubjectData(null); }
   }, [grade, subject]);
 
@@ -59,8 +56,11 @@ export default function Sidebar({ grade, subject }: { grade?: string; subject?: 
   const pathway = subjectData?.pathways?.name || "";
   const pathwayColor = PATHWAY_COLORS[pathway] || "#04AA6D";
 
-  // Hide sidebar when dropdown is open — dropdown covers it
-  if (hidden) return <aside className="sidebar" style={{ visibility: "hidden" }} />;
+  // When dropdown is open — render empty placeholder to hold space
+  // This keeps layout stable (content doesnt shift) but sidebar is invisible
+  if (dropdownOpen) {
+    return <aside className="sidebar" style={{ visibility: "hidden", pointerEvents: "none" }} />;
+  }
 
   if (!grade) {
     return (
