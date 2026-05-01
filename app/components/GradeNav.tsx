@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -20,112 +20,97 @@ const GRADES = [
   { label: "Grade 12", href: "/grade-12", pathway: "Senior Secondary", color: "#607D8B", subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science", "Agriculture", "English", "Kiswahili", "Fine Art", "Music"] },
 ];
 
-function slugify(text: string) {
-  return text.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and");
+function slugify(t: string) {
+  return t.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and");
 }
 
 export default function GradeNav() {
   const pathname = usePathname();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [pinned, setPinned] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const activeGrade = GRADES.findIndex(g => pathname.startsWith(g.href));
 
-  function handleMouseEnter(i: number) {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  function open(i: number) {
     setOpenIndex(i);
   }
 
-  function handleMouseLeave() {
-    timeoutRef.current = setTimeout(() => setOpenIndex(null), 200);
+  function handleClick(i: number) {
+    if (pinned && openIndex === i) {
+      setPinned(false);
+      setOpenIndex(null);
+    } else {
+      setPinned(true);
+      setOpenIndex(i);
+    }
   }
 
-  function scrollRight() {
-    if (scrollRef.current) scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
-  }
-
-  function scrollLeft() {
-    if (scrollRef.current) scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
-  }
-
-  useEffect(() => {
+  function close() {
+    setPinned(false);
     setOpenIndex(null);
-  }, [pathname]);
+  }
 
-  useEffect(() => {
-    return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
-  }, []);
+  useEffect(() => { close(); }, [pathname]);
 
   const openGrade = openIndex !== null ? GRADES[openIndex] : null;
 
   return (
     <>
+      {/* Black navbar bar */}
       <div style={{ background: "#000", position: "sticky", top: "84px", zIndex: 99999, display: "flex", alignItems: "center", height: "48px" }}>
-        <button onClick={scrollLeft} style={{ background: "#222", color: "#fff", border: "none", padding: "0 10px", height: "48px", cursor: "pointer", fontSize: "16px", flexShrink: 0, borderRight: "1px solid #333" }}>‹</button>
-        <Link
-          href="/"
-          style={{ color: pathname === "/" ? "#04AA6D" : "#fff", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "48px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "none" }}
-        >
+        <button onClick={() => scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" })} style={{ background: "#222", color: "#fff", border: "none", padding: "0 12px", height: "48px", cursor: "pointer", fontSize: "18px", flexShrink: 0, borderRight: "1px solid #444" }}>&#8249;</button>
+        <Link href="/" onClick={close} style={{ color: pathname === "/" ? "#04AA6D" : "#ccc", padding: "0 16px", fontSize: "13px", fontWeight: 700, height: "48px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #444", flexShrink: 0, background: "transparent", borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent" }}>
           HOME
         </Link>
         <div ref={scrollRef} style={{ display: "flex", alignItems: "center", overflowX: "auto", scrollbarWidth: "none", flex: 1, height: "48px" }}>
           {GRADES.map((g, i) => {
             const isActive = activeGrade === i;
             const isOpen = openIndex === i;
+            const highlight = isActive || (isOpen && pinned);
             return (
-              <div
+              <button
                 key={g.href}
-                style={{ flexShrink: 0, height: "48px", display: "flex", alignItems: "center" }}
-                onMouseEnter={() => handleMouseEnter(i)}
-                onMouseLeave={handleMouseLeave}
+                onClick={() => handleClick(i)}
+                onMouseEnter={() => { if (!pinned) open(i); }}
+                onMouseLeave={() => { if (!pinned) setOpenIndex(null); }}
+                style={{
+                  flexShrink: 0, height: "48px", padding: "0 15px",
+                  fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap",
+                  cursor: "pointer", border: "none", fontFamily: "Verdana, sans-serif",
+                  color: highlight ? "#fff" : "#ccc",
+                  background: highlight ? "#04AA6D" : isOpen ? "#333" : "#000",
+                  borderBottom: "none",
+                  transition: "background 0.15s",
+                }}
               >
-                <Link
-                  href={g.href}
-                  style={{
-                    display: "flex", alignItems: "center", height: "48px", padding: "0 14px",
-                    fontSize: "13px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap",
-                    color: isActive ? "#04AA6D" : "#fff",
-                    background: isOpen && !isActive ? "#222" : "transparent",
-                    borderBottom: isActive ? "3px solid #04AA6D" : "3px solid transparent",
-                  }}
-                >
-                  {g.label}
-                  <span style={{ fontSize: "9px", marginLeft: "4px", opacity: 0.7 }}>▾</span>
-                </Link>
-              </div>
+                {g.label} <span style={{ fontSize: "9px", opacity: 0.7 }}>&#9660;</span>
+              </button>
             );
           })}
         </div>
-        <button onClick={scrollRight} style={{ background: "#04AA6D", color: "#fff", border: "none", padding: "0 12px", height: "48px", cursor: "pointer", fontSize: "18px", fontWeight: 700, flexShrink: 0, borderLeft: "1px solid #333" }}>›</button>
+        <button onClick={() => scrollRef.current?.scrollBy({ left: 200, behavior: "smooth" })} style={{ background: "#04AA6D", color: "#fff", border: "none", padding: "0 14px", height: "48px", cursor: "pointer", fontSize: "18px", fontWeight: 700, flexShrink: 0, borderLeft: "1px solid #444" }}>&#8250;</button>
       </div>
 
-      {/* Dropdown — fixed at sidebar position, overlays everything */}
+      {/* Backdrop to close on outside click */}
+      {pinned && <div onClick={close} style={{ position: "fixed", inset: 0, zIndex: 99990, background: "transparent" }} />}
+
+      {/* Dropdown panel */}
       {openGrade && (
-        <div
-          style={{ position: "fixed", left: 0, top: "132px", width: "228px", background: "#fff", borderTop: `3px solid ${openGrade.color}`, boxShadow: "4px 0 16px rgba(0,0,0,0.15)", zIndex: 999999, maxHeight: "calc(100vh - 132px)", overflowY: "auto" }}
-          onMouseEnter={() => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div style={{ padding: "10px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", background: openGrade.color, color: "#fff", fontWeight: 700, fontSize: "14px" }}>
+        <div style={{ position: "fixed", left: 0, top: "132px", width: "232px", background: "#fff", borderTop: `4px solid ${openGrade.color}`, boxShadow: "6px 0 20px rgba(0,0,0,0.18)", zIndex: 99996, maxHeight: "calc(100vh - 132px)", overflowY: "auto" }}>
+          <div style={{ padding: "11px 16px", background: openGrade.color, color: "#fff", fontWeight: 700, fontSize: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span>{openGrade.label}</span>
-            <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 8px", borderRadius: "10px" }}>{openGrade.pathway}</span>
+            <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 9px", borderRadius: "10px" }}>{openGrade.pathway}</span>
           </div>
           {openGrade.subjects.map(sub => (
             <Link
               key={sub}
               href={`${openGrade.href}/${slugify(sub)}`}
-              onClick={() => setOpenIndex(null)}
-              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "9px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0" }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.background = "#04AA6D";
-                (e.currentTarget as HTMLElement).style.color = "#fff";
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.background = "";
-                (e.currentTarget as HTMLElement).style.color = "#000";
-              }}
+              onClick={close}
+              style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", fontSize: "14px", color: "#222", textDecoration: "none", borderBottom: "1px solid #f0f0f0", transition: "background 0.1s" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#04AA6D"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = ""; (e.currentTarget as HTMLElement).style.color = "#222"; }}
             >
-              {sub} <span>›</span>
+              {sub} <span style={{ color: "#aaa", fontSize: "16px" }}>&#8250;</span>
             </Link>
           ))}
         </div>
