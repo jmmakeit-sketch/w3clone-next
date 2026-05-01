@@ -188,3 +188,12 @@ tr:hover td { background: #f5f5f5; }
 
 .gradenav-dropdown-link:hover::after { color: #04AA6D; }
 
+
+/* Sidebar hover light grey */
+.sidebar a:hover:not(.active):not(.sidebar-header) {
+  background: #f1f1f1 !important;
+  color: #000 !important;
+}
+.sidebar a:not(.active):not(.sidebar-header) {
+  background: #fff;
+}
