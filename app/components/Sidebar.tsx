@@ -1,10 +1,66 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { supabase } from "../../lib/supabase";
+
+function slugify(text: string) {
+  return text.toLowerCase().replaceAll(" ", "-");
+}
+
+const PATHWAY_COLORS: Record<string, string> = {
+  "Early Years": "#FF9800",
+  "Lower Primary": "#2196F3",
+  "Upper Primary": "#9C27B0",
+  "Junior Secondary": "#F44336",
+  "Senior Secondary": "#607D8B",
+  "STEM": "#04AA6D",
+};
 
 export default function Sidebar({ grade, subject }: { grade?: string; subject?: string }) {
   const pathname = usePathname();
+  const [topics, setTopics] = useState<any[]>([]);
+  const [subjectData, setSubjectData] = useState<any>(null);
+  const [hidden, setHidden] = useState(false);
+
+  // Listen for GradeNav dropdown open/close events
+  useEffect(() => {
+    function onDropdown(e: Event) {
+      const detail = (e as CustomEvent).detail;
+      setHidden(detail !== null);
+    }
+    window.addEventListener("gradenav:open", onDropdown);
+    return () => window.removeEventListener("gradenav:open", onDropdown);
+  }, []);
+
+  // When route changes, show sidebar again
+  useEffect(() => { setHidden(false); }, [pathname]);
+
+  useEffect(() => {
+    if (grade && subject) { fetchTopics(); }
+    else { setTopics([]); setSubjectData(null); }
+  }, [grade, subject]);
+
+  async function fetchTopics() {
+    const subjectDecoded = subject!.replaceAll("-", " ");
+    const { data } = await supabase
+      .from("subjects").select("id, name, pathways(name)")
+      .ilike("name", subjectDecoded).single();
+    if (data) {
+      setSubjectData(data);
+      const { data: topicsData } = await supabase
+        .from("topics").select("id, name, order_index")
+        .eq("subject_id", data.id)
+        .order("order_index", { ascending: true });
+      setTopics(topicsData || []);
+    }
+  }
+
+  const pathway = subjectData?.pathways?.name || "";
+  const pathwayColor = PATHWAY_COLORS[pathway] || "#04AA6D";
+
+  // Hide sidebar when dropdown is open — dropdown covers it
+  if (hidden) return <aside className="sidebar" style={{ visibility: "hidden" }} />;
 
   if (!grade) {
     return (
@@ -37,5 +93,36 @@ export default function Sidebar({ grade, subject }: { grade?: string; subject?: 
     );
   }
 
-  return null;
+  const displaySubject = subjectData?.name ||
+    subject.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
+
+  return (
+    <aside className="sidebar">
+      <Link href={`/${grade}/${subject}`} className="sidebar-header" style={{ background: pathwayColor }}>
+        {displaySubject} Tutorial
+      </Link>
+      {pathway && (
+        <div style={{ padding: "8px 16px 2px" }}>
+          <span className="pathway-badge" style={{ background: pathwayColor }}>{pathway}</span>
+        </div>
+      )}
+      <Link href={`/${grade}/${subject}`} className={pathname === `/${grade}/${subject}` ? "active" : ""}>
+        Introduction
+      </Link>
+      {topics.length > 0 && <div className="sidebar-section">Topics</div>}
+      {topics.map((t: any) => {
+        const href = `/${grade}/${subject}/${slugify(t.name)}`;
+        return (
+          <Link key={t.id} href={href} className={pathname === href ? "active" : ""}>{t.name}</Link>
+        );
+      })}
+      {topics.length > 0 && (
+        <>
+          <div className="sidebar-section">Assessment</div>
+          <Link href={`/${grade}/${subject}/exercises`}>Exercises</Link>
+          <Link href={`/${grade}/${subject}/quiz`}>Quiz</Link>
+        </>
+      )}
+    </aside>
+  );
 }

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -91,8 +91,7 @@ export default function GradeNav() {
         <button onClick={() => scrollRef.current?.scrollBy({ left: 200, behavior: "smooth" })} style={{ background: "#04AA6D", color: "#fff", border: "none", padding: "0 14px", height: "48px", cursor: "pointer", fontSize: "18px", fontWeight: 700, flexShrink: 0, borderLeft: "1px solid #444" }}>&#8250;</button>
       </div>
 
-      {/* Backdrop to close on outside click */}
-      {pinned && <div onClick={close} style={{ position: "fixed", inset: 0, zIndex: 99990, background: "transparent" }} />}
+      {/* Close on outside click */}
 
       {/* Dropdown panel */}
       {openGrade && (
