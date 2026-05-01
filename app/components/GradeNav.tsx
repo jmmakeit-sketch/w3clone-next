@@ -59,10 +59,10 @@ export default function GradeNav() {
           {GRADES.map((g, i) => {
             const isActive = activeGrade === i;
             const isOpen = openIndex === i;
-            const highlight = isActive || isOpen;
+            const highlight = isActive;
             return (
               <button key={g.href}
-                onMouseEnter={() => openDropdown(i)}
+                onMouseEnter={() => openDropdown(i)} onMouseLeave={() => { setTimeout(() => setOpenIndex(null), 300); }}
                 onClick={() => openDropdown(i)}
                 style={{
                   flexShrink: 0, height: "48px", padding: "0 15px",
