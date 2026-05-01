@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 
 function slugify(t: string) { return t.toLowerCase().replaceAll(" ", "-"); }
 
-export default async function TopicPage({ params }: { params: { grade: string; subject: string; topic: string } }) {
-  const { grade, subject, topic } = params;
+export default async function TopicPage({ params }: { params: Promise<{ grade: string; subject: string; topic: string }> }) {
+  const { grade, subject, topic } = await params;
 
   const { data: subjectData } = await supabase
     .from("subjects").select("id, name, pathways(name), topics(id, name, order_index, content, description)")
@@ -25,9 +25,9 @@ export default async function TopicPage({ params }: { params: { grade: string; s
   return (
     <div>
       <div className="breadcrumb">
-        <Link href="/">Home</Link><span className="breadcrumb-sep">›</span>
-        <Link href={`/${grade}`}>{gradeName}</Link><span className="breadcrumb-sep">›</span>
-        <Link href={`/${grade}/${subject}`}>{subjectData.name}</Link><span className="breadcrumb-sep">›</span>
+        <Link href="/">Home</Link><span className="breadcrumb-sep">â€º</span>
+        <Link href={`/${grade}`}>{gradeName}</Link><span className="breadcrumb-sep">â€º</span>
+        <Link href={`/${grade}/${subject}`}>{subjectData.name}</Link><span className="breadcrumb-sep">â€º</span>
         <span>{t.name}</span>
       </div>
 
@@ -46,7 +46,7 @@ export default async function TopicPage({ params }: { params: { grade: string; s
         <LessonContent content={t.content} />
       ) : (
         <div className="note-box">
-          <strong>Content coming soon!</strong> This topic is being prepared. <Link href={`/${grade}/${subject}`} style={{ color: "#04AA6D" }}>Explore other topics →</Link>
+          <strong>Content coming soon!</strong> This topic is being prepared. <Link href={`/${grade}/${subject}`} style={{ color: "#04AA6D" }}>Explore other topics â†’</Link>
         </div>
       )}
 
