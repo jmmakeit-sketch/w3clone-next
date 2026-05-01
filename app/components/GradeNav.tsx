@@ -91,17 +91,19 @@ export default function GradeNav() {
 
       {/* Dropdown */}
       {openGrade && (
-        <div style={{ position: "fixed", left: 0, top: "132px", width: "228px", background: "#fff", borderTop: `3px solid ${openGrade.color}`, borderRight: "1px solid #ddd", zIndex: 9998, height: "calc(100vh - 132px)", overflowY: "auto", scrollbarWidth: "none" }}>
+        <div style={{ position: "fixed", left: 0, top: "132px", width: "228px", background: "#f1f1f1", borderTop: `3px solid ${openGrade.color}`, borderRight: "1px solid #ddd", zIndex: 9998, height: "calc(100vh - 132px)", overflowY: "auto", scrollbarWidth: "none" }}>
           <div style={{ padding: "11px 16px", background: openGrade.color, color: "#fff", fontWeight: 700, fontSize: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span>{openGrade.label}</span>
             <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 9px", borderRadius: "10px" }}>{openGrade.pathway}</span>
           </div>
+          
+          <div style={{ width: "40px", height: "4px", background: "#ccc", borderRadius: "2px", margin: "8px auto", cursor: "grab" }} />
           {openGrade.subjects.map(sub => (
             <Link key={sub}
               href={`${openGrade.href}/${slugify(sub)}`}
-              style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "9px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0", background: "#fff" }}
+              style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "9px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0", background: "#f1f1f1" }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#04AA6D"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f1f1f1"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
               {sub} <span style={{ color: "#aaa" }}>&#8250;</span>
             </Link>
           ))}
