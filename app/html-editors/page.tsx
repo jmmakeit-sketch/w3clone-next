@@ -1,10 +1,8 @@
-import Layout from "../components/Layout";
-
 export default function Page() {
   return (
-    <Layout>
+    <div>
       <h1>HTML Editors</h1>
-      <p>Edit HTML using editors like VS Code.</p>
-    </Layout>
+      <p>A simple text editor is all you need to learn HTML.</p>
+    </div>
   );
 }
