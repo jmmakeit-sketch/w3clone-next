@@ -91,7 +91,7 @@ export default function GradeNav({ onDropdownChange }: { onDropdownChange?: (ope
         </button>
       </div>
 
-      {/* Dropdown AS SIDEBAR â€” not floating, sits in normal flow via ClientLayout */}
+      {/* Dropdown AS SIDEBAR Ã¢â‚¬â€ not floating, sits in normal flow via ClientLayout */}
       {openGrade && (
         <>
           {/* Click outside closes */}
@@ -102,7 +102,7 @@ export default function GradeNav({ onDropdownChange }: { onDropdownChange?: (ope
               <span>{openGrade.label}</span>
               <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 9px", borderRadius: "10px" }}>{openGrade.pathway}</span>
             </div>
-            {/* Subject links â€” light grey bg, hover green */}
+            {/* Subject links Ã¢â‚¬â€ light grey bg, hover green */}
             {openGrade.subjects.map(sub => (
               <Link key={sub}
                 href={`${openGrade.href}/${slugify(sub)}`}
