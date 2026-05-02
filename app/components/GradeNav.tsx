@@ -33,10 +33,23 @@ export default function GradeNav() {
 
   const activeGrade = GRADES.findIndex(g => pathname.startsWith(g.href));
 
+  // On first load, pin to URL grade
   useEffect(() => {
-    setPinnedIndex(activeGrade >= 0 ? activeGrade : null);
-    setHoverIndex(null);
+    const idx = GRADES.findIndex(g => window.location.pathname.startsWith(g.href));
+    if (idx >= 0) {
+      setPinnedIndex(idx);
+      window.dispatchEvent(new CustomEvent("gradenav:switch", { detail: idx }));
+    }
   }, []);
+
+  // When URL changes (user clicked a subject link), sync pin to new URL grade
+  useEffect(() => {
+    if (activeGrade >= 0) {
+      setPinnedIndex(activeGrade);
+      window.dispatchEvent(new CustomEvent("gradenav:switch", { detail: activeGrade }));
+    }
+    setHoverIndex(null);
+  }, [pathname]);
 
   const visibleIndex = hoverIndex !== null ? hoverIndex : pinnedIndex;
   const openGrade = visibleIndex !== null ? GRADES[visibleIndex] : null;
@@ -46,7 +59,12 @@ export default function GradeNav() {
   }, [visibleIndex]);
 
   function handleGradeClick(i: number) {
-    setPinnedIndex(prev => prev === i ? null : i);
+    const next = pinnedIndex === i ? null : i;
+    setPinnedIndex(next);
+    if (next !== null) {
+      // Tell sidebar to switch to this grade immediately
+      window.dispatchEvent(new CustomEvent("gradenav:switch", { detail: next }));
+    }
     if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
     setHoverIndex(null);
   }
@@ -60,7 +78,11 @@ export default function GradeNav() {
     hoverTimeout.current = setTimeout(() => { setHoverIndex(null); }, 180);
   }
 
-  function closeAll() { setPinnedIndex(null); setHoverIndex(null); }
+  function closeAll() {
+    setPinnedIndex(null);
+    setHoverIndex(null);
+    window.dispatchEvent(new CustomEvent("gradenav:switch", { detail: null }));
+  }
 
   return (
     <>
@@ -75,11 +97,13 @@ export default function GradeNav() {
           {GRADES.map((g, i) => {
             const isUrlActive = activeGrade === i;
             const isPinned = pinnedIndex === i;
+            // Green if URL active OR pinned by click
+            const isHighlighted = isUrlActive || isPinned;
             return (
               <button key={g.href} onMouseEnter={() => handleMouseEnter(i)} onClick={() => handleGradeClick(i)}
                 style={{ flexShrink: 0, height: "48px", padding: "0 15px", fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap", cursor: "pointer", border: "none", fontFamily: "Verdana, sans-serif", color: "#fff",
-                  background: isUrlActive ? "#04AA6D" : isPinned ? "#333" : "#000",
-                  borderBottom: isUrlActive ? "3px solid #038a58" : isPinned ? "3px solid #04AA6D" : "3px solid transparent",
+                  background: isHighlighted ? "#04AA6D" : "#000",
+                  borderBottom: isHighlighted ? "3px solid #038a58" : "3px solid transparent",
                   transition: "background 0.12s" }}>
                 {g.label} <span style={{ fontSize: "9px", opacity: 0.7 }}>&#9660;</span>
               </button>

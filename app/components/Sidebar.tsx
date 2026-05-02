@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,30 +8,55 @@ function slugify(text: string) {
   return text.toLowerCase().replaceAll(" ", "-");
 }
 
-const PATHWAY_COLORS: Record<string, string> = {
-  "Early Years": "#FF9800",
-  "Lower Primary": "#2196F3",
-  "Upper Primary": "#9C27B0",
-  "Junior Secondary": "#F44336",
-  "Senior Secondary": "#607D8B",
-  "STEM": "#04AA6D",
-};
+const GRADES_DATA = [
+  { href: "/pp1", label: "PP1", pathway: "Early Years", color: "#FF9800", subjects: ["Language Activities", "Mathematical Activities", "Environmental Activities", "Psychomotor & Creative", "Religious Education"] },
+  { href: "/pp2", label: "PP2", pathway: "Early Years", color: "#FF9800", subjects: ["Language Activities", "Mathematical Activities", "Environmental Activities", "Psychomotor & Creative", "Religious Education"] },
+  { href: "/grade-1", label: "Grade 1", pathway: "Lower Primary", color: "#2196F3", subjects: ["English", "Kiswahili", "Mathematics", "Environmental Activities", "Creative Arts", "Hygiene & Nutrition", "Religious Education"] },
+  { href: "/grade-2", label: "Grade 2", pathway: "Lower Primary", color: "#2196F3", subjects: ["English", "Kiswahili", "Mathematics", "Environmental Activities", "Creative Arts", "Hygiene & Nutrition", "Religious Education"] },
+  { href: "/grade-3", label: "Grade 3", pathway: "Lower Primary", color: "#2196F3", subjects: ["English", "Kiswahili", "Mathematics", "Environmental Activities", "Creative Arts", "Hygiene & Nutrition", "Religious Education"] },
+  { href: "/grade-4", label: "Grade 4", pathway: "Upper Primary", color: "#9C27B0", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Social Studies", "Creative Arts & Sports", "Religious Education", "Agriculture"] },
+  { href: "/grade-5", label: "Grade 5", pathway: "Upper Primary", color: "#9C27B0", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Social Studies", "Creative Arts & Sports", "Religious Education", "Agriculture"] },
+  { href: "/grade-6", label: "Grade 6", pathway: "Upper Primary", color: "#9C27B0", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Social Studies", "Creative Arts & Sports", "Religious Education", "Agriculture"] },
+  { href: "/grade-7", label: "Grade 7", pathway: "Junior Secondary", color: "#F44336", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Health Education", "Pre-Technical Studies", "Agriculture", "Social Studies", "Creative Arts & Sports"] },
+  { href: "/grade-8", label: "Grade 8", pathway: "Junior Secondary", color: "#F44336", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Health Education", "Pre-Technical Studies", "Agriculture", "Social Studies", "Creative Arts & Sports"] },
+  { href: "/grade-9", label: "Grade 9", pathway: "Junior Secondary", color: "#F44336", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Health Education", "Pre-Technical Studies", "Agriculture", "Social Studies", "Creative Arts & Sports"] },
+  { href: "/grade-10", label: "Grade 10", pathway: "Senior Secondary", color: "#607D8B", subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science", "Agriculture", "English", "Kiswahili", "Fine Art", "Music"] },
+  { href: "/grade-11", label: "Grade 11", pathway: "Senior Secondary", color: "#607D8B", subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science", "Agriculture", "English", "Kiswahili", "Fine Art", "Music"] },
+  { href: "/grade-12", label: "Grade 12", pathway: "Senior Secondary", color: "#607D8B", subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science", "Agriculture", "English", "Kiswahili", "Fine Art", "Music"] },
+];
+
+function gradeSlugify(t: string) {
+  return t.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and");
+}
 
 export default function Sidebar({ grade, subject }: { grade?: string; subject?: string }) {
   const pathname = usePathname();
   const [topics, setTopics] = useState<any[]>([]);
   const [subjectData, setSubjectData] = useState<any>(null);
+  const [switchedGrade, setSwitchedGrade] = useState<number | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  // Listen for gradenav:open (show/hide sidebar)
   useEffect(() => {
-    function onDropdown(e: Event) {
+    function onOpen(e: Event) {
       setDropdownOpen((e as CustomEvent).detail !== null);
     }
-    window.addEventListener("gradenav:open", onDropdown);
-    return () => window.removeEventListener("gradenav:open", onDropdown);
+    window.addEventListener("gradenav:open", onOpen);
+    return () => window.removeEventListener("gradenav:open", onOpen);
   }, []);
 
-  useEffect(() => { setDropdownOpen(false); }, [pathname]);
+  // Listen for gradenav:switch (which grade was clicked)
+  useEffect(() => {
+    function onSwitch(e: Event) {
+      const idx = (e as CustomEvent).detail;
+      setSwitchedGrade(idx !== null ? idx : null);
+    }
+    window.addEventListener("gradenav:switch", onSwitch);
+    return () => window.removeEventListener("gradenav:switch", onSwitch);
+  }, []);
+
+  // When URL changes, clear switchedGrade (URL is now the truth)
+  useEffect(() => { setSwitchedGrade(null); }, [pathname]);
 
   useEffect(() => {
     if (grade && subject) fetchTopics();
@@ -53,11 +78,28 @@ export default function Sidebar({ grade, subject }: { grade?: string; subject?: 
     }
   }
 
-  const pathway = subjectData?.pathways?.name || "";
-  const pathwayColor = PATHWAY_COLORS[pathway] || "#04AA6D";
+  // If a grade was clicked in nav, show that grade's subjects instead
+  if (dropdownOpen && switchedGrade !== null) {
+    const g = GRADES_DATA[switchedGrade];
+    return (
+      <aside className="sidebar">
+        <Link href={g.href} className="sidebar-header" style={{ background: g.color }}>
+          {g.label}
+        </Link>
+        <div style={{ padding: "6px 16px 2px" }}>
+          <span className="pathway-badge" style={{ background: g.color }}>{g.pathway}</span>
+        </div>
+        {g.subjects.map(sub => (
+          <Link key={sub} href={`${g.href}/${gradeSlugify(sub)}`}
+            className={pathname === `${g.href}/${gradeSlugify(sub)}` ? "active" : ""}>
+            {sub}
+          </Link>
+        ))}
+      </aside>
+    );
+  }
 
-  // When dropdown is open — render empty placeholder to hold space
-  // This keeps layout stable (content doesnt shift) but sidebar is invisible
+  // Hide sidebar when dropdown open but no grade switched yet
   if (dropdownOpen) {
     return <aside className="sidebar" style={{ visibility: "hidden", pointerEvents: "none" }} />;
   }
@@ -93,8 +135,13 @@ export default function Sidebar({ grade, subject }: { grade?: string; subject?: 
     );
   }
 
-  const displaySubject = subjectData?.name ||
-    subject.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
+  const pathwayColors: Record<string, string> = {
+    "Early Years": "#FF9800", "Lower Primary": "#2196F3", "Upper Primary": "#9C27B0",
+    "Junior Secondary": "#F44336", "Senior Secondary": "#607D8B",
+  };
+  const pathway = subjectData?.pathways?.name || "";
+  const pathwayColor = pathwayColors[pathway] || "#04AA6D";
+  const displaySubject = subjectData?.name || subject.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
 
   return (
     <aside className="sidebar">
