@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const REFS = [
   { section: "Official KICD Documents", color: "#04AA6D", items: [
@@ -83,10 +83,9 @@ export default function ReferencesPage() {
       <div className="note-box">
         <strong>Disclaimer:</strong> CBC Kenya Schools is an independent educational resource. We are not affiliated with KICD or the Ministry of Education. All curriculum content is sourced from publicly available KICD documents and aligned to the official CBC framework.
       </div>
-
       <div className="prev-next">
-        <Link href="/how-to" className="prev">How To</Link>
-        <Link href="/" className="next">Back to Home</Link>
+        <Link href="/certificates" className="prev">Certificates</Link>
+        <Link href="/how-to" className="next">How To</Link>
       </div>
     </div>
   );

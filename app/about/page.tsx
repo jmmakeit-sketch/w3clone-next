@@ -11,6 +11,12 @@ export default function AboutPage() {
         <span>About CBC</span>
       </div>
 
+
+      <div className="prev-next" style={{ marginTop: 0, paddingTop: 0, borderTop: "none", marginBottom: "24px" }}>
+        <Link href="/" className="prev">Home</Link>
+        <Link href="/kicd" className="next">KICD Framework</Link>
+      </div>
+
       {/* TOP Prev/Next — W3Schools style, appears before content */}
       <div className="prev-next" style={{ marginTop: 0, paddingTop: 0, borderTop: "none", marginBottom: "28px" }}>
         <Link href="/" className="prev">Home</Link>
@@ -196,10 +202,6 @@ export default function AboutPage() {
       </div>
 
       {/* BOTTOM Prev/Next — identical to top */}
-      <div className="prev-next">
-        <Link href="/" className="prev">Home</Link>
-        <Link href="/kicd" className="next">KICD Framework</Link>
-      </div>
 
     </div>
   );

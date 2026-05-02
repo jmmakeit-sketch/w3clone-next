@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const SUBJECTS = [
   { name: "Mathematics", desc: "Advanced algebra, calculus, statistics, trigonometry and linear programming. Core for all STEM learners.", strands: ["Algebra","Calculus Intro","Statistics","Trigonometry"] },
@@ -66,10 +66,9 @@ export default function SeniorStemPage() {
       <div className="note-box">
         <strong>Pathway Selection:</strong> Learners choose the STEM pathway based on their KILEA results, aptitude assessment and career interests at the end of Grade 9.
       </div>
-
       <div className="prev-next">
         <Link href="/pathway/senior-secondary" className="prev">Senior Secondary</Link>
-        <Link href="/pathway/senior-arts" className="next">Arts Pathway</Link>
+        <Link href="/pathway/senior-arts" className="next">Arts &amp; Sports Pathway</Link>
       </div>
     </div>
   );

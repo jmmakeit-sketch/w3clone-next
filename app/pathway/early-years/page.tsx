@@ -19,20 +19,8 @@ function PrevNext({ prev, next, bottom }: { prev: { href: string; label: string 
 }
 
 export default function EarlyYearsPage() {
-  const prev = { href: "/kicd", label: "KICD Framework" };
-  const next = { href: "/pathway/lower-primary", label: "Lower Primary" };
-
-  return (
-    <div>
-      {/* Breadcrumb */}
-      <div className="breadcrumb">
-        <Link href="/">Home</Link>
-        <span className="breadcrumb-sep">&rsaquo;</span>
-        <span>Early Years Pathway</span>
-      </div>
-
-      {/* Top Prev/Next */}
-      <PrevNext prev={prev} next={next} />
+  const prev = { href: '/pathway/lower-primary', label: 'Lower Primary' }
+  const bottom = PrevNext prev={prev} next={next} />
 
       {/* Hero */}
       <div style={{ background: "linear-gradient(135deg, #FF9800 0%, #e65100 100%)", color: "#fff", padding: "36px 32px 44px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
@@ -229,7 +217,7 @@ export default function EarlyYearsPage() {
       </div>
 
       {/* Bottom Prev/Next with sign in */}
-      <PrevNext prev={prev} next={next} bottom />
+      <PrevNext prev={{ href: '/kicd', label: 'KICD Framework' }} next={{ href: '/pathway/lower-primary', label: 'Lower Primary' }} bottom />
     </div>
   );
 }

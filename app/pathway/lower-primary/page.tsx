@@ -14,7 +14,7 @@ export default function LowerPrimaryPage() {
       </div>
 
       <div className="prev-next" style={{ marginBottom: "28px" }}>
-        <Link href="/pathway/early-years" className="prev">Early Years Pathway</Link>
+        <Link href="/pathway/early-years" className="prev">Early Years</Link>
         <Link href="/pathway/upper-primary" className="next">Upper Primary</Link>
       </div>
 
@@ -97,7 +97,7 @@ export default function LowerPrimaryPage() {
       </div>
 
       <div className="prev-next">
-        <Link href="/pathway/early-years" className="prev">Early Years Pathway</Link>
+        <Link href="/pathway/early-years" className="prev">Early Years</Link>
         <Link href="/pathway/upper-primary" className="next">Upper Primary</Link>
       </div>
     </div>

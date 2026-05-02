@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const SUBJECTS = [
   { name: "Fine Art", desc: "Drawing, painting, sculpture, printmaking, design and art history. Develops visual creativity and aesthetic thinking.", strands: ["Drawing & Painting","Sculpture","Printmaking","Art History & Criticism"] },
@@ -60,10 +60,9 @@ export default function SeniorArtsPage() {
           </Link>
         ))}
       </div>
-
       <div className="prev-next">
         <Link href="/pathway/senior-stem" className="prev">STEM Pathway</Link>
-        <Link href="/pathway/senior-social" className="next">Social Sciences</Link>
+        <Link href="/pathway/senior-social" className="next">Social Sciences Pathway</Link>
       </div>
     </div>
   );

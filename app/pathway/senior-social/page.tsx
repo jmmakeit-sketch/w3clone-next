@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const SUBJECTS = [
   { name: "History & Government", desc: "Kenyan and world history, government systems, democracy, human rights and international relations.", strands: ["Kenyan History","World History","Government","Human Rights"] },
@@ -60,9 +60,8 @@ export default function SeniorSocialPage() {
           </Link>
         ))}
       </div>
-
       <div className="prev-next">
-        <Link href="/pathway/senior-arts" className="prev">Arts Pathway</Link>
+        <Link href="/pathway/senior-arts" className="prev">Arts &amp; Sports Pathway</Link>
         <Link href="/exercises" className="next">Exercises</Link>
       </div>
     </div>

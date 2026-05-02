@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const GUIDES = [
   { title: "How to Use This Site", href: "/how-to/use-this-site", desc: "A quick guide to navigating CBC Kenya Schools — finding your grade, subject, topic and exercises.", time: "2 min read" },
@@ -49,10 +49,9 @@ export default function HowToPage() {
           </Link>
         ))}
       </div>
-
       <div className="prev-next">
-        <Link href="/certificates" className="prev">Certificates</Link>
-        <Link href="/references" className="next">References</Link>
+        <Link href="/references" className="prev">References</Link>
+        <Link href="/" className="next">Back to Home</Link>
       </div>
     </div>
   );
