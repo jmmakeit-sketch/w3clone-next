@@ -22,27 +22,25 @@ body { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; color:
 
 .gradenav { background: #000; color: #fff; display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: visible; position: sticky; top: 84px; z-index: 99999; scrollbar-width: none; height: 48px; align-items: center; }
 .gradenav::-webkit-scrollbar { display: none; }
-.gradenav-item { padding: 0 14px; cursor: pointer; white-space: nowrap; font-size: 13px; font-weight: 700; height: 40px; display: flex; align-items: center; color: #fff; }
+.gradenav-item { padding: 0 14px; cursor: pointer; white-space: nowrap; font-size: 13px; font-weight: 700; height: 48px; display: flex; align-items: center; color: #fff; }
 .gradenav-item:hover { background: #333; }
 .gradenav-item.active { background: #04AA6D; }
 
-.layout { display: flex; min-height: calc(100vh - 124px); }
+.layout { display: flex; min-height: calc(100vh - 132px); }
 
 .sidebar { width: 228px; min-width: 228px; border-right: 1px solid #ddd; position: sticky; top: 132px; height: calc(100vh - 132px); overflow-y: auto; background: #fff; scrollbar-width: thin; flex-shrink: 0; }
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: #ddd; }
 
 .sidebar-header { background: #04AA6D; color: #fff; padding: 12px 16px; font-size: 15px; font-weight: 700; display: block; text-decoration: none; border-bottom: 2px solid #038a58; }
 .sidebar-header:hover { background: #059862; color: #fff; }
-
 .sidebar-title { font-size: 13px; font-weight: 700; padding: 10px 16px 6px 16px; display: block; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
-
 .sidebar a { display: flex; align-items: center; justify-content: space-between; padding: 7px 16px; text-decoration: none; color: #000; font-size: 14px; line-height: 1.4; background: #fff; }
 .sidebar a.active { background: #04AA6D; color: #fff; font-weight: 700; }
-.sidebar a:hover:not(.active):not(.sidebar-header) { background: #f1f1f1 !important; }
-
-.sidebar a:not(.sidebar-header)::after { content: ""; display: none; }
-.sidebar a.active:not(.sidebar-header)::after { content: ""; display: none; }
+.sidebar a:hover:not(.active):not(.sidebar-header) { background: #f1f1f1; }
+.sidebar a:not(.sidebar-header)::after { content: ">"; font-size: 14px; color: #aaa; }
+.sidebar a.active:not(.sidebar-header)::after { color: #fff; }
 .sidebar-header::after { content: "" !important; display: none !important; }
-
 .sidebar-section { font-size: 11px; font-weight: 700; color: #999; padding: 10px 16px 3px 16px; text-transform: uppercase; letter-spacing: 0.8px; border-top: 1px solid #f0f0f0; margin-top: 4px; }
 
 .content { flex: 1; padding: 24px 40px 60px 30px; max-width: 860px; min-width: 0; line-height: 1.8; }
@@ -76,7 +74,7 @@ body { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; color:
 .prev-next a.prev::before { content: "< "; }
 .prev-next a.next::after { content: " >"; }
 
-.right-sidebar { width: 220px; min-width: 220px; flex-shrink: 0; padding: 16px 12px; border-left: 1px solid #ddd; background: #fff; position: sticky; top: 124px; height: calc(100vh - 124px); overflow-y: auto; }
+.right-sidebar { width: 220px; min-width: 220px; flex-shrink: 0; padding: 16px 12px; border-left: 1px solid #ddd; background: #fff; position: sticky; top: 132px; height: calc(100vh - 132px); overflow-y: auto; }
 .rs-card { border: 1px solid #ddd; border-radius: 3px; padding: 14px 12px; margin-bottom: 16px; text-align: center; background: #fafafa; }
 .rs-logo-box { background: #04AA6D; color: #fff; font-weight: 900; font-size: 14px; padding: 4px 8px; border-radius: 2px; display: inline-block; margin-bottom: 6px; }
 .rs-card-title { font-size: 13px; font-weight: 700; margin: 6px 0 4px; }
@@ -120,87 +118,4 @@ tr:hover td { background: #f5f5f5; }
 .footer a:hover { color: #fff; }
 
 @media (max-width: 900px) { .right-sidebar { display: none; } .content { padding: 16px 20px 40px; } }
-@media (max-width: 680px) { .sidebar { width: 228px; min-width: 228px; border-right: 1px solid #ddd; position: sticky; top: 132px; height: calc(100vh - 132px); overflow-y: auto; background: #fff; scrollbar-width: thin; flex-shrink: 0; } .topbar-search { display: none; } }
-.gradenav-dropdown {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  min-width: 210px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-top: 3px solid #04AA6D;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
-  z-index: 999999;
-  border-radius: 0 0 4px 4px;
-  overflow: hidden;
-  animation: dropdownFade 0.12s ease;
-}
-
-@keyframes dropdownFade {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.gradenav-dropdown-header {
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #fff;
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.gradenav-pathway-badge {
-  font-size: 10px;
-  font-weight: 600;
-  background: rgba(255,255,255,0.25);
-  padding: 2px 8px;
-  border-radius: 10px;
-  letter-spacing: 0.3px;
-}
-
-.gradenav-dropdown-body { padding: 4px 0; }
-
-.gradenav-dropdown-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 14px;
-  font-size: 13px;
-  color: #222;
-  text-decoration: none;
-  border-bottom: 1px solid #f5f5f5;
-}
-
-.gradenav-dropdown-link:hover {
-  background: #f0fdf8;
-  color: #04AA6D;
-  font-weight: 600;
-}
-
-.gradenav-dropdown-link::after {
-  color: #ccc;
-  font-size: 16px;
-}
-
-.gradenav-dropdown-link:hover::after { color: #04AA6D; }
-
-
-/* Sidebar hover light grey */
-.sidebar a:hover:not(.active):not(.sidebar-header) {
-  background: #f1f1f1 !important;
-  color: #000 !important;
-}
-.sidebar a:not(.active):not(.sidebar-header) {
-  background: #fff;
-}
-
-/* Hide dropdown scrollbar */
-.grade-dropdown::-webkit-scrollbar { display: none; }
-
-/* Grade subject card hover */
-.grade-subject-card:hover { background: #fff8e1 !important; }
-.grade-subject-card { transition: background 0.15s; }
- 
- 
+@media (max-width: 680px) { .sidebar { display: none; } .topbar-search { display: none; } }
