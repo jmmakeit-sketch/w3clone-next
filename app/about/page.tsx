@@ -99,7 +99,7 @@ export default function AboutPage() {
         { level: "Junior Secondary (3 years)", grades: "Grade 7, 8, 9", color: "#F44336", exam: "KILEA — Kenya Junior Secondary Education Assessment (End of Grade 9)", desc: "A broad curriculum to expose learners to all subject areas before Senior Secondary specialisation. Includes English, Kiswahili, Maths, Integrated Science, Health Education, Pre-Technical Studies, Agriculture, Social Studies, Creative Arts & Sports and Religious Education.", age: "Ages 12–14" },
         { level: "Senior Secondary (3 years)", grades: "Grade 10, 11, 12", color: "#607D8B", exam: "KSCE — Kenya Secondary Certificate of Education (End of Grade 12)", desc: "Learners choose a pathway based on aptitude and interest: STEM (Sciences), Arts & Sports Science, or Social Sciences. Each pathway has core and optional subjects tailored to future career and university pathways.", age: "Ages 15–17" },
       ].map(l => (
-        <div key={l.level} style={{ borderLeft: `5px solid ${l.color}`, background: "#fafafa", border: `1px solid #ddd`, borderLeft: `5px solid ${l.color}`, padding: "16px 20px", marginBottom: "16px", borderRadius: "0 3px 3px 0" }}>
+        <div key={l.level} style={{ borderLeft: `5px solid ${l.color}`, background: "#fafafa", borderLeft: `5px solid ${l.color}`, padding: "16px 20px", marginBottom: "16px", borderRadius: "0 3px 3px 0" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "8px", marginBottom: "8px" }}>
             <div>
               <span style={{ background: l.color, color: "#fff", fontWeight: 700, fontSize: "13px", padding: "3px 10px", borderRadius: "2px", marginRight: "8px" }}>{l.grades}</span>
@@ -168,3 +168,4 @@ export default function AboutPage() {
     </div>
   );
 }
+
