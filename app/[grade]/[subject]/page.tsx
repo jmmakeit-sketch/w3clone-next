@@ -273,7 +273,7 @@ function PrevNext({ prev, next, bottom }: { prev: { href: string; label: string 
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: bottom ? "40px 0 16px 0" : "0 0 28px 0", gap: "10px" }}>
       <Link href={prev.href} style={{ background: "#04AA6D", color: "#fff", padding: "10px 22px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>
-        &#10094; {prev.label}
+        &#10094; Previous
       </Link>
       {bottom && (
         <Link href="/signin" style={{ border: "1px solid #ccc", color: "#555", padding: "10px 22px", borderRadius: "3px", fontSize: "13px", textDecoration: "none", background: "#fff" }}>
@@ -281,7 +281,7 @@ function PrevNext({ prev, next, bottom }: { prev: { href: string; label: string 
         </Link>
       )}
       <Link href={next.href} style={{ background: "#04AA6D", color: "#fff", padding: "10px 22px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>
-        {next.label} &#10095;
+        Next &#10095;
       </Link>
     </div>
   );
@@ -483,3 +483,4 @@ export default function SubjectPage() {
     </div>
   );
 }
+

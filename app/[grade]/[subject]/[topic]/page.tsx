@@ -103,3 +103,4 @@ function LessonContent({ content }: { content: string }) {
     </div>
   );
 }
+
