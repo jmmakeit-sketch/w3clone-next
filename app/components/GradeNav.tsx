@@ -31,16 +31,13 @@ export default function GradeNav() {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Active grade = what the URL says
   const activeGrade = GRADES.findIndex(g => pathname.startsWith(g.href));
 
-  // On page load / first visit, pin to the active grade from URL
   useEffect(() => {
     setPinnedIndex(activeGrade >= 0 ? activeGrade : null);
     setHoverIndex(null);
   }, []);
 
-  // Notify sidebar whenever visible dropdown changes
   const visibleIndex = hoverIndex !== null ? hoverIndex : pinnedIndex;
   const openGrade = visibleIndex !== null ? GRADES[visibleIndex] : null;
 
@@ -49,8 +46,6 @@ export default function GradeNav() {
   }, [visibleIndex]);
 
   function handleGradeClick(i: number) {
-    // If clicking same grade that is pinned — toggle closed
-    // If clicking a different grade — switch to it (do NOT close)
     setPinnedIndex(prev => prev === i ? null : i);
     if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
     setHoverIndex(null);
@@ -95,7 +90,6 @@ export default function GradeNav() {
           style={{ background: "#04AA6D", color: "#fff", border: "none", padding: "0 14px", height: "48px", cursor: "pointer", fontSize: "18px", fontWeight: 700, flexShrink: 0, borderLeft: "1px solid #444" }}>&#8250;</button>
       </div>
 
-      {/* Click outside overlay — close when pinned but not on that grade URL */}
       {pinnedIndex !== null && activeGrade !== pinnedIndex && (
         <div onClick={closeAll} style={{ position: "fixed", inset: 0, zIndex: 9990, background: "transparent" }} />
       )}
