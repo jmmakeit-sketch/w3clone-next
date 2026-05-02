@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "../../../lib/supabase";
-import NavSync from "../../components/NavSync";
 
 function slugify(text: string) {
   return text.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and");
@@ -329,7 +328,6 @@ export default function SubjectPage() {
     const next = { href: staticData.nextHref, label: staticData.nextLabel };
     return (
       <div>
-        <NavSync grade={grade} />
         <div className="breadcrumb">
           <Link href="/">Home</Link>
           <span className="breadcrumb-sep">&rsaquo;</span>
@@ -431,7 +429,6 @@ export default function SubjectPage() {
 
   return (
     <div>
-      <NavSync grade={grade} />
       <div className="breadcrumb">
         <Link href="/">Home</Link>
         <span className="breadcrumb-sep">&rsaquo;</span>

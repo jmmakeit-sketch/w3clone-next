@@ -1,5 +1,7 @@
 ﻿import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+export const dynamic = "force-dynamic";
+
 
 const GRADE_META: Record<string, {
   title: string; pathway: string; color: string; age: string;
@@ -117,9 +119,7 @@ export default async function GradePage({ params }: { params: Promise<{ grade: s
         <div style={{ marginBottom: "28px" }}>
           {meta.subjects.map((s, i) => (
             <Link key={s.name} href={s.href} style={{ textDecoration: "none", display: "block", marginBottom: "12px" }}>
-              <div style={{ border: "1px solid #eee", borderLeft: `5px solid ${meta.color}`, borderRadius: "0 4px 4px 0", padding: "16px 20px", background: "#fafafa", transition: "background 0.15s" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#fff8e1")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#fafafa")}>
+              <div className="grade-subject-card" style={{ border: "1px solid #eee", borderLeft: `5px solid ${meta.color}`, borderRadius: "0 4px 4px 0", padding: "16px 20px", background: "#fafafa", transition: "background 0.15s" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "8px" }}>
                   <div>
                     <span style={{ background: meta.color, color: "#fff", fontSize: "11px", padding: "2px 8px", borderRadius: "2px", marginRight: "10px", fontWeight: 700 }}>Area {i + 1}</span>

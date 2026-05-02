@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 export default function CertificatesPage() {
   const certs = [
@@ -55,7 +55,7 @@ export default function CertificatesPage() {
       </div>
       <div className="prev-next">
         <Link href="/quizzes" className="prev">Quizzes</Link>
-        <Link href="/" className="next">Back to Home</Link>
+        <Link href="/how-to" className="next">How To</Link>
       </div>
     </div>
   );

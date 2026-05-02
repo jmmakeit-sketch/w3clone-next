@@ -12,7 +12,13 @@ export default function UpperPrimaryPage() {
         <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
         <span>Upper Primary Pathway</span>
       </div>
-      <div style={{ background: "linear-gradient(135deg, #9C27B0 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+
+      <div className="prev-next" style={{ marginBottom: "28px" }}>
+        <Link href="/pathway/lower-primary" className="prev">Lower Primary</Link>
+        <Link href="/pathway/junior-secondary" className="next">Junior Secondary</Link>
+      </div>
+
+            <div style={{ background: "linear-gradient(135deg, #9C27B0 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
         <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>UP &bull; Ages 9–11</div>
         <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>Upper Primary Pathway</h1>
         <p style={{ margin: "0 0 16px 0", opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>Grade 4 to Grade 6 deepens core subjects and introduces Agriculture, Integrated Science and Social Studies. This pathway ends with the <strong>KPSEA</strong> national assessment at Grade 6 which determines transition to Junior Secondary.</p>

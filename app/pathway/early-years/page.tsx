@@ -20,7 +20,7 @@ function PrevNext({ prev, next, bottom }: { prev: { href: string; label: string 
 
 export default function EarlyYearsPage() {
   const prev = { href: "/kicd", label: "KICD Framework" };
-  const next = { href: "/pp1", label: "PP1 Overview" };
+  const next = { href: "/pathway/lower-primary", label: "Lower Primary" };
 
   return (
     <div>

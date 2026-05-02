@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 export default function SeniorSecondaryPage() {
   const pathways = [
@@ -47,7 +47,7 @@ export default function SeniorSecondaryPage() {
       </div>
       <div className="prev-next">
         <Link href="/pathway/junior-secondary" className="prev">Junior Secondary</Link>
-        <Link href="/exercises" className="next">Exercises</Link>
+        <Link href="/pathway/senior-stem" className="next">STEM Pathway</Link>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 ﻿import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
-import NavSync from "@/app/components/NavSync";
 
 function slugify(t: string) { return t.toLowerCase().replaceAll(" ", "-"); }
 
@@ -25,8 +24,6 @@ export default async function TopicPage({ params }: { params: Promise<{ grade: s
 
   return (
     <div>
-      <NavSync grade={grade} />
-
       <div className="breadcrumb">
         <Link href="/">Home</Link>
         <span className="breadcrumb-sep">&rsaquo;</span>
