@@ -131,7 +131,7 @@ export default function EarlyYearsPage() {
             outcomes: ["Understand the value of prayer and thanksgiving", "Identify religious celebrations and their meaning", "Demonstrate values of love, kindness and sharing", "Respect people of different faiths", "Know simple moral stories from their religious tradition"],
           },
         ].map(la => (
-          <div key={la.area} style={{ borderLeft: `5px solid ${la.color}`, background: "#fafafa", padding: "18px 22px", marginBottom: "16px", borderRadius: "0 4px 4px 0", border: `1px solid #eee`, borderLeft: `5px solid ${la.color}` }}>
+          <div key={la.area} style={{ background: "#fafafa", padding: "18px 22px", marginBottom: "16px", borderRadius: "0 4px 4px 0", borderLeft: `5px solid ${la.color}`, border: "1px solid #eee" }}>
             <h3 style={{ margin: "0 0 6px 0", fontSize: "16px", color: la.color }}>{la.area}</h3>
             <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "10px" }}>
               {la.strands.map(s => <span key={s} style={{ background: la.color, color: "#fff", fontSize: "11px", padding: "2px 10px", borderRadius: "10px" }}>{s}</span>)}
@@ -233,3 +233,4 @@ export default function EarlyYearsPage() {
     </div>
   );
 }
+
