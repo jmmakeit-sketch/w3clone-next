@@ -1,266 +1,232 @@
 ﻿import Link from "next/link";
 
-const PATHWAYS = [
-  { name: "Early Years",           grades: "Playgroup, PP1, PP2",  color: "#FF9800", href: "/pathway/early-years",   subjects: ["Language Activities","Mathematical Activities","Environmental Activities","Psychomotor & Creative","Religious Education"], exam: null },
-  { name: "Lower Primary",         grades: "Grade 1, 2, 3",        color: "#2196F3", href: "/pathway/lower-primary",  subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene & Nutrition"], exam: null },
-  { name: "Upper Primary",         grades: "Grade 4, 5, 6",        color: "#9C27B0", href: "/pathway/upper-primary",  subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts & Sports","Agriculture"], exam: "KPSEA — End of Grade 6" },
-  { name: "Junior Secondary",      grades: "Grade 7, 8, 9",        color: "#F44336", href: "/pathway/junior-secondary",subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies"], exam: "KILEA — End of Grade 9" },
-  { name: "Senior Secondary STEM", grades: "Grade 10, 11, 12",     color: "#04AA6D", href: "/pathway/senior-stem",    subjects: ["Mathematics","Physics","Chemistry","Biology","Computer Science","Agriculture"], exam: "KSCE — End of Grade 12" },
-  { name: "Senior Secondary Arts", grades: "Grade 10, 11, 12",     color: "#607D8B", href: "/pathway/senior-arts",    subjects: ["Fine Art","Music","Theatre Arts","Sports Science","English","Kiswahili"], exam: "KSCE — End of Grade 12" },
-  { name: "Senior Secondary Social",grades: "Grade 10, 11, 12",    color: "#795548", href: "/pathway/senior-social",  subjects: ["History","Geography","Economics","Business Studies","English","Kiswahili"], exam: "KSCE — End of Grade 12" },
+// ── DATA ─────────────────────────────────────────────────────────
+const EARLY_YEARS = [
+  { grade: "PP1", href: "/pp1", subjects: ["Language Activities","Mathematical Activities","Environmental Activities","Psychomotor and Creative Activities","Religious Education"] },
+  { grade: "PP2", href: "/pp2", subjects: ["Language Activities","Mathematical Activities","Environmental Activities","Psychomotor and Creative Activities","Religious Education"] },
+];
+const LOWER_PRIMARY = [
+  { grade: "Grade 1", href: "/grade-1", subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  { grade: "Grade 2", href: "/grade-2", subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  { grade: "Grade 3", href: "/grade-3", subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+];
+const UPPER_PRIMARY = [
+  { grade: "Grade 4", href: "/grade-4", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  { grade: "Grade 5", href: "/grade-5", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  { grade: "Grade 6", href: "/grade-6", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"], exam: "KPSEA" },
+];
+const JUNIOR_SEC = [
+  { grade: "Grade 7", href: "/grade-7", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  { grade: "Grade 8", href: "/grade-8", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  { grade: "Grade 9", href: "/grade-9", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"], exam: "KILEA" },
+];
+const SENIOR_SEC = [
+  { pathway: "STEM",           href: "/pathway/senior-stem",   color: "#04AA6D", subjects: ["Mathematics","Physics","Chemistry","Biology","Computer Science","Agriculture"] },
+  { pathway: "Arts & Sports",  href: "/pathway/senior-arts",   color: "#E91E63", subjects: ["Fine Art","Music","Theatre Arts","Sports Science","English","Kiswahili"] },
+  { pathway: "Social Sciences",href: "/pathway/senior-social", color: "#795548", subjects: ["History","Geography","Economics","Business Studies","English","Kiswahili"] },
 ];
 
-const POPULAR = [
-  { label: "PP1 Language Activities",    href: "/pp1/language-activities",           color: "#FF9800", snippet: "Listening & Speaking\nReading Readiness\nWriting Readiness\nCreative Expression" },
-  { label: "PP1 Mathematical Activities",href: "/pp1/mathematical-activities",        color: "#FF9800", snippet: "Numbers 1–20\nSorting & Matching\nBasic Shapes\nPatterns" },
-  { label: "Grade 4 Mathematics",        href: "/grade-4/mathematics",               color: "#9C27B0", snippet: "Whole Numbers\nAddition\nSubtraction\nMultiplication" },
-  { label: "Grade 4 English",            href: "/grade-4/english",                   color: "#9C27B0", snippet: "Reading\nWriting\nGrammar\nOral Skills" },
-  { label: "Grade 7 Mathematics",        href: "/grade-7/mathematics",               color: "#F44336", snippet: "Algebra\nGeometry\nStatistics\nRatios" },
-  { label: "Grade 7 Integrated Science", href: "/grade-7/integrated-science",        color: "#F44336", snippet: "Biology\nChemistry\nPhysics\nEarth Science" },
-  { label: "Grade 10 Mathematics",       href: "/grade-10/mathematics",              color: "#04AA6D", snippet: "Calculus Intro\nTrigonometry\nStatistics\nLinear Programming" },
-  { label: "Grade 10 Biology",           href: "/grade-10/biology",                  color: "#04AA6D", snippet: "Cell Biology\nGenetics\nEcosystems\nEvolution" },
-];
+function slugify(t: string) { return t.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and"); }
 
-const REFERENCES = [
-  { label: "KICD Website",              href: "https://kicd.ac.ke",                  external: true  },
-  { label: "CBC Curriculum Designs",    href: "/references/curriculum-designs",      external: false },
-  { label: "SBA Assessment Guides",     href: "/references/sba-guides",             external: false },
-  { label: "KPSEA Past Papers",         href: "/references/kpsea",                  external: false },
-  { label: "KILEA Past Papers",         href: "/references/kilea",                  external: false },
-  { label: "KSCE Past Papers",          href: "/references/ksce",                   external: false },
-  { label: "CBC Glossary",              href: "/references/glossary",               external: false },
-  { label: "Parent & Teacher Guide",    href: "/references/parent-guide",           external: false },
-];
-
-const HOW_TO = [
-  { label: "How to Use This Site",      href: "/how-to/use-this-site"   },
-  { label: "How SBA Works",             href: "/how-to/sba"             },
-  { label: "How to Prepare for KPSEA",  href: "/how-to/kpsea-prep"      },
-  { label: "How to Prepare for KILEA",  href: "/how-to/kilea-prep"      },
-  { label: "How to Prepare for KSCE",   href: "/how-to/ksce-prep"       },
-  { label: "How to Choose a Pathway",   href: "/how-to/choose-pathway"  },
-];
+function GradeBlock({ grade, href, subjects, exam, color }: { grade: string; href: string; subjects: string[]; exam?: string; color: string }) {
+  return (
+    <div style={{ border: "1px solid #ddd", borderTop: `3px solid ${color}`, borderRadius: "0 0 3px 3px", marginBottom: "10px" }}>
+      <div style={{ background: color, color: "#fff", padding: "8px 14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Link href={href} style={{ color: "#fff", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>{grade}</Link>
+        {exam && <span style={{ background: "rgba(255,255,255,0.25)", fontSize: "11px", padding: "2px 8px", borderRadius: "10px", fontWeight: 700 }}>{exam}</span>}
+      </div>
+      <div style={{ padding: "8px 14px 10px 14px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+        {subjects.map(s => (
+          <Link key={s} href={`${href}/${slugify(s)}`}
+            style={{ fontSize: "12px", color: "#04AA6D", textDecoration: "none", background: "#f5f5f5", border: "1px solid #e0e0e0", borderRadius: "2px", padding: "3px 9px", whiteSpace: "nowrap" }}>
+            {s}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <div>
 
-      {/* ── 1. HERO ───────────────────────────────────────────── */}
-      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "48px 40px", borderRadius: "4px", marginBottom: "32px" }}>
-        <h1 style={{ margin: "0 0 12px 0", fontSize: "36px", fontWeight: 700 }}>Welcome to CBC Kenya Schools</h1>
-        <p style={{ margin: "0 0 24px 0", fontSize: "16px", opacity: 0.92, maxWidth: "600px", lineHeight: 1.7 }}>
-          Your complete online resource for the Kenyan Competency Based Curriculum (CBC/CBE).
-          Free learning for every Kenyan child — from Playgroup to Grade 12.
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "40px 36px", borderRadius: "4px", marginBottom: "28px" }}>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "34px", fontWeight: 700 }}>CBC Kenya Schools</h1>
+        <p style={{ margin: "0 0 20px 0", fontSize: "15px", opacity: 0.93, maxWidth: "580px", lineHeight: 1.8 }}>
+          Free online learning for every Kenyan child — from Playgroup to Grade 12.
+          Fully aligned to the <strong>KICD Competency Based Curriculum (CBC/CBE)</strong>.
         </p>
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "28px" }}>
-          {["KICD Aligned","PP1 to Grade 12","Free for All Kenyans","School Based Assessment"].map(b => (
-            <span key={b} style={{ background: "rgba(255,255,255,0.2)", padding: "6px 16px", borderRadius: "20px", fontSize: "13px", fontWeight: 600 }}>{b}</span>
-          ))}
-        </div>
-        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-          <Link href="/pp1" style={{ background: "#fff", color: "#04AA6D", padding: "11px 28px", borderRadius: "3px", fontWeight: 700, fontSize: "15px", textDecoration: "none" }}>
-            Start Learning &rarr;
-          </Link>
-          <Link href="/pathway/early-years" style={{ background: "transparent", color: "#fff", padding: "11px 28px", borderRadius: "3px", fontWeight: 700, fontSize: "15px", textDecoration: "none", border: "2px solid rgba(255,255,255,0.6)" }}>
-            Browse Pathways
-          </Link>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <Link href="/pp1" style={{ background: "#fff", color: "#04AA6D", padding: "10px 26px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>Start Learning &rarr;</Link>
+          <Link href="/about" style={{ background: "transparent", color: "#fff", padding: "10px 26px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none", border: "2px solid rgba(255,255,255,0.55)" }}>About CBC</Link>
         </div>
       </div>
 
-      {/* ── 2. NOT SURE WHERE TO BEGIN ────────────────────────── */}
-      <div style={{ background: "#f8f8f8", border: "1px solid #ddd", borderLeft: "5px solid #04AA6D", borderRadius: "0 4px 4px 0", padding: "24px 28px", marginBottom: "32px" }}>
-        <h2 style={{ margin: "0 0 8px 0", fontSize: "20px", fontWeight: 700 }}>Not Sure Where to Begin?</h2>
-        <p style={{ margin: "0 0 18px 0", fontSize: "14px", color: "#555", lineHeight: 1.7 }}>
-          CBC Kenya Schools is organised by grade and subject — just like the KICD curriculum. Pick your child's grade to get started instantly.
-        </p>
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+      {/* ── QUICK PICK YOUR GRADE ─────────────────────────────── */}
+      <div style={{ background: "#f8f8f8", border: "1px solid #ddd", borderLeft: "5px solid #04AA6D", padding: "18px 22px", marginBottom: "28px", borderRadius: "0 3px 3px 0" }}>
+        <strong style={{ fontSize: "15px" }}>Pick Your Grade &mdash; Start Learning Instantly</strong>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "7px", marginTop: "12px" }}>
           {[
-            { label: "PP1",      href: "/pp1",      color: "#FF9800" },
-            { label: "PP2",      href: "/pp2",      color: "#FF9800" },
-            { label: "Grade 1",  href: "/grade-1",  color: "#2196F3" },
-            { label: "Grade 2",  href: "/grade-2",  color: "#2196F3" },
-            { label: "Grade 3",  href: "/grade-3",  color: "#2196F3" },
-            { label: "Grade 4",  href: "/grade-4",  color: "#9C27B0" },
-            { label: "Grade 5",  href: "/grade-5",  color: "#9C27B0" },
-            { label: "Grade 6",  href: "/grade-6",  color: "#9C27B0" },
-            { label: "Grade 7",  href: "/grade-7",  color: "#F44336" },
-            { label: "Grade 8",  href: "/grade-8",  color: "#F44336" },
-            { label: "Grade 9",  href: "/grade-9",  color: "#F44336" },
-            { label: "Grade 10", href: "/grade-10", color: "#607D8B" },
-            { label: "Grade 11", href: "/grade-11", color: "#607D8B" },
-            { label: "Grade 12", href: "/grade-12", color: "#607D8B" },
-          ].map(g => (
-            <Link key={g.label} href={g.href} style={{ background: g.color, color: "#fff", padding: "8px 16px", borderRadius: "3px", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>
-              {g.label}
-            </Link>
-          ))}
+            { l:"PP1",      h:"/pp1",      c:"#FF9800" },{ l:"PP2",      h:"/pp2",      c:"#FF9800" },
+            { l:"Grade 1",  h:"/grade-1",  c:"#2196F3" },{ l:"Grade 2",  h:"/grade-2",  c:"#2196F3" },{ l:"Grade 3",  h:"/grade-3",  c:"#2196F3" },
+            { l:"Grade 4",  h:"/grade-4",  c:"#9C27B0" },{ l:"Grade 5",  h:"/grade-5",  c:"#9C27B0" },{ l:"Grade 6",  h:"/grade-6",  c:"#9C27B0" },
+            { l:"Grade 7",  h:"/grade-7",  c:"#F44336" },{ l:"Grade 8",  h:"/grade-8",  c:"#F44336" },{ l:"Grade 9",  h:"/grade-9",  c:"#F44336" },
+            { l:"Grade 10", h:"/grade-10", c:"#607D8B" },{ l:"Grade 11", h:"/grade-11", c:"#607D8B" },{ l:"Grade 12", h:"/grade-12", c:"#607D8B" },
+          ].map(g => <Link key={g.l} href={g.h} style={{ background: g.c, color: "#fff", padding: "7px 14px", borderRadius: "3px", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>{g.l}</Link>)}
         </div>
       </div>
 
-      {/* ── 3. POPULAR TUTORIALS ─────────────────────────────── */}
-      <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "8px", marginBottom: "4px" }}>Popular Tutorials</h2>
-      <p style={{ marginBottom: "16px", color: "#555", fontSize: "14px" }}>Most visited subjects and learning areas across all grades.</p>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "14px", marginBottom: "32px" }}>
-        {POPULAR.map(p => (
-          <Link key={p.label} href={p.href} style={{ textDecoration: "none", color: "inherit", border: "1px solid #ddd", borderRadius: "3px", overflow: "hidden", display: "block" }}>
-            <div style={{ background: p.color, color: "#fff", padding: "10px 14px", fontWeight: 700, fontSize: "14px" }}>{p.label}</div>
-            <div style={{ background: "#282c34", color: "#abb2bf", padding: "12px 14px", fontFamily: "'Courier New', monospace", fontSize: "12px", lineHeight: 1.8, minHeight: "80px" }}>
-              {p.snippet.split("\n").map((line, i) => (
-                <div key={i} style={{ color: i === 0 ? "#98c379" : "#abb2bf" }}>{line}</div>
-              ))}
-            </div>
-            <div style={{ padding: "8px 14px", fontSize: "13px", color: "#04AA6D", fontWeight: 700, background: "#f9f9f9", borderTop: "1px solid #eee" }}>
-              Start Tutorial &rarr;
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {/* ── 4. EXERCISES & QUIZZES STRIP ─────────────────────── */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "32px" }}>
-        <div style={{ background: "#e8f5e9", border: "1px solid #a5d6a7", borderRadius: "4px", padding: "22px 24px" }}>
-          <div style={{ fontSize: "32px", marginBottom: "8px" }}>&#9999;&#65039;</div>
-          <h3 style={{ margin: "0 0 8px 0", fontSize: "16px", fontWeight: 700, color: "#1b5e20" }}>Exercises</h3>
-          <p style={{ margin: "0 0 14px 0", fontSize: "13px", color: "#2e7d32", lineHeight: 1.6 }}>
-            Practice questions for every topic. Fill-in-the-blank, true/false and match exercises — aligned to SBA requirements.
-          </p>
-          <Link href="/exercises" style={{ background: "#04AA6D", color: "#fff", padding: "8px 20px", borderRadius: "3px", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>
-            Go to Exercises &rarr;
-          </Link>
-        </div>
-        <div style={{ background: "#e3f2fd", border: "1px solid #90caf9", borderRadius: "4px", padding: "22px 24px" }}>
-          <div style={{ fontSize: "32px", marginBottom: "8px" }}>&#129300;</div>
-          <h3 style={{ margin: "0 0 8px 0", fontSize: "16px", fontWeight: 700, color: "#0d47a1" }}>Quizzes</h3>
-          <p style={{ margin: "0 0 14px 0", fontSize: "13px", color: "#1565c0", lineHeight: 1.6 }}>
-            Test your knowledge after each topic. Multiple choice quizzes with instant feedback and scores to track your progress.
-          </p>
-          <Link href="/quizzes" style={{ background: "#2196F3", color: "#fff", padding: "8px 20px", borderRadius: "3px", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>
-            Take a Quiz &rarr;
-          </Link>
-        </div>
-      </div>
-
-      {/* ── 5. WHAT IS CBC ────────────────────────────────────── */}
+      {/* ── WHAT IS CBC ──────────────────────────────────────── */}
       <div className="note-box" style={{ marginBottom: "28px" }}>
         <strong>What is CBC?</strong>
-        <p style={{ margin: "8px 0 0 0" }}>
-          The <strong>Competency Based Curriculum</strong> is Kenya&apos;s education framework designed by KICD to develop
-          skills, values and competencies from Early Years through Senior Secondary. It replaces the 8-4-4 system
-          and focuses on continuous assessment through School Based Assessments (SBA) alongside national exams at Grade 6, 9 and 12.
+        <p style={{ margin: "8px 0 0 0", lineHeight: 1.7 }}>
+          The <strong>Competency Based Curriculum</strong> is Kenya&apos;s education framework designed by KICD.
+          It replaces the 8-4-4 system and follows a <strong>2-6-3-3</strong> structure —
+          2 years Early Years, 6 years Primary, 3 years Junior Secondary, 3 years Senior Secondary.
+          National exams: <strong>KPSEA</strong> (Grade 6), <strong>KILEA</strong> (Grade 9), <strong>KSCE</strong> (Grade 12).{" "}
+          <Link href="/about" style={{ color: "#04AA6D", fontWeight: 700 }}>Learn more &rarr;</Link>
         </p>
       </div>
 
-      {/* ── 6. LEARNING PATHWAYS TABLE ───────────────────────── */}
-      <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "8px", marginBottom: "16px" }}>Learning Pathways</h2>
-      <table style={{ marginBottom: "32px" }}>
-        <thead>
-          <tr><th>Pathway</th><th>Grades</th><th>Key Subjects</th><th>Assessment</th></tr>
-        </thead>
-        <tbody>
-          {PATHWAYS.map(p => (
-            <tr key={p.name}>
-              <td><Link href={p.href} style={{ color: p.color, fontWeight: 700, textDecoration: "none" }}>{p.name}</Link></td>
-              <td style={{ whiteSpace: "nowrap", color: "#555" }}>{p.grades}</td>
-              <td style={{ fontSize: "13px", color: "#444" }}>{p.subjects.slice(0,4).join(", ")}{p.subjects.length > 4 ? "..." : ""}</td>
-              <td style={{ fontSize: "12px", color: p.exam ? "#856404" : "#2d6a4f" }}>{p.exam || "Continuous SBA"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* ── EARLY YEARS ──────────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #FF9800", paddingBottom: "6px", marginBottom: "6px", color: "#FF9800" }}>
+        <Link href="/pathway/early-years" style={{ color: "#FF9800", textDecoration: "none" }}>Early Years</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Playgroup, PP1, PP2 &mdash; Ages 4&ndash;5 &mdash; Learning through play &mdash; No national exam</p>
+      {EARLY_YEARS.map(g => <GradeBlock key={g.grade} grade={g.grade} href={g.href} subjects={g.subjects} color="#FF9800" />)}
 
-      {/* ── 7. PATHWAY CARDS ──────────────────────────────────── */}
-      <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "8px", marginBottom: "16px" }}>Start Learning by Pathway</h2>
-      <div className="subject-grid" style={{ marginBottom: "32px" }}>
-        {PATHWAYS.map(p => (
-          <Link key={p.name} href={p.href} className="subject-card">
-            <div className="subject-card-header" style={{ background: p.color }}>
-              <div style={{ fontSize: "15px" }}>{p.name}</div>
-              <div style={{ fontSize: "12px", opacity: 0.85, marginTop: "2px" }}>{p.grades}</div>
+      {/* ── LOWER PRIMARY ────────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #2196F3", paddingBottom: "6px", marginBottom: "6px", marginTop: "24px", color: "#2196F3" }}>
+        <Link href="/pathway/lower-primary" style={{ color: "#2196F3", textDecoration: "none" }}>Lower Primary</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Grade 1, 2, 3 &mdash; Ages 6&ndash;8 &mdash; Literacy & numeracy foundations &mdash; Continuous SBA</p>
+      {LOWER_PRIMARY.map(g => <GradeBlock key={g.grade} grade={g.grade} href={g.href} subjects={g.subjects} color="#2196F3" />)}
+
+      {/* ── UPPER PRIMARY ────────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #9C27B0", paddingBottom: "6px", marginBottom: "6px", marginTop: "24px", color: "#9C27B0" }}>
+        <Link href="/pathway/upper-primary" style={{ color: "#9C27B0", textDecoration: "none" }}>Upper Primary</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Grade 4, 5, 6 &mdash; Ages 9&ndash;11 &mdash; <strong style={{ color: "#856404" }}>KPSEA at end of Grade 6</strong></p>
+      {UPPER_PRIMARY.map(g => <GradeBlock key={g.grade} grade={g.grade} href={g.href} subjects={g.subjects} exam={(g as any).exam} color="#9C27B0" />)}
+
+      {/* ── JUNIOR SECONDARY ─────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #F44336", paddingBottom: "6px", marginBottom: "6px", marginTop: "24px", color: "#F44336" }}>
+        <Link href="/pathway/junior-secondary" style={{ color: "#F44336", textDecoration: "none" }}>Junior Secondary</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Grade 7, 8, 9 &mdash; Ages 12&ndash;14 &mdash; <strong style={{ color: "#856404" }}>KILEA at end of Grade 9</strong></p>
+      {JUNIOR_SEC.map(g => <GradeBlock key={g.grade} grade={g.grade} href={g.href} subjects={g.subjects} exam={(g as any).exam} color="#F44336" />)}
+
+      {/* ── SENIOR SECONDARY ─────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #607D8B", paddingBottom: "6px", marginBottom: "6px", marginTop: "24px", color: "#607D8B" }}>
+        <Link href="/pathway/senior-secondary" style={{ color: "#607D8B", textDecoration: "none" }}>Senior Secondary</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Grade 10, 11, 12 &mdash; Ages 15&ndash;17 &mdash; Choose a pathway &mdash; <strong style={{ color: "#856404" }}>KSCE at end of Grade 12</strong></p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "12px", marginBottom: "10px" }}>
+        {SENIOR_SEC.map(p => (
+          <div key={p.pathway} style={{ border: "1px solid #ddd", borderTop: `3px solid ${p.color}`, borderRadius: "0 0 3px 3px" }}>
+            <div style={{ background: p.color, color: "#fff", padding: "8px 14px" }}>
+              <Link href={p.href} style={{ color: "#fff", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>{p.pathway} Pathway</Link>
             </div>
-            <div className="subject-card-body">
-              <ul style={{ margin: 0, paddingLeft: "16px", fontSize: "12px", color: "#555" }}>
-                {p.subjects.slice(0,4).map(s => <li key={s}>{s}</li>)}
-                {p.subjects.length > 4 && <li style={{ color: "#999" }}>+{p.subjects.length - 4} more...</li>}
-              </ul>
-              {p.exam && (
-                <div style={{ marginTop: "10px", background: "#fff8e1", border: "1px solid #FFB300", borderRadius: "3px", padding: "5px 8px", fontSize: "11px", color: "#856404" }}>
-                  {p.exam}
-                </div>
-              )}
+            <div style={{ padding: "8px 14px 10px 14px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+              {p.subjects.map(s => (
+                <Link key={s} href={`/grade-10/${slugify(s)}`}
+                  style={{ fontSize: "12px", color: p.color, textDecoration: "none", background: "#f5f5f5", border: `1px solid ${p.color}33`, borderRadius: "2px", padding: "3px 9px", whiteSpace: "nowrap" }}>
+                  {s}
+                </Link>
+              ))}
             </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginBottom: "28px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
+        {[{l:"Grade 10",h:"/grade-10"},{l:"Grade 11",h:"/grade-11"},{l:"Grade 12 (KSCE)",h:"/grade-12"}].map(g => (
+          <Link key={g.l} href={g.h} style={{ background: "#607D8B", color: "#fff", padding: "7px 16px", borderRadius: "3px", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>{g.l}</Link>
+        ))}
+      </div>
+
+      {/* ── ASSESSMENT ───────────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "6px", marginBottom: "14px", marginTop: "8px" }}>Assessment & Practice</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "12px", marginBottom: "28px" }}>
+        {[
+          { title: "Exercises",    href: "/exercises",    color: "#04AA6D", desc: "Fill-in, true/false and match questions for every topic." },
+          { title: "Quizzes",      href: "/quizzes",      color: "#2196F3", desc: "Multiple choice quizzes with instant results and feedback." },
+          { title: "Certificates", href: "/certificates", color: "#1a237e", desc: "Complete a subject and earn your CBC learning certificate." },
+        ].map(c => (
+          <Link key={c.title} href={c.href} style={{ textDecoration: "none", border: "1px solid #ddd", borderTop: `3px solid ${c.color}`, padding: "14px 16px", borderRadius: "0 0 3px 3px", display: "block" }}>
+            <div style={{ fontWeight: 700, fontSize: "15px", color: c.color, marginBottom: "6px" }}>{c.title}</div>
+            <div style={{ fontSize: "12px", color: "#666", lineHeight: 1.6 }}>{c.desc}</div>
           </Link>
         ))}
       </div>
 
-      {/* ── 8. GET CERTIFIED BANNER ───────────────────────────── */}
-      <div style={{ background: "linear-gradient(135deg, #1a237e 0%, #283593 100%)", color: "#fff", borderRadius: "4px", padding: "28px 32px", marginBottom: "32px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "20px" }}>
+      {/* ── REFERENCES & HOW-TO ──────────────────────────────── */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "28px" }}>
         <div>
-          <div style={{ fontSize: "32px", marginBottom: "8px" }}>&#127891;</div>
-          <h2 style={{ margin: "0 0 8px 0", fontSize: "22px", fontWeight: 700 }}>Get CBC Certified</h2>
-          <p style={{ margin: 0, opacity: 0.9, fontSize: "14px", maxWidth: "480px", lineHeight: 1.7 }}>
-            Complete a subject, pass the quiz and earn your CBC Kenya Schools certificate.
-            Track your learning progress across all grades and subjects.
-          </p>
+          <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "6px", marginBottom: "10px" }}>References</h2>
+          {[
+            { l:"KICD Website",             h:"https://kicd.ac.ke",        ext: true },
+            { l:"CBC Curriculum Designs",   h:"/references" },
+            { l:"SBA Assessment Guides",    h:"/references" },
+            { l:"KPSEA Information",        h:"/references" },
+            { l:"KILEA Information",        h:"/references" },
+            { l:"KSCE Information",         h:"/references" },
+            { l:"CBC Glossary",             h:"/references" },
+            { l:"Parent & Teacher Guide",   h:"/references" },
+          ].map(r => (
+            <div key={r.l} style={{ borderBottom: "1px solid #f0f0f0" }}>
+              {(r as any).ext
+                ? <a href={r.h} target="_blank" rel="noreferrer" style={{ display: "flex", justifyContent: "space-between", padding: "8px 2px", color: "#04AA6D", textDecoration: "none", fontSize: "14px" }}>{r.l} <span>&#8599;</span></a>
+                : <Link href={r.h} style={{ display: "flex", justifyContent: "space-between", padding: "8px 2px", color: "#04AA6D", textDecoration: "none", fontSize: "14px" }}>{r.l} <span style={{ color: "#ccc" }}>&#8250;</span></Link>
+              }
+            </div>
+          ))}
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "flex-start" }}>
-          <Link href="/certificates" style={{ background: "#04AA6D", color: "#fff", padding: "12px 28px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none", whiteSpace: "nowrap" }}>
-            View Certificates &rarr;
-          </Link>
-          <Link href="/signin" style={{ color: "rgba(255,255,255,0.75)", fontSize: "13px", textDecoration: "none" }}>
-            Sign in to track your progress
-          </Link>
+        <div>
+          <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "6px", marginBottom: "10px" }}>How To</h2>
+          {[
+            { l:"How to Use This Site",        h:"/how-to" },
+            { l:"How SBA Works",               h:"/how-to" },
+            { l:"How to Prepare for KPSEA",    h:"/how-to" },
+            { l:"How to Prepare for KILEA",    h:"/how-to" },
+            { l:"How to Prepare for KSCE",     h:"/how-to" },
+            { l:"How to Choose a Pathway",     h:"/how-to" },
+            { l:"Parent Support Guide",        h:"/how-to" },
+            { l:"Teacher Implementation",      h:"/how-to" },
+          ].map(h => (
+            <div key={h.l} style={{ borderBottom: "1px solid #f0f0f0" }}>
+              <Link href={h.h} style={{ display: "flex", justifyContent: "space-between", padding: "8px 2px", color: "#04AA6D", textDecoration: "none", fontSize: "14px" }}>{h.l} <span style={{ color: "#ccc" }}>&#8250;</span></Link>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* ── 9. REFERENCES + HOW-TO (2 col) ───────────────────── */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "32px" }}>
-        <div>
-          <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "8px", marginBottom: "12px" }}>References</h2>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {REFERENCES.map(r => (
-              <li key={r.label} style={{ borderBottom: "1px solid #f0f0f0" }}>
-                {r.external ? (
-                  <a href={r.href} target="_blank" rel="noreferrer" style={{ display: "flex", justifyContent: "space-between", padding: "9px 4px", color: "#04AA6D", textDecoration: "none", fontSize: "14px" }}>
-                    {r.label} <span style={{ color: "#ccc" }}>&#8599;</span>
-                  </a>
-                ) : (
-                  <Link href={r.href} style={{ display: "flex", justifyContent: "space-between", padding: "9px 4px", color: "#04AA6D", textDecoration: "none", fontSize: "14px" }}>
-                    {r.label} <span style={{ color: "#ccc" }}>&#8250;</span>
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "8px", marginBottom: "12px" }}>How To</h2>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {HOW_TO.map(h => (
-              <li key={h.label} style={{ borderBottom: "1px solid #f0f0f0" }}>
-                <Link href={h.href} style={{ display: "flex", justifyContent: "space-between", padding: "9px 4px", color: "#04AA6D", textDecoration: "none", fontSize: "14px" }}>
-                  {h.label} <span style={{ color: "#ccc" }}>&#8250;</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* ── 10. CBC STRUCTURE BOX ─────────────────────────────── */}
-      <div className="example-box" style={{ marginBottom: "32px" }}>
+      {/* ── CBC STRUCTURE BOX ────────────────────────────────── */}
+      <div className="example-box">
         <div className="example-box-header">Kenya CBC Structure — 2-6-3-3</div>
         <div className="example-box-body">
-          <p>Kenya CBC follows a <strong>2-6-3-3</strong> structure replacing the old 8-4-4 system:</p>
-          <ul style={{ marginTop: "8px", paddingLeft: "20px", lineHeight: 2 }}>
-            <li><strong>2 years</strong> — Early Years (PP1, PP2) — play-based, no national exam</li>
-            <li><strong>6 years</strong> — Primary (Grade 1–6) — ends with <strong>KPSEA</strong></li>
-            <li><strong>3 years</strong> — Junior Secondary (Grade 7–9) — ends with <strong>KILEA</strong></li>
-            <li><strong>3 years</strong> — Senior Secondary (Grade 10–12) — ends with <strong>KSCE</strong></li>
-          </ul>
-          <div style={{ marginTop: "16px" }}>
-            <Link href="/about" style={{ color: "#04AA6D", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>
-              Learn more about Kenya CBC &rarr;
-            </Link>
+          <table style={{ margin: 0 }}>
+            <thead><tr><th>Level</th><th>Grades</th><th>Ages</th><th>Exam</th></tr></thead>
+            <tbody>
+              {[
+                ["Early Years",       "PP1, PP2",         "4–5",   "None — SBA only",  "#FF9800"],
+                ["Lower Primary",     "Grade 1, 2, 3",    "6–8",   "None — SBA only",  "#2196F3"],
+                ["Upper Primary",     "Grade 4, 5, 6",    "9–11",  "KPSEA (Grade 6)",  "#9C27B0"],
+                ["Junior Secondary",  "Grade 7, 8, 9",    "12–14", "KILEA (Grade 9)",  "#F44336"],
+                ["Senior Secondary",  "Grade 10, 11, 12", "15–17", "KSCE (Grade 12)",  "#607D8B"],
+              ].map(([level, grades, ages, exam, color]) => (
+                <tr key={level as string}>
+                  <td><span style={{ background: color as string, color: "#fff", fontSize: "11px", padding: "2px 8px", borderRadius: "2px", fontWeight: 700 }}>{level as string}</span></td>
+                  <td style={{ fontSize: "13px" }}>{grades as string}</td>
+                  <td style={{ fontSize: "13px", color: "#666" }}>{ages as string}</td>
+                  <td style={{ fontSize: "12px", color: "#856404", fontWeight: 600 }}>{exam as string}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div style={{ marginTop: "14px" }}>
+            <Link href="/about" style={{ color: "#04AA6D", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>Learn more about Kenya CBC &rarr;</Link>
           </div>
         </div>
       </div>
