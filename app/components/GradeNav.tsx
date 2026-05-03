@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
@@ -53,7 +53,7 @@ export default function GradeNav() {
             const isOpen = openIndex === i;
             return (
               <button key={g.href}
-                onClick={() => setOpenIndex(isOpen ? null : i)}
+                onClick={() => { window.open(g.href, "_blank"); setOpenIndex(isOpen ? null : i); }}
                 style={{ flexShrink: 0, height: "40px", padding: "0 14px", fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap", cursor: "pointer", border: "none", fontFamily: "Verdana, sans-serif", color: "#fff", background: isUrlActive ? "#04AA6D" : isOpen ? "#04AA6D" : "#000", borderBottom: isUrlActive ? "3px solid #038a58" : isOpen ? "3px solid #038a58" : "3px solid transparent", transition: "background 0.12s" }}>
                 {g.label} <span style={{ fontSize: "9px", opacity: 0.7 }}>&#9660;</span>
               </button>
