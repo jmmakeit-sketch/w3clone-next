@@ -28,67 +28,22 @@ export default function GradeNav() {
   const pathname = usePathname();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const navRef = useRef<HTMLDivElement>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        setOpenIndex(null);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
 
   useEffect(() => { setOpenIndex(null); }, [pathname]);
-
-  function handleMouseEnter(i: number) {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setOpenIndex(i);
-  }
-
-  function handleMouseLeave() {
-    closeTimer.current = setTimeout(() => setOpenIndex(null), 180);
-  }
-
-  function handleDropdownMouseEnter() {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-  }
-
-  function handleDropdownMouseLeave() {
-    closeTimer.current = setTimeout(() => setOpenIndex(null), 180);
-  }
 
   const activeGradeIndex = GRADES.findIndex(g => pathname === g.href || pathname.startsWith(g.href + "/"));
   const openGrade = openIndex !== null ? GRADES[openIndex] : null;
 
-  const dropdownStyle: React.CSSProperties = openGrade ? {
-    position: "fixed",
-    left: "220px",
-    top: "124px",
-    minWidth: "260px",
-    maxWidth: "320px",
-    background: "#fff",
-    borderTop: "3px solid " + openGrade.color,
-    border: "1px solid #ddd",
-    zIndex: 1500,
-    maxHeight: "calc(100vh - 130px)",
-    overflowY: "auto",
-    boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-    borderRadius: "0 0 4px 4px",
-  } : {};
-
   return (
-    <div ref={navRef}>
+    <>
+      {/* Black grade bar */}
       <div style={{ background: "#000", position: "sticky", top: "84px", zIndex: 2000, display: "flex", alignItems: "center", height: "40px", borderBottom: "1px solid #333" }}>
         <button onClick={() => scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" })}
           style={{ background: "#222", color: "#fff", border: "none", padding: "0 10px", height: "40px", cursor: "pointer", fontSize: "16px", flexShrink: 0 }}>
           &#8249;
         </button>
 
-        <Link href="/"
-          onMouseEnter={() => { if (closeTimer.current) clearTimeout(closeTimer.current); setOpenIndex(null); }}
+        <Link href="/" onClick={() => setOpenIndex(null)}
           style={{ color: pathname === "/" ? "#04AA6D" : "#ccc", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "40px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent", background: "#000" }}>
           HOME
         </Link>
@@ -99,8 +54,6 @@ export default function GradeNav() {
             const isOpen = openIndex === i;
             return (
               <button key={g.href}
-                onMouseEnter={() => handleMouseEnter(i)}
-                onMouseLeave={handleMouseLeave}
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 style={{ flexShrink: 0, height: "40px", padding: "0 14px", fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap", cursor: "pointer", border: "none", fontFamily: "Verdana, sans-serif", color: "#fff", background: isUrlActive ? "#04AA6D" : isOpen ? "#333" : "#000", borderBottom: isUrlActive ? "3px solid #038a58" : isOpen ? "3px solid #04AA6D" : "3px solid transparent", transition: "background 0.12s" }}>
                 {g.label} <span style={{ fontSize: "9px", opacity: 0.7 }}>&#9660;</span>
@@ -115,30 +68,59 @@ export default function GradeNav() {
         </button>
       </div>
 
+      {/* Sticky top-left dropdown — replaces left sidebar area when open */}
       {openGrade && (
         <>
+          {/* Backdrop — click anywhere outside to close */}
           <div style={{ position: "fixed", inset: 0, zIndex: 1499 }} onClick={() => setOpenIndex(null)} />
-          <div onMouseEnter={handleDropdownMouseEnter} onMouseLeave={handleDropdownMouseLeave} style={dropdownStyle}>
+
+          {/* Dropdown pinned to top-left, same position as left sidebar */}
+          <div style={{
+            position: "fixed",
+            left: 0,
+            top: "124px",
+            width: "220px",
+            bottom: 0,
+            background: "#fff",
+            borderTop: "3px solid " + openGrade.color,
+            borderRight: "1px solid #ddd",
+            zIndex: 1500,
+            overflowY: "auto",
+            boxShadow: "2px 0 12px rgba(0,0,0,0.12)",
+            display: "flex",
+            flexDirection: "column",
+          }}>
+            {/* Grade header */}
             <Link href={openGrade.href} onClick={() => setOpenIndex(null)}
-              style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: openGrade.color, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "15px" }}>
+              style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: openGrade.color, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "14px", flexShrink: 0 }}>
               <span>{openGrade.label} Overview</span>
               <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 8px", borderRadius: "10px" }}>{openGrade.pathway}</span>
             </Link>
-            <div style={{ padding: "6px 16px 4px", fontSize: "10px", color: "#999", textTransform: "uppercase", letterSpacing: "0.8px", borderBottom: "1px solid #eee" }}>
+
+            <div style={{ padding: "6px 16px 4px", fontSize: "10px", color: "#999", textTransform: "uppercase", letterSpacing: "0.8px", borderBottom: "1px solid #eee", flexShrink: 0 }}>
               Select a subject
             </div>
-            {openGrade.subjects.map(sub => (
-              <Link key={sub} href={openGrade.href + "/" + slugify(sub)}
-                onClick={() => setOpenIndex(null)}
-                style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0", background: "#fff" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = openGrade.color; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
-                {sub} <span style={{ fontSize: "12px" }}>&#8250;</span>
-              </Link>
-            ))}
+
+            <div style={{ flex: 1, overflowY: "auto" }}>
+              {openGrade.subjects.map(sub => (
+                <Link key={sub} href={openGrade.href + "/" + slugify(sub)}
+                  onClick={() => setOpenIndex(null)}
+                  style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0", background: "#fff" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = openGrade.color; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
+                  {sub} <span style={{ fontSize: "12px" }}>&#8250;</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Close button at bottom */}
+            <button onClick={() => setOpenIndex(null)}
+              style={{ padding: "10px", background: "#f5f5f5", border: "none", borderTop: "1px solid #ddd", fontSize: "12px", color: "#666", cursor: "pointer", fontFamily: "Verdana, sans-serif", flexShrink: 0 }}>
+              ✕ Close
+            </button>
           </div>
         </>
       )}
-    </div>
+    </>
   );
 }
