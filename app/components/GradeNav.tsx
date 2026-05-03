@@ -72,9 +72,9 @@ export default function GradeNav() {
           <div style={{ position: "fixed", inset: 0, zIndex: 1499 }} onClick={() => setOpenIndex(null)} />
           <div style={{
             position: "fixed",
-            left: 0,
+            left: 0, right: "auto",
             top: "124px",
-            width: "220px",
+            width: "240px",
             bottom: 0,
             background: "#fff",
             borderTop: "3px solid " + openGrade.color,

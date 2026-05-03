@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import Link from "next/link";
 import TabBar from "./TabBar";
 import GradeNav from "./GradeNav";
@@ -45,7 +45,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       </div>
 
       {/* ── FOOTER ── */}
-      <div className="footer">
+      <div className="footer" style={{ gridColumn: "1 / -1", width: "100%" }}>
         <p>CBC Kenya Schools &mdash; Free learning for every Kenyan child</p>
         <p style={{ marginTop: "6px", fontSize: "12px", color: "#aaa" }}>
           Aligned to the <a href="https://kicd.ac.ke" target="_blank" rel="noreferrer">KICD</a> CBC &bull; Grades PP1 &ndash; 12
