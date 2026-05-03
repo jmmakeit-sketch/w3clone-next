@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
@@ -76,7 +76,7 @@ export default function GradeNav() {
             top: "124px",
             width: "240px",
             bottom: 0,
-            background: "#fff",
+            background: "#f5f5f5",
             borderTop: "3px solid " + openGrade.color,
             borderRight: "1px solid #ddd",
             zIndex: 1500,
@@ -97,17 +97,14 @@ export default function GradeNav() {
               {openGrade.subjects.map(sub => (
                 <Link key={sub} href={openGrade.href + "/" + slugify(sub)}
                   onClick={() => setOpenIndex(null)}
-                  style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0", background: "#fff" }}
+                  style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0", background: "#f5f5f5" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = openGrade.color; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f5f5f5"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
                   {sub} <span style={{ fontSize: "12px" }}>&#8250;</span>
                 </Link>
               ))}
             </div>
-            <button onClick={() => setOpenIndex(null)}
-              style={{ padding: "10px", background: "#f5f5f5", border: "none", borderTop: "1px solid #ddd", fontSize: "12px", color: "#666", cursor: "pointer", fontFamily: "Verdana, sans-serif", flexShrink: 0 }}>
-              ✕ Close
-            </button>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", borderTop: "1px solid #ddd", background: "#f5f5f5", flexShrink: 0 }}><div style={{ width: "40px", height: "5px", borderRadius: "3px", background: "#ccc", margin: "8px auto 4px", cursor: "ns-resize" }} /><button onClick={() => setOpenIndex(null)} style={{ padding: "6px 10px 10px", background: "transparent", border: "none", fontSize: "12px", color: "#666", cursor: "pointer", fontFamily: "Verdana, sans-serif" }}>✕ Close</button></div>
           </div>
         </>
       )}
