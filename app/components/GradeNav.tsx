@@ -1,4 +1,4 @@
-"use client";
+ï»¿"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
@@ -31,7 +31,7 @@ export default function GradeNav() {
   const navRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Close when clicking outside entire nav
+  // Close on any click outside the nav bar + dropdown
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
@@ -42,16 +42,16 @@ export default function GradeNav() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Close on navigation
+  // Close on route change
   useEffect(() => { setOpenIndex(null); }, [pathname]);
 
   function handleMouseEnter(i: number) {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    setOpenIndex(i); // immediately switch — collapses previous, opens new
+    setOpenIndex(i);
   }
 
   function handleMouseLeave() {
-    closeTimer.current = setTimeout(() => setOpenIndex(null), 200);
+    closeTimer.current = setTimeout(() => setOpenIndex(null), 180);
   }
 
   function handleDropdownMouseEnter() {
@@ -59,7 +59,7 @@ export default function GradeNav() {
   }
 
   function handleDropdownMouseLeave() {
-    closeTimer.current = setTimeout(() => setOpenIndex(null), 200);
+    closeTimer.current = setTimeout(() => setOpenIndex(null), 180);
   }
 
   const activeGradeIndex = GRADES.findIndex(g => pathname === g.href || pathname.startsWith(g.href + "/"));
@@ -67,7 +67,8 @@ export default function GradeNav() {
 
   return (
     <div ref={navRef}>
-      <div style={{ background: "#000", position: "sticky", top: "84px", zIndex: 1000, display: "flex", alignItems: "center", height: "40px", borderBottom: "1px solid #333" }}>
+      {/* Black grade bar */}
+      <div style={{ background: "#000", position: "sticky", top: "84px", zIndex: 2000, display: "flex", alignItems: "center", height: "40px", borderBottom: "1px solid #333" }}>
         <button onClick={() => scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" })}
           style={{ background: "#222", color: "#fff", border: "none", padding: "0 10px", height: "40px", cursor: "pointer", fontSize: "16px", flexShrink: 0 }}>
           &#8249;
@@ -101,34 +102,53 @@ export default function GradeNav() {
         </button>
       </div>
 
-      {/* Dropdown — hover keeps it open, leaving closes after 200ms */}
+      {/* Dropdown â€” floats BELOW the black bar, does NOT overlap left sidebar */}
       {openGrade && (
-        <div
-          onMouseEnter={handleDropdownMouseEnter}
-          onMouseLeave={handleDropdownMouseLeave}
-          style={{ position: "fixed", left: "220px", top: "124px", width: "240px", background: "#f1f1f1", borderTop: "3px solid " + openGrade.color, borderRight: "1px solid #ddd", zIndex: 999, maxHeight: "calc(100vh - 124px)", overflowY: "auto", boxShadow: "2px 0 8px rgba(0,0,0,0.10)" }}>
-          <Link href={openGrade.href} onClick={() => setOpenIndex(null)}
-            style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: openGrade.color, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "15px" }}>
-            <span>{openGrade.label} Overview</span>
-            <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 8px", borderRadius: "10px" }}>{openGrade.pathway}</span>
-          </Link>
-          <div style={{ padding: "6px 16px 4px", fontSize: "10px", color: "#999", textTransform: "uppercase", letterSpacing: "0.8px", borderBottom: "1px solid #ddd" }}>
-            Select a subject
-          </div>
-          {openGrade.subjects.map(sub => (
-            <Link key={sub} href={`${openGrade.href}/${slugify(sub)}`}
-              onClick={() => setOpenIndex(null)}
-              style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "9px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #eee", background: "#f1f1f1" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = openGrade.color; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f1f1f1"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
-              {sub} <span style={{ color: "#aaa", fontSize: "12px" }}>&#8250;</span>
+        <>
+          {/* Invisible full-screen backdrop â€” click anywhere to close */}
+          <div
+            style={{ position: "fixed", inset: 0, zIndex: 1499 }}
+            onClick={() => setOpenIndex(null)}
+          />
+          <div
+            onMouseEnter={handleDropdownMouseEnter}
+            onMouseLeave={handleDropdownMouseLeave}
+            style={{
+              position: "fixed",
+              left: "220px",       // sits AFTER the left sidebar
+              top: "124px",        // just below the black bar
+              minWidth: "260px",
+              maxWidth: "320px",
+              background: "#fff",
+              borderTop: `3px solid ${openGrade.color}`,
+              border: `1px solid #ddd`,
+              borderTop: `3px solid ${openGrade.color}`,
+              zIndex: 1500,
+              maxHeight: "calc(100vh - 130px)",
+              overflowY: "auto",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+              borderRadius: "0 0 4px 4px",
+            }}>
+            {/* Grade header */}
+            <Link href={openGrade.href} onClick={() => setOpenIndex(null)}
+              style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: openGrade.color, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "15px" }}>
+              <span>{openGrade.label} Overview</span>
+              <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 8px", borderRadius: "10px" }}>{openGrade.pathway}</span>
             </Link>
-          ))}
-          <button onClick={() => setOpenIndex(null)}
-            style={{ width: "100%", padding: "10px", background: "#eee", border: "none", borderTop: "1px solid #ddd", fontSize: "12px", color: "#888", cursor: "pointer", fontFamily: "Verdana, sans-serif" }}>
-            Close menu
-          </button>
-        </div>
+            <div style={{ padding: "6px 16px 4px", fontSize: "10px", color: "#999", textTransform: "uppercase", letterSpacing: "0.8px", borderBottom: "1px solid #eee" }}>
+              Select a subject
+            </div>
+            {openGrade.subjects.map(sub => (
+              <Link key={sub} href={`${openGrade.href}/${slugify(sub)}`}
+                onClick={() => setOpenIndex(null)}
+                style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0", background: "#fff" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = openGrade.color; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
+                {sub} <span style={{ fontSize: "12px" }}>&#8250;</span>
+              </Link>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
