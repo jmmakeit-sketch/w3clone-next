@@ -104,7 +104,7 @@ export default function GradeNav() {
                 </Link>
               ))}
             </div>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", borderTop: "1px solid #ddd", background: "#f5f5f5", flexShrink: 0 }}><div style={{ width: "40px", height: "5px", borderRadius: "3px", background: "#ccc", margin: "8px auto 4px", cursor: "ns-resize" }} /><button onClick={() => setOpenIndex(null)} style={{ padding: "6px 10px 10px", background: "transparent", border: "none", fontSize: "12px", color: "#666", cursor: "pointer", fontFamily: "Verdana, sans-serif" }}>✕ Close</button></div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", borderTop: "1px solid #ddd", background: "#f5f5f5", flexShrink: 0 }}><div style={{ width: "40px", height: "5px", borderRadius: "3px", background: "#ccc", margin: "8px auto 4px", cursor: "ns-resize" }} /><button onClick={() => setOpenIndex(null)} style={{ padding: "6px 10px 10px", background: "transparent", border: "none", fontSize: "12px", color: "#666", cursor: "pointer", fontFamily: "Verdana, sans-serif" }}>x Close</button></div>
           </div>
         </>
       )}
