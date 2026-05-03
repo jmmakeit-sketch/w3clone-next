@@ -28,12 +28,13 @@ export default function GradeNav() {
   const pathname = usePathname();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Close dropdown when clicking outside
+  // Close when clicking outside entire nav
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
         setOpenIndex(null);
       }
     }
@@ -41,21 +42,39 @@ export default function GradeNav() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Close dropdown on navigation
+  // Close on navigation
   useEffect(() => { setOpenIndex(null); }, [pathname]);
+
+  function handleMouseEnter(i: number) {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenIndex(i); // immediately switch — collapses previous, opens new
+  }
+
+  function handleMouseLeave() {
+    closeTimer.current = setTimeout(() => setOpenIndex(null), 200);
+  }
+
+  function handleDropdownMouseEnter() {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }
+
+  function handleDropdownMouseLeave() {
+    closeTimer.current = setTimeout(() => setOpenIndex(null), 200);
+  }
 
   const activeGradeIndex = GRADES.findIndex(g => pathname === g.href || pathname.startsWith(g.href + "/"));
   const openGrade = openIndex !== null ? GRADES[openIndex] : null;
 
   return (
-    <>
+    <div ref={navRef}>
       <div style={{ background: "#000", position: "sticky", top: "84px", zIndex: 1000, display: "flex", alignItems: "center", height: "40px", borderBottom: "1px solid #333" }}>
         <button onClick={() => scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" })}
           style={{ background: "#222", color: "#fff", border: "none", padding: "0 10px", height: "40px", cursor: "pointer", fontSize: "16px", flexShrink: 0 }}>
           &#8249;
         </button>
 
-        <Link href="/" onClick={() => setOpenIndex(null)}
+        <Link href="/"
+          onMouseEnter={() => { if (closeTimer.current) clearTimeout(closeTimer.current); setOpenIndex(null); }}
           style={{ color: pathname === "/" ? "#04AA6D" : "#ccc", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "40px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent", background: "#000" }}>
           HOME
         </Link>
@@ -66,6 +85,8 @@ export default function GradeNav() {
             const isOpen = openIndex === i;
             return (
               <button key={g.href}
+                onMouseEnter={() => handleMouseEnter(i)}
+                onMouseLeave={handleMouseLeave}
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 style={{ flexShrink: 0, height: "40px", padding: "0 14px", fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap", cursor: "pointer", border: "none", fontFamily: "Verdana, sans-serif", color: "#fff", background: isUrlActive ? "#04AA6D" : isOpen ? "#333" : "#000", borderBottom: isUrlActive ? "3px solid #038a58" : isOpen ? "3px solid #04AA6D" : "3px solid transparent", transition: "background 0.12s" }}>
                 {g.label} <span style={{ fontSize: "9px", opacity: 0.7 }}>&#9660;</span>
@@ -80,10 +101,12 @@ export default function GradeNav() {
         </button>
       </div>
 
-      {/* Dropdown panel — shows subjects, clicking a subject navigates */}
+      {/* Dropdown — hover keeps it open, leaving closes after 200ms */}
       {openGrade && (
-        <div ref={dropdownRef} style={{ position: "fixed", left: 0, top: "124px", width: "240px", background: "#f1f1f1", borderTop: "3px solid " + openGrade.color, borderRight: "1px solid #ddd", zIndex: 999, maxHeight: "calc(100vh - 124px)", overflowY: "auto", boxShadow: "2px 0 8px rgba(0,0,0,0.10)" }}>
-          {/* Grade header — clicking this navigates to grade overview */}
+        <div
+          onMouseEnter={handleDropdownMouseEnter}
+          onMouseLeave={handleDropdownMouseLeave}
+          style={{ position: "fixed", left: 0, top: "124px", width: "240px", background: "#f1f1f1", borderTop: "3px solid " + openGrade.color, borderRight: "1px solid #ddd", zIndex: 999, maxHeight: "calc(100vh - 124px)", overflowY: "auto", boxShadow: "2px 0 8px rgba(0,0,0,0.10)" }}>
           <Link href={openGrade.href} onClick={() => setOpenIndex(null)}
             style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: openGrade.color, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "15px" }}>
             <span>{openGrade.label} Overview</span>
@@ -107,6 +130,6 @@ export default function GradeNav() {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
