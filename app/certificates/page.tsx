@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { SmartPrevNext } from "../components/Navigation";
 
 export default function CertificatesPage() {
   const certs = [
@@ -53,10 +54,7 @@ export default function CertificatesPage() {
           </ol>
         </div>
       </div>
-      <div className="prev-next">
-        <Link href="/quizzes" className="prev">Quizzes</Link>
-        <Link href="/references" className="next">References</Link>
-      </div>
+      <SmartPrevNext />
     </div>
   );
 }

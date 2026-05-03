@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { SmartPrevNext } from "../components/Navigation";
 
 const REFS = [
   { section: "Official KICD Documents", color: "#04AA6D", items: [
@@ -83,10 +84,7 @@ export default function ReferencesPage() {
       <div className="note-box">
         <strong>Disclaimer:</strong> CBC Kenya Schools is an independent educational resource. We are not affiliated with KICD or the Ministry of Education. All curriculum content is sourced from publicly available KICD documents and aligned to the official CBC framework.
       </div>
-      <div className="prev-next">
-        <Link href="/certificates" className="prev">Certificates</Link>
-        <Link href="/how-to" className="next">How To</Link>
-      </div>
+      <SmartPrevNext />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { SmartPrevNext } from "../../components/Navigation";
 
 export default function UpperPrimaryPage() {
   const grades = [
@@ -13,10 +14,7 @@ export default function UpperPrimaryPage() {
         <span>Upper Primary Pathway</span>
       </div>
 
-      <div className="prev-next" style={{ marginBottom: "28px" }}>
-        <Link href="/pathway/lower-primary" className="prev">Lower Primary</Link>
-        <Link href="/pathway/junior-secondary" className="next">Junior Secondary</Link>
-      </div>
+      <SmartPrevNext position="top" />
 
             <div style={{ background: "linear-gradient(135deg, #9C27B0 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
         <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>UP &bull; Ages 9–11</div>
@@ -51,10 +49,7 @@ export default function UpperPrimaryPage() {
           </Link>
         ))}
       </div>
-      <div className="prev-next">
-        <Link href="/pathway/lower-primary" className="prev">Lower Primary</Link>
-        <Link href="/pathway/junior-secondary" className="next">Junior Secondary</Link>
-      </div>
+      <SmartPrevNext />
     </div>
   );
 }

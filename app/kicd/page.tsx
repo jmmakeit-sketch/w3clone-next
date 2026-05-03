@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { SmartPrevNext } from "../components/Navigation";
 
 export default function KicdPage() {
   return (
@@ -10,10 +11,7 @@ export default function KicdPage() {
       </div>
 
 
-      <div className="prev-next" style={{ marginTop: 0, paddingTop: 0, borderTop: "none", marginBottom: "24px" }}>
-        <Link href="/about" className="prev">About CBC</Link>
-        <Link href="/pathway/early-years" className="next">Early Years</Link>
-      </div>
+      <SmartPrevNext position="top" />
 
       <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
         <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>KICD Framework</h1>
@@ -104,10 +102,7 @@ export default function KicdPage() {
         <a href="https://kicd.ac.ke" target="_blank" rel="noreferrer" style={{ color: "#04AA6D" }}>Visit kicd.ac.ke &rarr;</a>
       </div>
 
-      <div className="prev-next">
-        <Link href="/about" className="prev">About CBC</Link>
-        <Link href="/pathway/early-years" className="next">Early Years Pathway</Link>
-      </div>
+      <SmartPrevNext />
     </div>
   );
 }

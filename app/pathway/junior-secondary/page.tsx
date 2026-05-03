@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { SmartPrevNext } from "../../components/Navigation";
 
 export default function JuniorSecondaryPage() {
   const grades = [
@@ -45,10 +46,7 @@ export default function JuniorSecondaryPage() {
           </Link>
         ))}
       </div>
-      <div className="prev-next">
-        <Link href="/pathway/upper-primary" className="prev">Upper Primary</Link>
-        <Link href="/pathway/senior-secondary" className="next">Senior Secondary</Link>
-      </div>
+      <SmartPrevNext />
     </div>
   );
 }

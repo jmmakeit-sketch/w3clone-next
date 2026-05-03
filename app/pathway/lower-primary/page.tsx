@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { SmartPrevNext } from "../../components/Navigation";
 
 export default function LowerPrimaryPage() {
   const grades = [
@@ -13,10 +14,7 @@ export default function LowerPrimaryPage() {
         <span>Lower Primary Pathway</span>
       </div>
 
-      <div className="prev-next" style={{ marginBottom: "28px" }}>
-        <Link href="/pathway/early-years" className="prev">Early Years</Link>
-        <Link href="/pathway/upper-primary" className="next">Upper Primary</Link>
-      </div>
+      <SmartPrevNext position="top" />
 
             <div style={{ background: "linear-gradient(135deg, #2196F3 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
         <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>LP &bull; Ages 6-8</div>
@@ -96,10 +94,7 @@ export default function LowerPrimaryPage() {
         <strong>Mother Tongue Instruction:</strong> KICD requires that in Grade 1, the language of instruction is the mother tongue or local community language. English and Kiswahili are introduced as subjects from Grade 1 but become the primary languages of instruction progressively from Grade 2 onwards.
       </div>
 
-      <div className="prev-next">
-        <Link href="/pathway/early-years" className="prev">Early Years</Link>
-        <Link href="/pathway/upper-primary" className="next">Upper Primary</Link>
-      </div>
+      <SmartPrevNext />
     </div>
   );
 }

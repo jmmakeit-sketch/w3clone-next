@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { SmartPrevNext } from "../components/Navigation";
 
 export default function ExercisesPage() {
   const subjects = [
@@ -46,10 +47,7 @@ export default function ExercisesPage() {
       <div className="note-box">
         <strong>Coming Soon:</strong> Interactive exercises with instant feedback are being added for every topic. Check back regularly as new exercises are added across all grades and subjects.
       </div>
-      <div className="prev-next">
-        <Link href="/pathway/senior-social" className="prev">Social Sciences Pathway</Link>
-        <Link href="/quizzes" className="next">Quizzes</Link>
-      </div>
+      <SmartPrevNext />
     </div>
   );
 }

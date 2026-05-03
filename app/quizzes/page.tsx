@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { SmartPrevNext } from "../components/Navigation";
 
 export default function QuizzesPage() {
   const quizzes = [
@@ -42,10 +43,7 @@ export default function QuizzesPage() {
       <div className="note-box">
         <strong>More quizzes coming soon!</strong> We are building quizzes for every topic across all grades. New quizzes are added weekly.
       </div>
-      <div className="prev-next">
-        <Link href="/exercises" className="prev">Exercises</Link>
-        <Link href="/certificates" className="next">Certificates</Link>
-      </div>
+      <SmartPrevNext />
     </div>
   );
 }

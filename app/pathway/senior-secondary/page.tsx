@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { SmartPrevNext } from "../../components/Navigation";
 
 export default function SeniorSecondaryPage() {
   const pathways = [
@@ -45,10 +46,7 @@ export default function SeniorSecondaryPage() {
           </Link>
         ))}
       </div>
-      <div className="prev-next">
-        <Link href="/pathway/junior-secondary" className="prev">Junior Secondary</Link>
-        <Link href="/pathway/senior-stem" className="next">STEM Pathway</Link>
-      </div>
+      <SmartPrevNext />
     </div>
   );
 }

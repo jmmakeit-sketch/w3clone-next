@@ -1,0 +1,3219 @@
+﻿===== PROJECT SNAPSHOT =====
+Date: 05/03/2026 20:33:41
+Directory: C:\Projects\w3clone-next
+
+===== FOLDER STRUCTURE =====
+C:\Projects\w3clone-next\.vercel
+C:\Projects\w3clone-next\.vercel\.env.development.local
+C:\Projects\w3clone-next\.vercel\project.json
+C:\Projects\w3clone-next\.vercel\README.txt
+C:\Projects\w3clone-next\app
+C:\Projects\w3clone-next\app\about
+C:\Projects\w3clone-next\app\about\page.tsx
+C:\Projects\w3clone-next\app\certificates
+C:\Projects\w3clone-next\app\certificates\page.tsx
+C:\Projects\w3clone-next\app\components
+C:\Projects\w3clone-next\app\components\ClientLayout.tsx
+C:\Projects\w3clone-next\app\components\ExampleBox.tsx
+C:\Projects\w3clone-next\app\components\GradeNav.tsx
+C:\Projects\w3clone-next\app\components\Header.tsx
+C:\Projects\w3clone-next\app\components\Navigation.tsx
+C:\Projects\w3clone-next\app\components\RightSidebar.tsx
+C:\Projects\w3clone-next\app\components\Sidebar.tsx
+C:\Projects\w3clone-next\app\components\TabBar.tsx
+C:\Projects\w3clone-next\app\exercises
+C:\Projects\w3clone-next\app\exercises\page.tsx
+C:\Projects\w3clone-next\app\how-to
+C:\Projects\w3clone-next\app\how-to\page.tsx
+C:\Projects\w3clone-next\app\html-editors
+C:\Projects\w3clone-next\app\html-introduction
+C:\Projects\w3clone-next\app\kicd
+C:\Projects\w3clone-next\app\kicd\page.tsx
+C:\Projects\w3clone-next\app\pathway
+C:\Projects\w3clone-next\app\pathway\early-years
+C:\Projects\w3clone-next\app\pathway\early-years\page.tsx
+C:\Projects\w3clone-next\app\pathway\junior-secondary
+C:\Projects\w3clone-next\app\pathway\junior-secondary\page.tsx
+C:\Projects\w3clone-next\app\pathway\lower-primary
+C:\Projects\w3clone-next\app\pathway\lower-primary\page.tsx
+C:\Projects\w3clone-next\app\pathway\senior-arts
+C:\Projects\w3clone-next\app\pathway\senior-arts\page.tsx
+C:\Projects\w3clone-next\app\pathway\senior-secondary
+C:\Projects\w3clone-next\app\pathway\senior-secondary\page.tsx
+C:\Projects\w3clone-next\app\pathway\senior-social
+C:\Projects\w3clone-next\app\pathway\senior-social\page.tsx
+C:\Projects\w3clone-next\app\pathway\senior-stem
+C:\Projects\w3clone-next\app\pathway\senior-stem\page.tsx
+C:\Projects\w3clone-next\app\pathway\upper-primary
+C:\Projects\w3clone-next\app\pathway\upper-primary\page.tsx
+C:\Projects\w3clone-next\app\quizzes
+C:\Projects\w3clone-next\app\quizzes\page.tsx
+C:\Projects\w3clone-next\app\references
+C:\Projects\w3clone-next\app\references\page.tsx
+C:\Projects\w3clone-next\app\[grade]
+C:\Projects\w3clone-next\app\[grade]\[subject]
+C:\Projects\w3clone-next\app\[grade]\[subject]\[topic]
+C:\Projects\w3clone-next\app\[grade]\[subject]\[topic]\page.tsx
+C:\Projects\w3clone-next\app\[grade]\[subject]\page.tsx
+C:\Projects\w3clone-next\app\[grade]\page.tsx
+C:\Projects\w3clone-next\app\favicon.ico
+C:\Projects\w3clone-next\app\globals.css
+C:\Projects\w3clone-next\app\layout.tsx
+C:\Projects\w3clone-next\app\page.module.css
+C:\Projects\w3clone-next\app\page.tsx
+C:\Projects\w3clone-next\lib
+C:\Projects\w3clone-next\lib\supabase.ts
+C:\Projects\w3clone-next\public
+C:\Projects\w3clone-next\public\app.js
+C:\Projects\w3clone-next\public\file.svg
+C:\Projects\w3clone-next\public\globe.svg
+C:\Projects\w3clone-next\public\next.svg
+C:\Projects\w3clone-next\public\style.css
+C:\Projects\w3clone-next\public\vercel.svg
+C:\Projects\w3clone-next\public\window.svg
+C:\Projects\w3clone-next\.env.local
+C:\Projects\w3clone-next\AGENTS.md
+C:\Projects\w3clone-next\CLAUDE.md
+C:\Projects\w3clone-next\claude_snapshot.txt
+C:\Projects\w3clone-next\eslint.config.mjs
+C:\Projects\w3clone-next\next-env.d.ts
+C:\Projects\w3clone-next\next.config.ts
+C:\Projects\w3clone-next\package-lock.json
+C:\Projects\w3clone-next\package.json
+C:\Projects\w3clone-next\README.md
+C:\Projects\w3clone-next\snapshot.ps1
+C:\Projects\w3clone-next\tsconfig.json
+
+===== DEPENDENCIES =====
+{
+  "name": "w3clone-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.105.1",
+    "next": "16.2.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "typescript": "^5"
+  }
+}
+
+===== SOURCE CODE =====
+
+--- FILE: C:\Projects\w3clone-next\public\app.js ---
+function setActive(el) {
+  document.querySelectorAll(".sidebar-link").forEach(x => x.classList.remove("active"));
+  el.classList.add("active");
+}
+
+function setLang(el) {
+  document.querySelectorAll(".lang-tab").forEach(x => x.classList.remove("active"));
+  el.classList.add("active");
+}
+
+function openEditor() {
+  document.getElementById("editor-modal").style.display = "flex";
+  runCode();
+}
+
+function closeEditor() {
+  document.getElementById("editor-modal").style.display = "none";
+}
+
+function runCode() {
+  const code = document.getElementById("code-editor").value;
+  const frame = document.getElementById("result-frame");
+  const doc = frame.contentDocument || frame.contentWindow.document;
+  doc.open();
+  doc.write(code);
+  doc.close();
+}
+
+document.getElementById("editor-modal").addEventListener("click", function(e) {
+  if (e.target === this) closeEditor();
+});
+
+
+document.querySelectorAll('.sidebar-link').forEach(link => {
+  if ((window.location.pathname === '/' && link.getAttribute('href') === '/index.html') || link.getAttribute('href') === window.location.pathname) {
+    link.classList.add('active');
+  }
+});
+
+
+
+// Simple page navigation
+const pages = [
+  '/',
+  '/html-introduction.html',
+  '/html-editors.html'
+];
+
+const current = window.location.pathname === '/' ? '/' : window.location.pathname;
+const index = pages.indexOf(current) === -1 ? 0 : pages.indexOf(current);
+
+document.querySelectorAll('.nav-pg-btn')[0]?.addEventListener('click', () => {
+  if (index > 0) window.location.href = pages[index - 1];
+});
+
+document.querySelectorAll('.nav-pg-btn')[1]?.addEventListener('click', () => {
+  if (index < pages.length - 1) window.location.href = pages[index + 1];
+});
+
+
+
+// Smooth navigation (no flicker)
+document.querySelectorAll('a.sidebar-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const url = this.getAttribute('href');
+    fetch(url)
+      .then(res => res.text())
+      .then(html => {
+        document.open();
+        document.write(html);
+        document.close();
+      });
+  });
+});
+
+
+
+--- FILE: C:\Projects\w3clone-next\next-env.d.ts ---
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+import "./.next/dev/types/routes.d.ts";
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+
+
+--- FILE: C:\Projects\w3clone-next\next.config.ts ---
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+
+
+--- FILE: C:\Projects\w3clone-next\lib\supabase.ts ---
+import { createClient } from "@supabase/supabase-js";
+
+export const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+
+--- FILE: C:\Projects\w3clone-next\app\layout.tsx ---
+import type { Metadata } from "next";
+import "./globals.css";
+import ClientLayout from "./components/ClientLayout";
+
+export const metadata: Metadata = {
+  title: "CBC Kenya Schools",
+  description: "Free learning for every Kenyan child",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <ClientLayout>{children}</ClientLayout>
+      </body>
+    </html>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\page.tsx ---
+import Link from "next/link";
+
+// ── DATA ─────────────────────────────────────────────────────────
+const EARLY_YEARS = [
+  { grade: "PP1", href: "/pp1", subjects: ["Language Activities","Mathematical Activities","Environmental Activities","Psychomotor and Creative Activities","Religious Education"] },
+  { grade: "PP2", href: "/pp2", subjects: ["Language Activities","Mathematical Activities","Environmental Activities","Psychomotor and Creative Activities","Religious Education"] },
+];
+const LOWER_PRIMARY = [
+  { grade: "Grade 1", href: "/grade-1", subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  { grade: "Grade 2", href: "/grade-2", subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  { grade: "Grade 3", href: "/grade-3", subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+];
+const UPPER_PRIMARY = [
+  { grade: "Grade 4", href: "/grade-4", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  { grade: "Grade 5", href: "/grade-5", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  { grade: "Grade 6", href: "/grade-6", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"], exam: "KPSEA" },
+];
+const JUNIOR_SEC = [
+  { grade: "Grade 7", href: "/grade-7", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  { grade: "Grade 8", href: "/grade-8", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  { grade: "Grade 9", href: "/grade-9", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"], exam: "KILEA" },
+];
+const SENIOR_SEC = [
+  { pathway: "STEM",           href: "/pathway/senior-stem",   color: "#04AA6D", subjects: ["Mathematics","Physics","Chemistry","Biology","Computer Science","Agriculture"] },
+  { pathway: "Arts & Sports",  href: "/pathway/senior-arts",   color: "#E91E63", subjects: ["Fine Art","Music","Theatre Arts","Sports Science","English","Kiswahili"] },
+  { pathway: "Social Sciences",href: "/pathway/senior-social", color: "#795548", subjects: ["History","Geography","Economics","Business Studies","English","Kiswahili"] },
+];
+
+function slugify(t: string) { return t.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and"); }
+
+function GradeBlock({ grade, href, subjects, exam, color }: { grade: string; href: string; subjects: string[]; exam?: string; color: string }) {
+  return (
+    <div style={{ border: "1px solid #ddd", borderTop: `3px solid ${color}`, borderRadius: "0 0 3px 3px", marginBottom: "10px" }}>
+      <div style={{ background: color, color: "#fff", padding: "8px 14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Link href={href} style={{ color: "#fff", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>{grade}</Link>
+        {exam && <span style={{ background: "rgba(255,255,255,0.25)", fontSize: "11px", padding: "2px 8px", borderRadius: "10px", fontWeight: 700 }}>{exam}</span>}
+      </div>
+      <div style={{ padding: "8px 14px 10px 14px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+        {subjects.map(s => (
+          <Link key={s} href={`${href}/${slugify(s)}`}
+            style={{ fontSize: "12px", color: "#04AA6D", textDecoration: "none", background: "#f5f5f5", border: "1px solid #e0e0e0", borderRadius: "2px", padding: "3px 9px", whiteSpace: "nowrap" }}>
+            {s}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <div>
+
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "40px 36px", borderRadius: "4px", marginBottom: "28px" }}>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "34px", fontWeight: 700 }}>CBC Kenya Schools</h1>
+        <p style={{ margin: "0 0 20px 0", fontSize: "15px", opacity: 0.93, maxWidth: "580px", lineHeight: 1.8 }}>
+          Free online learning for every Kenyan child — from Playgroup to Grade 12.
+          Fully aligned to the <strong>KICD Competency Based Curriculum (CBC/CBE)</strong>.
+        </p>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <Link href="/pp1" style={{ background: "#fff", color: "#04AA6D", padding: "10px 26px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>Start Learning &rarr;</Link>
+          <Link href="/about" style={{ background: "transparent", color: "#fff", padding: "10px 26px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none", border: "2px solid rgba(255,255,255,0.55)" }}>About CBC</Link>
+        </div>
+      </div>
+
+      {/* ── QUICK PICK YOUR GRADE ─────────────────────────────── */}
+      <div style={{ background: "#f8f8f8", border: "1px solid #ddd", borderLeft: "5px solid #04AA6D", padding: "18px 22px", marginBottom: "28px", borderRadius: "0 3px 3px 0" }}>
+        <strong style={{ fontSize: "15px" }}>Pick Your Grade &mdash; Start Learning Instantly</strong>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "7px", marginTop: "12px" }}>
+          {[
+            { l:"PP1",      h:"/pp1",      c:"#FF9800" },{ l:"PP2",      h:"/pp2",      c:"#FF9800" },
+            { l:"Grade 1",  h:"/grade-1",  c:"#2196F3" },{ l:"Grade 2",  h:"/grade-2",  c:"#2196F3" },{ l:"Grade 3",  h:"/grade-3",  c:"#2196F3" },
+            { l:"Grade 4",  h:"/grade-4",  c:"#9C27B0" },{ l:"Grade 5",  h:"/grade-5",  c:"#9C27B0" },{ l:"Grade 6",  h:"/grade-6",  c:"#9C27B0" },
+            { l:"Grade 7",  h:"/grade-7",  c:"#F44336" },{ l:"Grade 8",  h:"/grade-8",  c:"#F44336" },{ l:"Grade 9",  h:"/grade-9",  c:"#F44336" },
+            { l:"Grade 10", h:"/grade-10", c:"#607D8B" },{ l:"Grade 11", h:"/grade-11", c:"#607D8B" },{ l:"Grade 12", h:"/grade-12", c:"#607D8B" },
+          ].map(g => <Link key={g.l} href={g.h} style={{ background: g.c, color: "#fff", padding: "7px 14px", borderRadius: "3px", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>{g.l}</Link>)}
+        </div>
+      </div>
+
+      {/* ── WHAT IS CBC ──────────────────────────────────────── */}
+      <div className="note-box" style={{ marginBottom: "28px" }}>
+        <strong>What is CBC?</strong>
+        <p style={{ margin: "8px 0 0 0", lineHeight: 1.7 }}>
+          The <strong>Competency Based Curriculum</strong> is Kenya&apos;s education framework designed by KICD.
+          It replaces the 8-4-4 system and follows a <strong>2-6-3-3</strong> structure —
+          2 years Early Years, 6 years Primary, 3 years Junior Secondary, 3 years Senior Secondary.
+          National exams: <strong>KPSEA</strong> (Grade 6), <strong>KILEA</strong> (Grade 9), <strong>KSCE</strong> (Grade 12).{" "}
+          <Link href="/about" style={{ color: "#04AA6D", fontWeight: 700 }}>Learn more &rarr;</Link>
+        </p>
+      </div>
+
+      {/* ── EARLY YEARS ──────────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #FF9800", paddingBottom: "6px", marginBottom: "6px", color: "#FF9800" }}>
+        <Link href="/pathway/early-years" style={{ color: "#FF9800", textDecoration: "none" }}>Early Years</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Playgroup, PP1, PP2 &mdash; Ages 4&ndash;5 &mdash; Learning through play &mdash; No national exam</p>
+      {EARLY_YEARS.map(g => <GradeBlock key={g.grade} grade={g.grade} href={g.href} subjects={g.subjects} color="#FF9800" />)}
+
+      {/* ── LOWER PRIMARY ────────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #2196F3", paddingBottom: "6px", marginBottom: "6px", marginTop: "24px", color: "#2196F3" }}>
+        <Link href="/pathway/lower-primary" style={{ color: "#2196F3", textDecoration: "none" }}>Lower Primary</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Grade 1, 2, 3 &mdash; Ages 6&ndash;8 &mdash; Literacy & numeracy foundations &mdash; Continuous SBA</p>
+      {LOWER_PRIMARY.map(g => <GradeBlock key={g.grade} grade={g.grade} href={g.href} subjects={g.subjects} color="#2196F3" />)}
+
+      {/* ── UPPER PRIMARY ────────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #9C27B0", paddingBottom: "6px", marginBottom: "6px", marginTop: "24px", color: "#9C27B0" }}>
+        <Link href="/pathway/upper-primary" style={{ color: "#9C27B0", textDecoration: "none" }}>Upper Primary</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Grade 4, 5, 6 &mdash; Ages 9&ndash;11 &mdash; <strong style={{ color: "#856404" }}>KPSEA at end of Grade 6</strong></p>
+      {UPPER_PRIMARY.map(g => <GradeBlock key={g.grade} grade={g.grade} href={g.href} subjects={g.subjects} exam={(g as any).exam} color="#9C27B0" />)}
+
+      {/* ── JUNIOR SECONDARY ─────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #F44336", paddingBottom: "6px", marginBottom: "6px", marginTop: "24px", color: "#F44336" }}>
+        <Link href="/pathway/junior-secondary" style={{ color: "#F44336", textDecoration: "none" }}>Junior Secondary</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Grade 7, 8, 9 &mdash; Ages 12&ndash;14 &mdash; <strong style={{ color: "#856404" }}>KILEA at end of Grade 9</strong></p>
+      {JUNIOR_SEC.map(g => <GradeBlock key={g.grade} grade={g.grade} href={g.href} subjects={g.subjects} exam={(g as any).exam} color="#F44336" />)}
+
+      {/* ── SENIOR SECONDARY ─────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #607D8B", paddingBottom: "6px", marginBottom: "6px", marginTop: "24px", color: "#607D8B" }}>
+        <Link href="/pathway/senior-secondary" style={{ color: "#607D8B", textDecoration: "none" }}>Senior Secondary</Link>
+      </h2>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "12px" }}>Grade 10, 11, 12 &mdash; Ages 15&ndash;17 &mdash; Choose a pathway &mdash; <strong style={{ color: "#856404" }}>KSCE at end of Grade 12</strong></p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "12px", marginBottom: "10px" }}>
+        {SENIOR_SEC.map(p => (
+          <div key={p.pathway} style={{ border: "1px solid #ddd", borderTop: `3px solid ${p.color}`, borderRadius: "0 0 3px 3px" }}>
+            <div style={{ background: p.color, color: "#fff", padding: "8px 14px" }}>
+              <Link href={p.href} style={{ color: "#fff", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>{p.pathway} Pathway</Link>
+            </div>
+            <div style={{ padding: "8px 14px 10px 14px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+              {p.subjects.map(s => (
+                <Link key={s} href={`/grade-10/${slugify(s)}`}
+                  style={{ fontSize: "12px", color: p.color, textDecoration: "none", background: "#f5f5f5", border: `1px solid ${p.color}33`, borderRadius: "2px", padding: "3px 9px", whiteSpace: "nowrap" }}>
+                  {s}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginBottom: "28px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
+        {[{l:"Grade 10",h:"/grade-10"},{l:"Grade 11",h:"/grade-11"},{l:"Grade 12 (KSCE)",h:"/grade-12"}].map(g => (
+          <Link key={g.l} href={g.h} style={{ background: "#607D8B", color: "#fff", padding: "7px 16px", borderRadius: "3px", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>{g.l}</Link>
+        ))}
+      </div>
+
+      {/* ── ASSESSMENT ───────────────────────────────────────── */}
+      <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "6px", marginBottom: "14px", marginTop: "8px" }}>Assessment & Practice</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "12px", marginBottom: "28px" }}>
+        {[
+          { title: "Exercises",    href: "/exercises",    color: "#04AA6D", desc: "Fill-in, true/false and match questions for every topic." },
+          { title: "Quizzes",      href: "/quizzes",      color: "#2196F3", desc: "Multiple choice quizzes with instant results and feedback." },
+          { title: "Certificates", href: "/certificates", color: "#1a237e", desc: "Complete a subject and earn your CBC learning certificate." },
+        ].map(c => (
+          <Link key={c.title} href={c.href} style={{ textDecoration: "none", border: "1px solid #ddd", borderTop: `3px solid ${c.color}`, padding: "14px 16px", borderRadius: "0 0 3px 3px", display: "block" }}>
+            <div style={{ fontWeight: 700, fontSize: "15px", color: c.color, marginBottom: "6px" }}>{c.title}</div>
+            <div style={{ fontSize: "12px", color: "#666", lineHeight: 1.6 }}>{c.desc}</div>
+          </Link>
+        ))}
+      </div>
+
+      {/* ── REFERENCES & HOW-TO ──────────────────────────────── */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "28px" }}>
+        <div>
+          <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "6px", marginBottom: "10px" }}>References</h2>
+          {[
+            { l:"KICD Website",             h:"https://kicd.ac.ke",        ext: true },
+            { l:"CBC Curriculum Designs",   h:"/references" },
+            { l:"SBA Assessment Guides",    h:"/references" },
+            { l:"KPSEA Information",        h:"/references" },
+            { l:"KILEA Information",        h:"/references" },
+            { l:"KSCE Information",         h:"/references" },
+            { l:"CBC Glossary",             h:"/references" },
+            { l:"Parent & Teacher Guide",   h:"/references" },
+          ].map(r => (
+            <div key={r.l} style={{ borderBottom: "1px solid #f0f0f0" }}>
+              {(r as any).ext
+                ? <a href={r.h} target="_blank" rel="noreferrer" style={{ display: "flex", justifyContent: "space-between", padding: "8px 2px", color: "#04AA6D", textDecoration: "none", fontSize: "14px" }}>{r.l} <span>&#8599;</span></a>
+                : <Link href={r.h} style={{ display: "flex", justifyContent: "space-between", padding: "8px 2px", color: "#04AA6D", textDecoration: "none", fontSize: "14px" }}>{r.l} <span style={{ color: "#ccc" }}>&#8250;</span></Link>
+              }
+            </div>
+          ))}
+        </div>
+        <div>
+          <h2 style={{ borderBottom: "3px solid #04AA6D", paddingBottom: "6px", marginBottom: "10px" }}>How To</h2>
+          {[
+            { l:"How to Use This Site",        h:"/how-to" },
+            { l:"How SBA Works",               h:"/how-to" },
+            { l:"How to Prepare for KPSEA",    h:"/how-to" },
+            { l:"How to Prepare for KILEA",    h:"/how-to" },
+            { l:"How to Prepare for KSCE",     h:"/how-to" },
+            { l:"How to Choose a Pathway",     h:"/how-to" },
+            { l:"Parent Support Guide",        h:"/how-to" },
+            { l:"Teacher Implementation",      h:"/how-to" },
+          ].map(h => (
+            <div key={h.l} style={{ borderBottom: "1px solid #f0f0f0" }}>
+              <Link href={h.h} style={{ display: "flex", justifyContent: "space-between", padding: "8px 2px", color: "#04AA6D", textDecoration: "none", fontSize: "14px" }}>{h.l} <span style={{ color: "#ccc" }}>&#8250;</span></Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── CBC STRUCTURE BOX ────────────────────────────────── */}
+      <div className="example-box">
+        <div className="example-box-header">Kenya CBC Structure — 2-6-3-3</div>
+        <div className="example-box-body">
+          <table style={{ margin: 0 }}>
+            <thead><tr><th>Level</th><th>Grades</th><th>Ages</th><th>Exam</th></tr></thead>
+            <tbody>
+              {[
+                ["Early Years",       "PP1, PP2",         "4–5",   "None — SBA only",  "#FF9800"],
+                ["Lower Primary",     "Grade 1, 2, 3",    "6–8",   "None — SBA only",  "#2196F3"],
+                ["Upper Primary",     "Grade 4, 5, 6",    "9–11",  "KPSEA (Grade 6)",  "#9C27B0"],
+                ["Junior Secondary",  "Grade 7, 8, 9",    "12–14", "KILEA (Grade 9)",  "#F44336"],
+                ["Senior Secondary",  "Grade 10, 11, 12", "15–17", "KSCE (Grade 12)",  "#607D8B"],
+              ].map(([level, grades, ages, exam, color]) => (
+                <tr key={level as string}>
+                  <td><span style={{ background: color as string, color: "#fff", fontSize: "11px", padding: "2px 8px", borderRadius: "2px", fontWeight: 700 }}>{level as string}</span></td>
+                  <td style={{ fontSize: "13px" }}>{grades as string}</td>
+                  <td style={{ fontSize: "13px", color: "#666" }}>{ages as string}</td>
+                  <td style={{ fontSize: "12px", color: "#856404", fontWeight: 600 }}>{exam as string}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div style={{ marginTop: "14px" }}>
+            <Link href="/about" style={{ color: "#04AA6D", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>Learn more about Kenya CBC &rarr;</Link>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\about\page.tsx ---
+import Link from "next/link";
+
+export default function AboutPage() {
+  return (
+    <div>
+
+      {/* Breadcrumb */}
+      <div className="breadcrumb">
+        <Link href="/">Home</Link>
+        <span className="breadcrumb-sep">&rsaquo;</span>
+        <span>About CBC</span>
+      </div>
+
+
+      <div className="prev-next" style={{ marginTop: 0, paddingTop: 0, borderTop: "none", marginBottom: "24px" }}>
+        <Link href="/" className="prev">Home</Link>
+        <Link href="/kicd" className="next">KICD Framework</Link>
+      </div>
+
+      {/* TOP Prev/Next — W3Schools style, appears before content */}
+      <div className="prev-next" style={{ marginTop: 0, paddingTop: 0, borderTop: "none", marginBottom: "28px" }}>
+        <Link href="/" className="prev">Home</Link>
+        <Link href="/kicd" className="next">KICD Framework</Link>
+      </div>
+
+      {/* Title */}
+      <h1>About CBC / CBE</h1>
+      <p>
+        Kenya&apos;s <strong>Competency Based Curriculum (CBC)</strong>, also called
+        Competency Based Education (CBE), is the national education framework
+        developed by the Kenya Institute of Curriculum Development (<strong>KICD</strong>)
+        and approved by the Ministry of Education. It was introduced in 2017 and
+        fully replaces the 8-4-4 system that served Kenya since 1985.
+      </p>
+      <p>
+        CBC shifts the focus from memorisation and end-of-year exams to
+        developing <strong>skills, values and competencies</strong> that prepare
+        every Kenyan child for life, work and active citizenship.
+      </p>
+
+      {/* Example box — W3Schools style */}
+      <div className="example-box">
+        <div className="example-box-header">CBC at a Glance</div>
+        <div className="example-box-body">
+          <table style={{ margin: 0 }}>
+            <tbody>
+              {[
+                ["Introduced", "2017 — rolled out from Early Years upward"],
+                ["Structure", "2-6-3-3 replacing 8-4-4"],
+                ["Levels", "Early Years, Primary, Junior Secondary, Senior Secondary"],
+                ["National Exams", "KPSEA (Gr 6), KILEA (Gr 9), KSCE (Gr 12)"],
+                ["Assessment", "Continuous SBA + national exams"],
+                ["Core Competencies", "7 competencies every learner must develop"],
+                ["Core Values", "8 national values embedded in all subjects"],
+                ["Pathways (Sr Secondary)", "STEM, Arts & Sports Science, Social Sciences"],
+              ].map(([k, v]) => (
+                <tr key={k}>
+                  <td style={{ fontWeight: 700, whiteSpace: "nowrap", paddingRight: "16px" }}>{k}</td>
+                  <td style={{ color: "#444" }}>{v}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* The 7 Core Competencies */}
+      <h2>The 7 Core Competencies</h2>
+      <p>
+        CBC is built around seven competencies that every Kenyan learner is expected
+        to develop from Early Years through Senior Secondary:
+      </p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", gap: "12px", margin: "16px 0 24px 0" }}>
+        {[
+          { n: "1", t: "Communication & Collaboration",    d: "Express ideas clearly and work effectively with others." },
+          { n: "2", t: "Critical Thinking & Problem Solving", d: "Analyse situations and develop creative solutions." },
+          { n: "3", t: "Imagination & Creativity",         d: "Generate new ideas and apply them in innovative ways." },
+          { n: "4", t: "Citizenship",                      d: "Participate responsibly in society, locally and globally." },
+          { n: "5", t: "Digital Literacy",                 d: "Use technology safely and effectively for learning." },
+          { n: "6", t: "Learning to Learn",                d: "Take ownership of your own learning and growth." },
+          { n: "7", t: "Self-Efficacy",                    d: "Believe in yourself and take initiative to achieve goals." },
+        ].map(c => (
+          <div key={c.n} style={{ border: "1px solid #ddd", borderTop: "3px solid #04AA6D", padding: "14px 12px", borderRadius: "0 0 3px 3px" }}>
+            <div style={{ background: "#04AA6D", color: "#fff", width: "26px", height: "26px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, marginBottom: "8px" }}>{c.n}</div>
+            <div style={{ fontWeight: 700, fontSize: "13px", marginBottom: "6px", color: "#222" }}>{c.t}</div>
+            <div style={{ fontSize: "12px", color: "#666", lineHeight: 1.6 }}>{c.d}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* CBC vs 8-4-4 */}
+      <h2>CBC vs the Old 8-4-4 System</h2>
+      <p>Here is how the new CBC compares to the old 8-4-4 system Kenya used from 1985 to 2017:</p>
+      <table>
+        <thead>
+          <tr><th>Aspect</th><th style={{ color: "#ffcccc" }}>Old 8-4-4</th><th style={{ color: "#ccffdd" }}>New CBC / CBE</th></tr>
+        </thead>
+        <tbody>
+          {[
+            ["Structure",        "8 Primary, 4 Secondary, 4 University",       "2-6-3-3: Early Years, Primary, Junior Sec, Senior Sec"],
+            ["Focus",            "Content knowledge and memorisation",          "Competencies, skills and values"],
+            ["Assessment",       "End-of-year exams (KCPE, KCSE)",             "Continuous SBA + national exams at Gr 6, 9, 12"],
+            ["National Exams",   "KCPE (Std 8), KCSE (Form 4)",                "KPSEA (Gr 6), KILEA (Gr 9), KSCE (Gr 12)"],
+            ["Transition",       "Based on exam marks only",                    "Holistic — SBA + aptitude + talents"],
+            ["Senior Secondary", "Same subjects for all students",              "3 pathways: STEM, Arts & Sports, Social Sciences"],
+            ["Teaching Style",   "Teacher-centred, lecture-based",             "Learner-centred, activity-based"],
+            ["Values",           "Not explicitly taught or assessed",           "8 core values embedded in every subject"],
+          ].map(([a, o, c]) => (
+            <tr key={a}>
+              <td style={{ fontWeight: 700 }}>{a}</td>
+              <td style={{ color: "#c0392b", fontSize: "13px" }}>{o}</td>
+              <td style={{ color: "#1a7a4a", fontSize: "13px" }}>{c}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* 2-6-3-3 Structure */}
+      <h2>The 2-6-3-3 Structure</h2>
+      <p>
+        Kenya CBC follows a <strong>2-6-3-3</strong> model. Here is what each
+        level covers, the age range, and the national assessment at the end:
+      </p>
+      {[
+        { label: "PP1, PP2",         color: "#FF9800", level: "Early Years (2 years)",        age: "Ages 4–5",   exam: "No national exam — continuous observation & portfolio",   desc: "Learning through play. Covers Language Activities, Mathematical Activities, Environmental Activities, Psychomotor & Creative Activities and Religious Education. Mother tongue used as the language of instruction." },
+        { label: "Grade 1, 2, 3",    color: "#2196F3", level: "Lower Primary (3 years)",      age: "Ages 6–8",   exam: "No national exam — continuous SBA",                       desc: "Building literacy and numeracy. Subjects: English, Kiswahili, Mathematics, Environmental Activities, Creative Arts, Hygiene & Nutrition and Religious Education. Activity-based approach." },
+        { label: "Grade 4, 5, 6",    color: "#9C27B0", level: "Upper Primary (3 years)",      age: "Ages 9–11",  exam: "KPSEA — Kenya Primary School Education Assessment (End of Grade 6)", desc: "Introduces Agriculture, Integrated Science and Social Studies. Continuous SBA throughout; national KPSEA at end of Grade 6 to transition to Junior Secondary." },
+        { label: "Grade 7, 8, 9",    color: "#F44336", level: "Junior Secondary (3 years)",   age: "Ages 12–14", exam: "KILEA — Kenya Junior Secondary Education Assessment (End of Grade 9)", desc: "Broad exposure before pathway selection. Adds Pre-Technical Studies, Health Education and Creative Arts & Sports. Results inform Senior Secondary pathway choice." },
+        { label: "Grade 10, 11, 12", color: "#607D8B", level: "Senior Secondary (3 years)",   age: "Ages 15–17", exam: "KSCE — Kenya Secondary Certificate of Education (End of Grade 12)", desc: "Learner chooses a pathway: STEM (Sciences), Arts & Sports Science, or Social Sciences. Each pathway has core and optional subjects tailored to career and university goals." },
+      ].map(l => (
+        <div key={l.label} style={{ borderLeft: `5px solid ${l.color}`, background: "#fafafa", padding: "16px 20px", marginBottom: "14px", borderRadius: "0 3px 3px 0" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "8px", marginBottom: "8px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <span style={{ background: l.color, color: "#fff", fontWeight: 700, fontSize: "12px", padding: "3px 10px", borderRadius: "2px" }}>{l.label}</span>
+              <strong style={{ fontSize: "15px" }}>{l.level}</strong>
+            </div>
+            <span style={{ fontSize: "12px", color: "#777", alignSelf: "center" }}>{l.age}</span>
+          </div>
+          <p style={{ margin: "0 0 10px 0", fontSize: "14px", color: "#444", lineHeight: 1.7 }}>{l.desc}</p>
+          <div style={{ background: "#fff8e1", border: "1px solid #FFB300", borderRadius: "3px", padding: "5px 12px", fontSize: "12px", color: "#856404", display: "inline-block" }}>
+            &#9733; {l.exam}
+          </div>
+        </div>
+      ))}
+
+      {/* Core Values */}
+      <h2>The 8 CBC Core Values</h2>
+      <p>Every CBC subject is designed to develop these eight national core values in each learner:</p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "10px", margin: "16px 0 24px 0" }}>
+        {[["Love","#e74c3c"],["Responsibility","#e67e22"],["Respect","#f39c12"],["Unity","#04AA6D"],["Peace","#2196F3"],["Patriotism","#9C27B0"],["Social Justice","#607D8B"],["Integrity","#795548"]].map(([v, c]) => (
+          <div key={v} style={{ background: c as string, color: "#fff", padding: "14px", borderRadius: "3px", fontWeight: 700, fontSize: "13px", textAlign: "center" }}>{v as string}</div>
+        ))}
+      </div>
+
+      {/* SBA */}
+      <h2>School Based Assessment (SBA)</h2>
+      <p>
+        A defining feature of CBC is <strong>School Based Assessment (SBA)</strong>.
+        Rather than judging a child on a single annual exam, SBA assesses learning
+        continuously throughout the year using a range of tools.
+      </p>
+      <div className="example-box">
+        <div className="example-box-header">How SBA Works</div>
+        <div className="example-box-body">
+          <table style={{ margin: 0 }}>
+            <thead><tr><th>Component</th><th>Details</th></tr></thead>
+            <tbody>
+              {[
+                ["Formative Assessment", "Ongoing — classwork, projects, oral tasks, portfolios, observations"],
+                ["Summative Assessment", "End of term / unit tests designed by the class teacher"],
+                ["National Exams",       "KPSEA (Grade 6), KILEA (Grade 9), KSCE (Grade 12)"],
+                ["SBA Weighting",        "SBA results count alongside national exam scores for progression"],
+                ["Reporting",            "Learner reports show competency levels — not just raw marks"],
+                ["SBA Tools",            "Observation schedules, rubrics, portfolios, checklists, projects"],
+              ].map(([k, v]) => (
+                <tr key={k}><td style={{ fontWeight: 700 }}>{k}</td><td>{v}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Exercises strip — W3Schools style */}
+      <div style={{ background: "#f9f9f9", border: "1px solid #ddd", padding: "18px 22px", margin: "28px 0 20px 0", borderRadius: "3px" }}>
+        <h2 style={{ margin: "0 0 10px 0", fontSize: "18px" }}>Test Yourself</h2>
+        <p style={{ margin: "0 0 14px 0", fontSize: "14px", color: "#555" }}>
+          Check your understanding of the CBC framework with our exercises and quiz.
+        </p>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <Link href="/exercises" style={{ background: "#04AA6D", color: "#fff", padding: "9px 22px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>CBC Exercises &rarr;</Link>
+          <Link href="/quizzes" style={{ background: "#2196F3", color: "#fff", padding: "9px 22px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>Take a Quiz &rarr;</Link>
+        </div>
+      </div>
+
+      {/* KICD note */}
+      <div className="note-box">
+        <strong>About KICD:</strong> The Kenya Institute of Curriculum Development (KICD) is the government body
+        mandated to develop and review Kenya&apos;s national curriculum. All content on CBC Kenya Schools is
+        aligned to official KICD curriculum designs. Visit{" "}
+        <a href="https://kicd.ac.ke" target="_blank" rel="noreferrer" style={{ color: "#04AA6D" }}>kicd.ac.ke</a>{" "}
+        for official documents and syllabus downloads.
+      </div>
+
+      {/* BOTTOM Prev/Next — identical to top */}
+
+    </div>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\certificates\page.tsx ---
+import Link from "next/link";
+
+export default function CertificatesPage() {
+  const certs = [
+    { title: "Early Years Certificate", desc: "Complete all 5 learning areas for PP1 and PP2.", color: "#FF9800", subjects: 5, badge: "EYE" },
+    { title: "Lower Primary Certificate", desc: "Complete all 7 subjects across Grade 1, 2 and 3.", color: "#2196F3", subjects: 7, badge: "LP" },
+    { title: "Upper Primary Certificate", desc: "Complete all 8 subjects across Grade 4, 5 and 6.", color: "#9C27B0", subjects: 8, badge: "UP" },
+    { title: "Junior Secondary Certificate", desc: "Complete all 9 subjects across Grade 7, 8 and 9.", color: "#F44336", subjects: 9, badge: "JSS" },
+    { title: "Senior Secondary Certificate", desc: "Complete your chosen pathway subjects in Grade 10–12.", color: "#607D8B", subjects: 6, badge: "SSS" },
+    { title: "CBC Champion Certificate", desc: "Complete quizzes and exercises across all pathways.", color: "#04AA6D", subjects: 0, badge: "CBC" },
+  ];
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Certificates</span>
+      </div>
+      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>CBC Learning Certificates</h1>
+        <p style={{ margin: 0, opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>
+          Earn a certificate for every pathway you complete. Show your progress, motivate your learning and celebrate your achievements — free for every Kenyan learner.
+        </p>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <p style={{ margin: 0, fontSize: "14px", color: "#1a5c35" }}>Certificates are awarded after completing all topics, exercises and quizzes for a pathway. Sign in to track your progress and download your certificates.</p>
+      </div>
+      <h2>Available Certificates</h2>
+      <div className="subject-grid" style={{ marginBottom: "32px" }}>
+        {certs.map(c => (
+          <div key={c.title} className="subject-card">
+            <div className="subject-card-header" style={{ background: c.color, textAlign: "center" }}>
+              <div style={{ fontSize: "28px", fontWeight: 900, letterSpacing: "2px", marginBottom: "4px" }}>{c.badge}</div>
+              <div style={{ fontSize: "13px", fontWeight: 700 }}>{c.title}</div>
+            </div>
+            <div className="subject-card-body">
+              <p style={{ margin: "0 0 10px 0", fontSize: "12px", color: "#555" }}>{c.desc}</p>
+              {c.subjects > 0 && <div style={{ fontSize: "11px", color: "#888", marginBottom: "10px" }}>{c.subjects} subjects required</div>}
+              <span style={{ background: "#eee", color: "#888", fontSize: "11px", padding: "4px 12px", borderRadius: "2px", fontWeight: 700 }}>Sign In to Earn &rarr;</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="example-box">
+        <div className="example-box-header">How to Earn a Certificate</div>
+        <div className="example-box-body">
+          <ol style={{ margin: 0, paddingLeft: "20px", lineHeight: 2.2, fontSize: "14px" }}>
+            <li>Sign in or create a free account</li>
+            <li>Choose your grade and subject</li>
+            <li>Complete all topics in the subject</li>
+            <li>Pass the end-of-subject quiz (score 80% or above)</li>
+            <li>Complete the exercises for that subject</li>
+            <li>Download and share your certificate!</li>
+          </ol>
+        </div>
+      </div>
+      <div className="prev-next">
+        <Link href="/quizzes" className="prev">Quizzes</Link>
+        <Link href="/references" className="next">References</Link>
+      </div>
+    </div>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\components\ClientLayout.tsx ---
+"use client";
+import Link from "next/link";
+import TabBar from "./TabBar";
+import GradeNav from "./GradeNav";
+import Sidebar from "./Sidebar";
+import RightSidebar from "./RightSidebar";
+import { usePathname } from "next/navigation";
+
+export default function ClientLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  // Derive grade and subject purely from URL — nothing else
+  const segments = pathname.split("/").filter(Boolean);
+  const grade   = segments[0] ?? null;   // e.g. "grade-4" | "pp1" | null
+  const subject = segments[1] ?? null;   // e.g. "mathematics" | null
+
+  return (
+    <>
+      {/* ── TOPBAR ── */}
+      <div className="topbar">
+        <Link href="/" className="topbar-logo">
+          <span className="topbar-logo-box">CBC</span>
+          <span className="topbar-logo-text">Kenya Schools</span>
+        </Link>
+        <div className="topbar-right">
+          <div className="topbar-search">
+            <input placeholder="Search subjects, topics..." />
+            <button className="topbar-search-btn">&#128269;</button>
+          </div>
+          <button className="topbar-btn">Sign In</button>
+        </div>
+      </div>
+
+      {/* ── TAB BAR ── */}
+      <TabBar />
+
+      {/* ── GRADE NAV (black bar) ── */}
+      <GradeNav />
+
+      {/* ── 3-COLUMN LAYOUT ── */}
+      <div className="layout">
+        <Sidebar grade={grade} subject={subject} />
+        <main className="content">{children}</main>
+        <RightSidebar grade={grade} subject={subject} />
+      </div>
+
+      {/* ── FOOTER ── */}
+      <div className="footer">
+        <p>CBC Kenya Schools &mdash; Free learning for every Kenyan child</p>
+        <p style={{ marginTop: "6px", fontSize: "12px", color: "#aaa" }}>
+          Aligned to the <a href="https://kicd.ac.ke" target="_blank" rel="noreferrer">KICD</a> CBC &bull; Grades PP1 &ndash; 12
+        </p>
+      </div>
+    </>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\components\ExampleBox.tsx ---
+"use client";
+import { useState } from "react";
+
+interface ExampleBoxProps {
+  title?: string;
+  code?: string;
+  tryCode?: string;
+  children?: React.ReactNode;
+}
+
+export default function ExampleBox({ title, code, tryCode, children }: ExampleBoxProps) {
+  const [showEditor, setShowEditor] = useState(false);
+  const [editorCode, setEditorCode] = useState(tryCode || code || "");
+  const [srcDoc, setSrcDoc] = useState("");
+
+  function runCode() {
+    setSrcDoc(editorCode);
+  }
+
+  return (
+    <>
+      <div className="example-box">
+        <div className="example-box-header">{title || "Example"}</div>
+        <div className="example-box-body">
+          {children}
+          {code && <div className="code-block">{code}</div>}
+          {tryCode && (
+            <button className="try-btn" onClick={() => { setShowEditor(true); setSrcDoc(""); }}>
+              Try it Yourself »
+            </button>
+          )}
+        </div>
+      </div>
+
+      {showEditor && (
+        <div className="modal-overlay" onClick={() => setShowEditor(false)}>
+          <div className="modal-box" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <div className="modal-header-left">
+                <span>Try it Yourself</span>
+                <button className="modal-run-btn" onClick={runCode}>▶ Run</button>
+              </div>
+              <button className="modal-close" onClick={() => setShowEditor(false)}>✕</button>
+            </div>
+            <div className="editor-layout">
+              <div className="editor-pane">
+                <div className="pane-title">HTML</div>
+                <textarea
+                  className="code-editor-area"
+                  value={editorCode}
+                  onChange={e => setEditorCode(e.target.value)}
+                  spellCheck={false}
+                />
+              </div>
+              <div className="editor-pane">
+                <div className="pane-title">Result</div>
+                <iframe className="result-frame" srcDoc={srcDoc} title="result" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\components\GradeNav.tsx ---
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useRef, useState, useEffect } from "react";
+
+const GRADES = [
+  { label: "PP1",      href: "/pp1",      color: "#FF9800", pathway: "Early Years",      subjects: ["Language Activities","Mathematical Activities","Environmental Activities","Psychomotor and Creative Activities","Religious Education"] },
+  { label: "PP2",      href: "/pp2",      color: "#FF9800", pathway: "Early Years",      subjects: ["Language Activities","Mathematical Activities","Environmental Activities","Psychomotor and Creative Activities","Religious Education"] },
+  { label: "Grade 1",  href: "/grade-1",  color: "#2196F3", pathway: "Lower Primary",    subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  { label: "Grade 2",  href: "/grade-2",  color: "#2196F3", pathway: "Lower Primary",    subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  { label: "Grade 3",  href: "/grade-3",  color: "#2196F3", pathway: "Lower Primary",    subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  { label: "Grade 4",  href: "/grade-4",  color: "#9C27B0", pathway: "Upper Primary",    subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  { label: "Grade 5",  href: "/grade-5",  color: "#9C27B0", pathway: "Upper Primary",    subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  { label: "Grade 6",  href: "/grade-6",  color: "#9C27B0", pathway: "Upper Primary",    subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  { label: "Grade 7",  href: "/grade-7",  color: "#F44336", pathway: "Junior Secondary", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  { label: "Grade 8",  href: "/grade-8",  color: "#F44336", pathway: "Junior Secondary", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  { label: "Grade 9",  href: "/grade-9",  color: "#F44336", pathway: "Junior Secondary", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  { label: "Grade 10", href: "/grade-10", color: "#607D8B", pathway: "Senior Secondary", subjects: ["Mathematics","Physics","Chemistry","Biology","Computer Science","Agriculture","English","Kiswahili","Fine Art","Music"] },
+  { label: "Grade 11", href: "/grade-11", color: "#607D8B", pathway: "Senior Secondary", subjects: ["Mathematics","Physics","Chemistry","Biology","Computer Science","Agriculture","English","Kiswahili","Fine Art","Music"] },
+  { label: "Grade 12", href: "/grade-12", color: "#607D8B", pathway: "Senior Secondary", subjects: ["Mathematics","Physics","Chemistry","Biology","Computer Science","Agriculture","English","Kiswahili","Fine Art","Music"] },
+];
+
+function slugify(t: string) {
+  return t.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and");
+}
+
+export default function GradeNav() {
+  const pathname = usePathname();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpenIndex(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  // Close dropdown on navigation
+  useEffect(() => { setOpenIndex(null); }, [pathname]);
+
+  const activeGradeIndex = GRADES.findIndex(g => pathname === g.href || pathname.startsWith(g.href + "/"));
+  const openGrade = openIndex !== null ? GRADES[openIndex] : null;
+
+  return (
+    <>
+      <div style={{ background: "#000", position: "sticky", top: "84px", zIndex: 1000, display: "flex", alignItems: "center", height: "40px", borderBottom: "1px solid #333" }}>
+        <button onClick={() => scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" })}
+          style={{ background: "#222", color: "#fff", border: "none", padding: "0 10px", height: "40px", cursor: "pointer", fontSize: "16px", flexShrink: 0 }}>
+          &#8249;
+        </button>
+
+        <Link href="/" onClick={() => setOpenIndex(null)}
+          style={{ color: pathname === "/" ? "#04AA6D" : "#ccc", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "40px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent", background: "#000" }}>
+          HOME
+        </Link>
+
+        <div ref={scrollRef} style={{ display: "flex", alignItems: "center", overflowX: "auto", scrollbarWidth: "none", flex: 1, height: "40px" }}>
+          {GRADES.map((g, i) => {
+            const isUrlActive = activeGradeIndex === i;
+            const isOpen = openIndex === i;
+            return (
+              <button key={g.href}
+                onClick={() => setOpenIndex(isOpen ? null : i)}
+                style={{ flexShrink: 0, height: "40px", padding: "0 14px", fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap", cursor: "pointer", border: "none", fontFamily: "Verdana, sans-serif", color: "#fff", background: isUrlActive ? "#04AA6D" : isOpen ? "#333" : "#000", borderBottom: isUrlActive ? "3px solid #038a58" : isOpen ? "3px solid #04AA6D" : "3px solid transparent", transition: "background 0.12s" }}>
+                {g.label} <span style={{ fontSize: "9px", opacity: 0.7 }}>&#9660;</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <button onClick={() => scrollRef.current?.scrollBy({ left: 200, behavior: "smooth" })}
+          style={{ background: "#04AA6D", color: "#fff", border: "none", padding: "0 12px", height: "40px", cursor: "pointer", fontSize: "16px", flexShrink: 0 }}>
+          &#8250;
+        </button>
+      </div>
+
+      {/* Dropdown panel — shows subjects, clicking a subject navigates */}
+      {openGrade && (
+        <div ref={dropdownRef} style={{ position: "fixed", left: 0, top: "124px", width: "240px", background: "#f1f1f1", borderTop: "3px solid " + openGrade.color, borderRight: "1px solid #ddd", zIndex: 999, maxHeight: "calc(100vh - 124px)", overflowY: "auto", boxShadow: "2px 0 8px rgba(0,0,0,0.10)" }}>
+          {/* Grade header — clicking this navigates to grade overview */}
+          <Link href={openGrade.href} onClick={() => setOpenIndex(null)}
+            style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: openGrade.color, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "15px" }}>
+            <span>{openGrade.label} Overview</span>
+            <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 8px", borderRadius: "10px" }}>{openGrade.pathway}</span>
+          </Link>
+          <div style={{ padding: "6px 16px 4px", fontSize: "10px", color: "#999", textTransform: "uppercase", letterSpacing: "0.8px", borderBottom: "1px solid #ddd" }}>
+            Select a subject
+          </div>
+          {openGrade.subjects.map(sub => (
+            <Link key={sub} href={`${openGrade.href}/${slugify(sub)}`}
+              onClick={() => setOpenIndex(null)}
+              style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "9px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #eee", background: "#f1f1f1" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = openGrade.color; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f1f1f1"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
+              {sub} <span style={{ color: "#aaa", fontSize: "12px" }}>&#8250;</span>
+            </Link>
+          ))}
+          <button onClick={() => setOpenIndex(null)}
+            style={{ width: "100%", padding: "10px", background: "#eee", border: "none", borderTop: "1px solid #ddd", fontSize: "12px", color: "#888", cursor: "pointer", fontFamily: "Verdana, sans-serif" }}>
+            Close menu
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\components\Header.tsx ---
+export default function Header() {
+  return (
+    <header style={{
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "10px 20px",
+      borderBottom: "1px solid #ddd",
+      background: "#fff"
+    }}>
+      <div style={{ fontWeight: "bold" }}>W3Schools</div>
+      <nav style={{ display: "flex", gap: "15px" }}>
+        <span>Tutorials</span>
+        <span>References</span>
+        <span>Exercises</span>
+      </nav>
+    </header>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\components\Navigation.tsx ---
+import Link from "next/link";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
+  return (
+    <div className="breadcrumb">
+      {items.map((item, i) => (
+        <span key={i} style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          {i > 0 && <span className="breadcrumb-sep">›</span>}
+          {item.href ? (
+            <Link href={item.href}>{item.label}</Link>
+          ) : (
+            <span>{item.label}</span>
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+export function PrevNext({ prev, next }: { prev?: NavLink; next?: NavLink }) {
+  return (
+    <div className="prev-next">
+      {prev ? (
+        <Link href={prev.href} className="prev">{prev.label}</Link>
+      ) : (
+        <span />
+      )}
+      {next ? (
+        <Link href={next.href} className="next">{next.label}</Link>
+      ) : (
+        <span />
+      )}
+    </div>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\components\RightSidebar.tsx ---
+"use client";
+
+export default function RightSidebar({ grade, subject }: { grade?: string; subject?: string }) {
+  return (
+    <aside className="right-sidebar">
+      <div className="rs-card">
+        <div className="rs-logo-box">CBC</div>
+        <div className="rs-card-title">Get Certified!</div>
+        <div className="rs-card-icon">&#127891;</div>
+        <div className="rs-card-sub">Complete a subject and earn your CBC learning certificate.</div>
+        <button className="rs-btn">Learn More</button>
+      </div>
+
+      {subject && (
+        <div style={{ marginBottom: "16px" }}>
+          <div className="rs-section-title">Exercises</div>
+          <ul className="rs-link-list">
+            <li><a href="#">Practice Questions</a></li>
+            <li><a href="#">Fill in the Blanks</a></li>
+            <li><a href="#">True or False</a></li>
+            <li><a href="#">Match the Column</a></li>
+          </ul>
+        </div>
+      )}
+
+      <div style={{ marginBottom: "16px" }}>
+        <div className="rs-section-title">Quick Reference</div>
+        <ul className="rs-link-list">
+          <li><a href="https://kicd.ac.ke" target="_blank" rel="noreferrer">KICD Website</a></li>
+          <li><a href="#">CBC Curriculum Designs</a></li>
+          <li><a href="#">School Based Assessment</a></li>
+          <li><a href="#">Assessment Guides</a></li>
+        </ul>
+      </div>
+
+      <div className="rs-card">
+        <div className="rs-card-title">&#128218; Kenya CBC</div>
+        <div style={{ fontSize: "12px", textAlign: "left", marginTop: "8px", lineHeight: "1.8", color: "#555" }}>
+          <div>&#128992; PP1&ndash;PP2: Early Years</div>
+          <div>&#128994; Gr 1&ndash;3: Lower Primary</div>
+          <div>&#128995; Gr 4&ndash;6: Upper Primary</div>
+          <div>&#128308; Gr 7&ndash;9: Junior Secondary</div>
+          <div>&#9899; Gr 10&ndash;12: Senior Secondary</div>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: "16px" }}>
+        <div className="rs-section-title">National Exams</div>
+        <ul className="rs-link-list">
+          <li><a href="#">KPSEA &mdash; Grade 6</a></li>
+          <li><a href="#">KILEA &mdash; Grade 9</a></li>
+          <li><a href="#">KSCE &mdash; Grade 12</a></li>
+        </ul>
+      </div>
+    </aside>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\components\Sidebar.tsx ---
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { supabase } from "../../lib/supabase";
+
+const GRADE_SUBJECTS: Record<string, { color: string; label: string; pathway: string; subjects: string[] }> = {
+  "pp1":      { color: "#FF9800", label: "PP1",      pathway: "Early Years",      subjects: ["Language Activities","Mathematical Activities","Environmental Activities","Psychomotor and Creative Activities","Religious Education"] },
+  "pp2":      { color: "#FF9800", label: "PP2",      pathway: "Early Years",      subjects: ["Language Activities","Mathematical Activities","Environmental Activities","Psychomotor and Creative Activities","Religious Education"] },
+  "grade-1":  { color: "#2196F3", label: "Grade 1",  pathway: "Lower Primary",    subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  "grade-2":  { color: "#2196F3", label: "Grade 2",  pathway: "Lower Primary",    subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  "grade-3":  { color: "#2196F3", label: "Grade 3",  pathway: "Lower Primary",    subjects: ["English","Kiswahili","Mathematics","Environmental Activities","Creative Arts","Hygiene and Nutrition","Religious Education"] },
+  "grade-4":  { color: "#9C27B0", label: "Grade 4",  pathway: "Upper Primary",    subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  "grade-5":  { color: "#9C27B0", label: "Grade 5",  pathway: "Upper Primary",    subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  "grade-6":  { color: "#9C27B0", label: "Grade 6",  pathway: "Upper Primary",    subjects: ["English","Kiswahili","Mathematics","Integrated Science","Social Studies","Creative Arts and Sports","Religious Education","Agriculture"] },
+  "grade-7":  { color: "#F44336", label: "Grade 7",  pathway: "Junior Secondary", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  "grade-8":  { color: "#F44336", label: "Grade 8",  pathway: "Junior Secondary", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  "grade-9":  { color: "#F44336", label: "Grade 9",  pathway: "Junior Secondary", subjects: ["English","Kiswahili","Mathematics","Integrated Science","Health Education","Pre-Technical Studies","Agriculture","Social Studies","Creative Arts and Sports"] },
+  "grade-10": { color: "#607D8B", label: "Grade 10", pathway: "Senior Secondary", subjects: ["Mathematics","Physics","Chemistry","Biology","Computer Science","Agriculture","English","Kiswahili","Fine Art","Music"] },
+  "grade-11": { color: "#607D8B", label: "Grade 11", pathway: "Senior Secondary", subjects: ["Mathematics","Physics","Chemistry","Biology","Computer Science","Agriculture","English","Kiswahili","Fine Art","Music"] },
+  "grade-12": { color: "#607D8B", label: "Grade 12", pathway: "Senior Secondary", subjects: ["Mathematics","Physics","Chemistry","Biology","Computer Science","Agriculture","English","Kiswahili","Fine Art","Music"] },
+};
+
+function slugify(t: string) {
+  return t.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and");
+}
+
+function isActive(href: string, pathname: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href;
+}
+
+// FULL home menu — includes grade overview pages (pp1, pp2, grade-1..12)
+// These are the "home flow" pages — navigating naturally through all of them
+const HOME_MENU = [
+  { label: "CBC Kenya Schools Home", href: "/" },
+  { label: "About CBC / CBE",        href: "/about" },
+  { label: "KICD Framework",         href: "/kicd" },
+
+  { section: "Early Years", color: "#FF9800" },
+  { label: "Early Years Overview",   href: "/pathway/early-years", color: "#FF9800" },
+  { label: "PP1",                    href: "/pp1",                 color: "#FF9800" },
+  { label: "PP2",                    href: "/pp2",                 color: "#FF9800" },
+
+  { section: "Lower Primary", color: "#2196F3" },
+  { label: "Lower Primary Overview", href: "/pathway/lower-primary", color: "#2196F3" },
+  { label: "Grade 1",                href: "/grade-1",               color: "#2196F3" },
+  { label: "Grade 2",                href: "/grade-2",               color: "#2196F3" },
+  { label: "Grade 3",                href: "/grade-3",               color: "#2196F3" },
+
+  { section: "Upper Primary", color: "#9C27B0" },
+  { label: "Upper Primary Overview", href: "/pathway/upper-primary", color: "#9C27B0" },
+  { label: "Grade 4",                href: "/grade-4",               color: "#9C27B0" },
+  { label: "Grade 5",                href: "/grade-5",               color: "#9C27B0" },
+  { label: "Grade 6 (KPSEA)",        href: "/grade-6",               color: "#9C27B0" },
+
+  { section: "Junior Secondary", color: "#F44336" },
+  { label: "Junior Secondary Overview", href: "/pathway/junior-secondary", color: "#F44336" },
+  { label: "Grade 7",                href: "/grade-7",               color: "#F44336" },
+  { label: "Grade 8",                href: "/grade-8",               color: "#F44336" },
+  { label: "Grade 9 (KILEA)",        href: "/grade-9",               color: "#F44336" },
+
+  { section: "Senior Secondary", color: "#607D8B" },
+  { label: "Senior Secondary Overview", href: "/pathway/senior-secondary", color: "#607D8B" },
+  { label: "Grade 10",               href: "/grade-10",              color: "#607D8B" },
+  { label: "Grade 11",               href: "/grade-11",              color: "#607D8B" },
+  { label: "Grade 12 (KSCE)",        href: "/grade-12",              color: "#607D8B" },
+
+  { section: "Assessment" },
+  { label: "Exercises",              href: "/exercises" },
+  { label: "Quizzes",                href: "/quizzes" },
+  { label: "Certificates",           href: "/certificates" },
+];
+
+const HOME_MENU_LINKS = HOME_MENU.filter((i: any) => i.href) as { label: string; href: string; color?: string }[];
+
+// A path is a "home flow" path if it has NO subject segment
+// /pp1 → home flow (grade overview)
+// /pp1/language-activities → grade flow (has subject)
+// /pathway/... → home flow
+// / /about /kicd /exercises etc → home flow
+function isHomeFlowPath(pathname: string): boolean {
+  const parts = pathname.split("/").filter(Boolean);
+  // No segments = home
+  if (parts.length === 0) return true;
+  // One segment only = grade overview page or static page
+  if (parts.length === 1) return true;
+  // /pathway/... = home flow
+  if (parts[0] === "pathway") return true;
+  // Static pages
+  const staticPages = ["about","kicd","exercises","quizzes","certificates","references","how-to","signin"];
+  if (staticPages.includes(parts[0])) return true;
+  // Two or more segments with a grade = subject/topic = grade flow
+  return false;
+}
+
+export default function Sidebar({ grade, subject }: { grade: string | null; subject: string | null }) {
+  const pathname = usePathname();
+  const [topics, setTopics] = useState<{ id: string; name: string; order_index: number }[]>([]);
+
+  useEffect(() => {
+    // Only load topics when we are in grade flow with a subject
+    if (!grade || !subject || isHomeFlowPath(pathname)) { setTopics([]); return; }
+    async function load() {
+      const subjectName = subject!.replaceAll("-", " ");
+      const { data: subjectRow } = await supabase.from("subjects").select("id").ilike("name", subjectName).single();
+      if (!subjectRow) return;
+      const { data } = await supabase.from("topics").select("id, name, order_index").eq("subject_id", subjectRow.id).order("order_index", { ascending: true });
+      setTopics(data ?? []);
+    }
+    load();
+  }, [grade, subject, pathname]);
+
+  // ── HOME FLOW SIDEBAR ────────────────────────────────────────
+  // Shows for: /, /about, /kicd, /pathway/*, /pp1, /pp2, /grade-1..12 (overview only), /exercises etc
+  if (isHomeFlowPath(pathname)) {
+    const currentIndex = HOME_MENU_LINKS.findIndex(i => i.href === pathname);
+    const prevItem = currentIndex > 0 ? HOME_MENU_LINKS[currentIndex - 1] : null;
+    const nextItem = currentIndex >= 0 && currentIndex < HOME_MENU_LINKS.length - 1
+      ? HOME_MENU_LINKS[currentIndex + 1]
+      : null;
+
+    return (
+      <aside className="sidebar" style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1, overflowY: "auto" }}>
+          <Link href="/" className="sidebar-header">CBC Kenya Schools</Link>
+          {HOME_MENU.map((item: any, i) =>
+            item.section ? (
+              <div key={i} className="sidebar-section"
+                style={item.color ? { borderLeft: `3px solid ${item.color}`, paddingLeft: "13px" } : {}}>
+                {item.section}
+              </div>
+            ) : (
+              <Link key={item.href} href={item.href}
+                className={isActive(item.href, pathname) ? "active" : ""}
+                style={item.color && !isActive(item.href, pathname)
+                  ? { borderLeft: `3px solid ${item.color}`, paddingLeft: "13px" }
+                  : {}}>
+                {item.label}
+              </Link>
+            )
+          )}
+        </div>
+
+        {/* Prev / Next at bottom of sidebar — plain Previous / Next */}
+        {(prevItem || nextItem) && (
+          <div style={{ borderTop: "2px solid #04AA6D", padding: "10px 8px", display: "flex", flexDirection: "column", gap: "6px", flexShrink: 0 }}>
+            {prevItem && (
+              <Link href={prevItem.href} style={{ background: "#04AA6D", color: "#fff", padding: "9px 14px", borderRadius: "3px", textDecoration: "none", fontSize: "13px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px" }}>
+                &#10094; Previous
+              </Link>
+            )}
+            {nextItem && (
+              <Link href={nextItem.href} style={{ background: "#04AA6D", color: "#fff", padding: "9px 14px", borderRadius: "3px", textDecoration: "none", fontSize: "13px", fontWeight: 700, display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "6px" }}>
+                Next &#10095;
+              </Link>
+            )}
+          </div>
+        )}
+      </aside>
+    );
+  }
+
+  // ── GRADE SUBJECT SIDEBAR ────────────────────────────────────
+  // Shows for: /pp1/language-activities, /grade-1/english, /grade-1/english/topic etc
+  if (grade && subject) {
+    const g = GRADE_SUBJECTS[grade];
+    const color = g?.color ?? "#04AA6D";
+    const subjectLabel = subject.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
+    const subjectHref = `/${grade}/${subject}`;
+
+    const subjects = g?.subjects || [];
+    const subjectSlugs = subjects.map(s => slugify(s));
+    const subjectIndex = subjectSlugs.indexOf(subject);
+
+    // Prev: previous subject OR grade overview page
+    const prevHref = subjectIndex > 0
+      ? `/${grade}/${subjectSlugs[subjectIndex - 1]}`
+      : `/${grade}`;
+
+    // Next: first topic OR next subject OR next grade overview
+    const gradeKeys = Object.keys(GRADE_SUBJECTS);
+    const gradeIndex = gradeKeys.indexOf(grade);
+    const nextGrade = gradeIndex < gradeKeys.length - 1 ? gradeKeys[gradeIndex + 1] : null;
+
+    const nextHref = topics[0]
+      ? `/${grade}/${subject}/${slugify(topics[0].name)}`
+      : subjectIndex < subjectSlugs.length - 1
+        ? `/${grade}/${subjectSlugs[subjectIndex + 1]}`
+        : nextGrade
+          ? `/${nextGrade}`
+          : "/exercises";
+
+    return (
+      <aside className="sidebar" style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1, overflowY: "auto" }}>
+          <Link href={`/${grade}`} className="sidebar-header" style={{ background: color }}>
+            {g?.label || grade.toUpperCase()}
+          </Link>
+          <Link href={subjectHref} className={pathname === subjectHref ? "active" : ""}>
+            {subjectLabel} — Introduction
+          </Link>
+          {topics.length > 0 && <div className="sidebar-section">Topics</div>}
+          {topics.map(t => {
+            const href = `/${grade}/${subject}/${slugify(t.name)}`;
+            return (
+              <Link key={t.id} href={href} className={pathname === href ? "active" : ""}>{t.name}</Link>
+            );
+          })}
+          {topics.length > 0 && (
+            <>
+              <div className="sidebar-section">Assessment</div>
+              <Link href={`/${grade}/${subject}/exercises`} className={pathname === `/${grade}/${subject}/exercises` ? "active" : ""}>Exercises</Link>
+              <Link href={`/${grade}/${subject}/quiz`} className={pathname === `/${grade}/${subject}/quiz` ? "active" : ""}>Quiz</Link>
+            </>
+          )}
+
+          {/* Also show all subjects of this grade for easy switching */}
+          <div className="sidebar-section">All {g?.label} Subjects</div>
+          {subjects.map(sub => {
+            const href = `/${grade}/${slugify(sub)}`;
+            return (
+              <Link key={sub} href={href}
+                className={subject === slugify(sub) ? "active" : ""}
+                style={{ fontSize: "13px" }}>
+                {sub}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Prev / Next */}
+        <div style={{ borderTop: "2px solid " + color, padding: "10px 8px", display: "flex", flexDirection: "column", gap: "6px", flexShrink: 0 }}>
+          <Link href={prevHref} style={{ background: color, color: "#fff", padding: "9px 14px", borderRadius: "3px", textDecoration: "none", fontSize: "13px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px" }}>
+            &#10094; Previous
+          </Link>
+          <Link href={nextHref} style={{ background: color, color: "#fff", padding: "9px 14px", borderRadius: "3px", textDecoration: "none", fontSize: "13px", fontWeight: 700, display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "6px" }}>
+            Next &#10095;
+          </Link>
+        </div>
+      </aside>
+    );
+  }
+
+  return <aside className="sidebar" />;
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\components\TabBar.tsx ---
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const TABS = [
+  { label: "Tutorials", href: "/", key: "tutorials" },
+  { label: "References", href: "/references", key: "references" },
+  { label: "Exercises", href: "/exercises", key: "exercises" },
+  { label: "Quizzes", href: "/quizzes", key: "quizzes" },
+  { label: "Certificates", href: "/certificates", key: "certificates" },
+];
+
+export default function TabBar() {
+  const pathname = usePathname();
+  const activeKey =
+    pathname.startsWith("/references") ? "references" :
+    pathname.startsWith("/exercises") ? "exercises" :
+    pathname.startsWith("/quizzes") ? "quizzes" :
+    pathname.startsWith("/certificates") ? "certificates" : "tutorials";
+
+  return (
+    <div className="tabbar">
+      {TABS.map((tab, i) => (
+        <span key={tab.key} style={{ display: "flex", alignItems: "center" }}>
+          {i > 0 && <div className="tabbar-divider" />}
+          <Link href={tab.href} className={`tabbar-btn${activeKey === tab.key ? " active" : ""}`}>
+            {tab.label}
+          </Link>
+        </span>
+      ))}
+    </div>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\exercises\page.tsx ---
+import Link from "next/link";
+
+export default function ExercisesPage() {
+  const subjects = [
+    { name: "Mathematics", grades: ["Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6"], color: "#2196F3" },
+    { name: "English", grades: ["Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6"], color: "#04AA6D" },
+    { name: "Kiswahili", grades: ["Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6"], color: "#FF9800" },
+    { name: "Integrated Science", grades: ["Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9"], color: "#9C27B0" },
+    { name: "Social Studies", grades: ["Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9"], color: "#F44336" },
+    { name: "Agriculture", grades: ["Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9"], color: "#795548" },
+  ];
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Exercises</span>
+      </div>
+      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>CBC Exercises</h1>
+        <p style={{ margin: 0, opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>
+          Practice makes perfect. Work through hundreds of exercises across all CBC subjects and grades — aligned to the KICD curriculum framework.
+        </p>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <p style={{ margin: 0, fontSize: "14px", color: "#1a5c35" }}>Each exercise is tied to a specific topic and competency. Complete exercises to build your SBA portfolio and prepare for national assessments.</p>
+      </div>
+      <h2>Exercises by Subject</h2>
+      <div className="subject-grid" style={{ marginBottom: "32px" }}>
+        {subjects.map(s => (
+          <div key={s.name} className="subject-card">
+            <div className="subject-card-header" style={{ background: s.color }}>
+              <div style={{ fontSize: "15px", fontWeight: 700 }}>{s.name}</div>
+              <div style={{ fontSize: "11px", opacity: 0.85, marginTop: "2px" }}>Exercises</div>
+            </div>
+            <div className="subject-card-body">
+              <div style={{ fontSize: "12px", color: "#555", marginBottom: "8px" }}>Available for:</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+                {s.grades.map(g => (
+                  <span key={g} style={{ background: s.color, color: "#fff", fontSize: "10px", padding: "2px 8px", borderRadius: "10px" }}>{g}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="note-box">
+        <strong>Coming Soon:</strong> Interactive exercises with instant feedback are being added for every topic. Check back regularly as new exercises are added across all grades and subjects.
+      </div>
+      <div className="prev-next">
+        <Link href="/pathway/senior-social" className="prev">Social Sciences Pathway</Link>
+        <Link href="/quizzes" className="next">Quizzes</Link>
+      </div>
+    </div>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\how-to\page.tsx ---
+import Link from "next/link";
+
+const GUIDES = [
+  { title: "How to Use This Site", href: "/how-to/use-this-site", desc: "A quick guide to navigating CBC Kenya Schools — finding your grade, subject, topic and exercises.", time: "2 min read" },
+  { title: "How SBA Works", href: "/how-to/sba", desc: "Understanding School Based Assessment — what it is, how teachers record it and how it affects progression.", time: "5 min read" },
+  { title: "How to Prepare for KPSEA", href: "/how-to/kpsea-prep", desc: "Grade 6 exam preparation guide — topics covered, revision tips and what to expect on exam day.", time: "7 min read" },
+  { title: "How to Prepare for KILEA", href: "/how-to/kilea-prep", desc: "Grade 9 exam preparation guide — subject weightings, revision strategies and pathway selection tips.", time: "7 min read" },
+  { title: "How to Prepare for KSCE", href: "/how-to/ksce-prep", desc: "Grade 12 exam preparation — subject combinations, university requirements and TVET options.", time: "8 min read" },
+  { title: "How to Choose a Senior Secondary Pathway", href: "/how-to/choose-pathway", desc: "STEM, Arts & Sports Science or Social Sciences? A guide to choosing the right Senior Secondary pathway.", time: "5 min read" },
+  { title: "How to Support Your Child at Home (CBC)", href: "/how-to/parent-support", desc: "Practical tips for parents on supporting CBC learning at home — activities, routines and SBA portfolios.", time: "6 min read" },
+  { title: "How Teachers Implement CBC", href: "/how-to/teacher-guide", desc: "Learner-centred approaches, activity-based learning, lesson planning and SBA recording for CBC teachers.", time: "10 min read" },
+];
+
+export default function HowToPage() {
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link>
+        <span className="breadcrumb-sep">&rsaquo;</span>
+        <span>How To</span>
+      </div>
+
+      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>How To — CBC Guides</h1>
+        <p style={{ margin: 0, opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>
+          Step-by-step guides for learners, parents and teachers on navigating the Kenya CBC. From using this site to preparing for national exams.
+        </p>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <p style={{ margin: 0, fontSize: "14px", color: "#1a5c35" }}>{GUIDES.length} guides available — for learners, parents and teachers.</p>
+      </div>
+
+      <div style={{ marginBottom: "28px" }}>
+        {GUIDES.map((g, i) => (
+          <Link key={g.title} href={g.href} style={{ textDecoration: "none", display: "block", marginBottom: "10px" }}>
+            <div style={{ border: "1px solid #eee", borderLeft: "5px solid #04AA6D", borderRadius: "0 4px 4px 0", padding: "16px 20px", background: "#fafafa", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "16px" }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                  <span style={{ background: "#04AA6D", color: "#fff", fontSize: "11px", padding: "2px 10px", borderRadius: "2px", fontWeight: 700, flexShrink: 0 }}>Guide {i + 1}</span>
+                  <strong style={{ fontSize: "15px", color: "#222" }}>{g.title}</strong>
+                </div>
+                <p style={{ margin: 0, fontSize: "13px", color: "#555", lineHeight: 1.7 }}>{g.desc}</p>
+              </div>
+              <div style={{ flexShrink: 0, textAlign: "right" }}>
+                <div style={{ fontSize: "11px", color: "#999", marginBottom: "4px" }}>{g.time}</div>
+                <span style={{ color: "#04AA6D", fontWeight: 700, fontSize: "13px" }}>Read &rarr;</span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="prev-next">
+        <Link href="/references" className="prev">References</Link>
+        <Link href="/" className="next">Back to Home</Link>
+      </div>
+    </div>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\kicd\page.tsx ---
+import Link from "next/link";
+
+export default function KicdPage() {
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link>
+        <span className="breadcrumb-sep">&rsaquo;</span>
+        <span>KICD Framework</span>
+      </div>
+
+
+      <div className="prev-next" style={{ marginTop: 0, paddingTop: 0, borderTop: "none", marginBottom: "24px" }}>
+        <Link href="/about" className="prev">About CBC</Link>
+        <Link href="/pathway/early-years" className="next">Early Years</Link>
+      </div>
+
+      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>KICD Framework</h1>
+        <p style={{ margin: 0, opacity: 0.92, fontSize: "15px", maxWidth: "600px", lineHeight: 1.8 }}>
+          The Kenya Institute of Curriculum Development (KICD) is the government body mandated to develop, 
+          review and approve all curriculum materials used in Kenyan schools.
+        </p>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "16px 32px 20px 32px", marginBottom: "28px" }}>
+        <p style={{ margin: 0, fontSize: "14px", color: "#1a5c35", lineHeight: 1.7 }}>
+          KICD operates under the <strong>Basic Education Act No. 14 of 2013</strong> and is responsible for the design, 
+          development and evaluation of curricula for Early Childhood, Primary, Secondary and Teacher Education in Kenya.
+        </p>
+      </div>
+
+      <h2>What is KICD?</h2>
+      <p>The Kenya Institute of Curriculum Development was established in 2013, replacing the Kenya Institute of Education (KIE). Its mandate is to design curricula that are responsive to the needs of Kenyan learners and aligned to national development goals under <strong>Vision 2030</strong> and the <strong>Big Four Agenda</strong>.</p>
+
+      <div className="example-box">
+        <div className="example-box-header">KICD Core Mandate</div>
+        <div className="example-box-body">
+          <table style={{ margin: 0 }}>
+            <thead><tr><th>Function</th><th>Description</th></tr></thead>
+            <tbody>
+              {[
+                ["Curriculum Design", "Develops syllabuses, curriculum designs and learning materials for all levels"],
+                ["Research & Evaluation", "Continuously reviews curriculum relevance and learning outcomes"],
+                ["Teacher Capacity", "Develops teacher guides and supports in-service training materials"],
+                ["Quality Assurance", "Approves all textbooks and learning materials used in Kenyan schools"],
+                ["CBC Implementation", "Leads the rollout of the Competency Based Curriculum from PP1 to Grade 12"],
+                ["Digital Content", "Develops and curates digital learning resources aligned to the CBC"],
+              ].map(([f, d]) => (
+                <tr key={f}><td style={{ fontWeight: 700 }}>{f}</td><td>{d}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h2>The CBC Curriculum Framework</h2>
+      <p>The CBC framework is built on <strong>four pillars</strong> that guide all learning from PP1 through Grade 12:</p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "14px", margin: "16px 0 28px 0" }}>
+        {[
+          { title: "Values", color: "#04AA6D", desc: "Love, Responsibility, Respect, Unity, Peace, Patriotism, Social Justice and Integrity are embedded in every subject." },
+          { title: "Competencies", color: "#2196F3", desc: "7 core competencies including Communication, Critical Thinking, Digital Literacy and Self-Efficacy guide learning outcomes." },
+          { title: "Community Service Learning", color: "#9C27B0", desc: "Learners engage with their communities through practical projects that apply classroom knowledge to real life." },
+          { title: "Pertinent & Contemporary Issues (PCI)", color: "#F44336", desc: "Cross-cutting themes like environmental education, life skills, gender, financial literacy and HIV/AIDS are woven into all subjects." },
+        ].map(p => (
+          <div key={p.title} style={{ border: "1px solid #ddd", borderTop: `4px solid ${p.color}`, borderRadius: "3px", padding: "16px 14px" }}>
+            <div style={{ fontWeight: 700, fontSize: "15px", color: p.color, marginBottom: "8px" }}>{p.title}</div>
+            <div style={{ fontSize: "13px", color: "#555", lineHeight: 1.7 }}>{p.desc}</div>
+          </div>
+        ))}
+      </div>
+
+      <h2>CBC Curriculum Levels</h2>
+      {[
+        { level: "Early Years Education", code: "EYE", grades: "PP1, PP2", color: "#FF9800", doc: "EYE Curriculum Design 2017", desc: "Play-based learning covering Language, Mathematical, Environmental, Psychomotor & Creative Activities and Religious Education. Uses mother tongue as the primary language of instruction." },
+        { level: "Lower Primary", code: "LP", grades: "Grade 1, 2, 3", color: "#2196F3", doc: "Lower Primary Curriculum Design 2017", desc: "Transition from play-based to structured learning. English and Kiswahili introduced alongside Mathematics, Creative Arts, Hygiene & Nutrition and Environmental Activities." },
+        { level: "Upper Primary", code: "UP", grades: "Grade 4, 5, 6", color: "#9C27B0", doc: "Upper Primary Curriculum Design 2019", desc: "Introduces Agriculture, Integrated Science, Social Studies and Creative Arts & Sports. Ends with KPSEA (Kenya Primary School Education Assessment) at Grade 6." },
+        { level: "Junior Secondary", code: "JSS", grades: "Grade 7, 8, 9", color: "#F44336", doc: "Junior Secondary Curriculum Design 2020", desc: "Broad exposure to all subject areas before specialisation. Includes Pre-Technical Studies, Health Education and all core subjects. Ends with KILEA at Grade 9." },
+        { level: "Senior Secondary", code: "SSS", grades: "Grade 10, 11, 12", color: "#607D8B", doc: "Senior Secondary Curriculum Design 2023", desc: "Learners choose a pathway: STEM, Arts & Sports Science, or Social Sciences. Each pathway has mandatory and optional subjects leading to KSCE at Grade 12." },
+      ].map(l => (
+        <div key={l.level} style={{ borderLeft: `5px solid ${l.color}`, background: "#fafafa", padding: "16px 20px", marginBottom: "14px", borderRadius: "0 3px 3px 0" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "8px", marginBottom: "8px" }}>
+            <div>
+              <span style={{ background: l.color, color: "#fff", fontWeight: 700, fontSize: "12px", padding: "2px 10px", borderRadius: "2px", marginRight: "8px" }}>{l.code}</span>
+              <strong>{l.level}</strong> <span style={{ color: "#888", fontSize: "13px" }}>({l.grades})</span>
+            </div>
+            <span style={{ fontSize: "11px", color: "#04AA6D", fontStyle: "italic" }}>{l.doc}</span>
+          </div>
+          <p style={{ margin: 0, fontSize: "14px", color: "#444", lineHeight: 1.7 }}>{l.desc}</p>
+        </div>
+      ))}
+
+      <h2>Pertinent & Contemporary Issues (PCI)</h2>
+      <p>KICD requires all subjects to integrate the following cross-cutting issues into teaching and learning:</p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "10px", margin: "16px 0 28px 0" }}>
+        {["Environmental Education", "Education for Sustainable Development", "Financial Literacy", "Gender & Sexuality", "HIV & AIDS Education", "Life Skills Education", "Learner-Centred Approaches", "Safety & Disaster Risk Reduction", "Non-Formal Education", "Guidance & Counselling"].map(pci => (
+          <div key={pci} style={{ background: "#f8f9fa", border: "1px solid #dee2e6", borderRadius: "3px", padding: "10px 12px", fontSize: "13px", color: "#333" }}>
+            &#10003; {pci}
+          </div>
+        ))}
+      </div>
+
+      <div className="note-box">
+        <strong>Official KICD Resources:</strong> All curriculum designs, syllabuses and teacher guides are available on the official KICD website.{" "}
+        <a href="https://kicd.ac.ke" target="_blank" rel="noreferrer" style={{ color: "#04AA6D" }}>Visit kicd.ac.ke &rarr;</a>
+      </div>
+
+      <div className="prev-next">
+        <Link href="/about" className="prev">About CBC</Link>
+        <Link href="/pathway/early-years" className="next">Early Years Pathway</Link>
+      </div>
+    </div>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\pathway\early-years\page.tsx ---
+import Link from "next/link";
+
+function PrevNext({ prev, next, bottom }: { prev: { href: string; label: string }, next: { href: string; label: string }, bottom?: boolean }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: bottom ? "40px 0 16px 0" : "0 0 28px 0", gap: "10px", flexWrap: "wrap" }}>
+      <Link href={prev.href} style={{ background: "#04AA6D", color: "#fff", padding: "10px 22px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>
+        &#10094; Previous
+      </Link>
+      {bottom && (
+        <Link href="/signin" style={{ border: "1px solid #ccc", color: "#555", padding: "10px 22px", borderRadius: "3px", fontSize: "13px", textDecoration: "none", background: "#fff" }}>
+          Sign in to track progress
+        </Link>
+      )}
+      <Link href={next.href} style={{ background: "#04AA6D", color: "#fff", padding: "10px 22px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>
+        Next &#10095;
+      </Link>
+    </div>
+  );
+}
+
+export default function EarlyYearsPage() {
+  const prev = { href: "/kicd", label: "KICD Framework" };
+  const next = { href: "/pp1", label: "PP1 Overview" };
+
+  const learningAreas = [
+    {
+      area: "1. Language Activities", color: "#e65100",
+      strands: ["Listening & Speaking", "Reading Readiness", "Writing Readiness", "Creative Expression"],
+      desc: "Develops communication skills in the mother tongue, Kiswahili and English. Children learn to listen attentively, express themselves orally, recognise letters and sounds, and develop pre-writing skills through drawing and tracing.",
+      outcomes: ["Follow simple oral instructions", "Recognise all 26 letters", "Produce beginning sounds of letters", "Hold a pencil correctly and trace letters", "Tell a simple story orally"],
+    },
+    {
+      area: "2. Mathematical Activities", color: "#FF9800",
+      strands: ["Numbers 1-20", "Sorting & Matching", "Basic Shapes", "Patterns"],
+      desc: "Builds number sense, counting, sorting and pattern recognition using physical objects. Children count from 1 to 20, sort by colour, shape and size, and explore basic 2D shapes in their environment.",
+      outcomes: ["Count objects 1 to 20", "Write numerals 1 to 20", "Sort objects by colour, size and shape", "Name circle, square, triangle and rectangle", "Recognise and continue a simple pattern"],
+    },
+    {
+      area: "3. Environmental Activities", color: "#2e7d32",
+      strands: ["My Body", "My Family & Home", "Living Things", "Health & Safety"],
+      desc: "Introduces children to their body, family, home, common animals and plants, and basic health and safety. Learning happens through observation walks, discussions and hands-on exploration.",
+      outcomes: ["Name 10 external body parts", "Identify family members and their roles", "Distinguish living from non-living things", "Name 5 common animals and 5 plants", "State 3 safety rules at home and school"],
+    },
+    {
+      area: "4. Psychomotor & Creative Activities", color: "#6a1b9a",
+      strands: ["Gross Motor Skills", "Fine Motor Skills", "Art & Craft", "Music & Movement"],
+      desc: "Develops physical coordination, creativity and self-expression through movement, art, music and drama. Essential for brain development and physical readiness for Grade 1.",
+      outcomes: ["Run, jump, hop and balance with coordination", "Use scissors to cut a straight line", "Thread beads onto a string", "Produce a drawing or painting", "Sing 3 Kenyan children songs from memory"],
+    },
+    {
+      area: "5. Religious Education", color: "#4e342e",
+      strands: ["Values & Morals", "Stories & Songs", "Prayer & Worship", "Celebrations"],
+      desc: "Introduces core values through stories, songs, prayer and celebrations appropriate to the child's faith (CRE, IRE or HRE). Develops love, kindness, honesty, sharing and respect.",
+      outcomes: ["Name 4 core values and explain them", "Recall moral lesson from 2 religious stories", "Recite a simple prayer from memory", "Demonstrate sharing and kindness daily", "Describe one religious celebration"],
+    },
+  ];
+
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link>
+        <span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Early Years Pathway</span>
+      </div>
+
+      <PrevNext prev={prev} next={next} />
+
+      <div style={{ background: "linear-gradient(135deg, #FF9800 0%, #e65100 100%)", color: "#fff", padding: "36px 32px 44px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 12px", borderRadius: "10px", marginBottom: "12px", letterSpacing: "1px" }}>EARLY YEARS EDUCATION &bull; EYE &bull; AGES 4-5</div>
+        <h1 style={{ margin: "0 0 12px 0", fontSize: "34px", fontWeight: 700 }}>Early Years Pathway</h1>
+        <p style={{ margin: "0 0 20px 0", opacity: 0.95, fontSize: "15px", maxWidth: "620px", lineHeight: 1.9 }}>
+          The Early Years pathway covers Pre-Primary 1 (PP1) and Pre-Primary 2 (PP2) — the entry point of Kenya's CBC framework.
+          It replaces the old Nursery and Kindergarten system with a structured, play-based curriculum designed by KICD
+          to develop the whole child: cognitively, socially, emotionally and physically.
+        </p>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          {["PP1 and PP2", "Ages 4-5", "5 Learning Areas", "No National Exam", "Play-Based Learning", "Mother Tongue Instruction"].map(h => (
+            <span key={h} style={{ background: "rgba(255,255,255,0.2)", padding: "5px 14px", borderRadius: "20px", fontSize: "12px", fontWeight: 600 }}>{h}</span>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ background: "#fff8e1", border: "1px solid #FFB300", borderTop: "none", padding: "14px 32px 16px 32px", marginBottom: "28px" }}>
+        <p style={{ margin: 0, fontSize: "14px", color: "#856404", lineHeight: 1.7 }}>
+          <strong>KICD Curriculum Design (2017):</strong> The Early Years curriculum was introduced in 2017 as part of the CBC rollout.
+          It is governed by the Early Years Education Curriculum Design published by KICD and approved by the Ministry of Education.
+        </p>
+      </div>
+
+      <h2>What is the Early Years Pathway?</h2>
+      <p style={{ fontSize: "14px", lineHeight: 1.9, color: "#333" }}>
+        The Early Years pathway is the <strong>foundation of Kenya's 2-6-3-3 education structure</strong>. It spans two years —
+        PP1 for children aged 4 and PP2 for children aged 5 — and forms the first two years of the six-year primary education block.
+      </p>
+      <p style={{ fontSize: "14px", lineHeight: 1.9, color: "#333" }}>
+        Unlike the old nursery system which was largely unregulated, the CBC Early Years curriculum is a <strong>structured national programme</strong> with
+        defined learning outcomes, teacher guides, observation tools and SBA frameworks. Every child in Kenya follows the same KICD-approved curriculum.
+      </p>
+
+      <h2>Key Principles of Early Years Learning</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "14px", margin: "16px 0 28px 0" }}>
+        {[
+          { title: "Play-Based Learning", desc: "All learning in Early Years happens through guided play, exploration and hands-on activities. Children learn best when they are active and engaged.", color: "#FF9800" },
+          { title: "Mother Tongue Instruction", desc: "KICD requires Early Years learning to be conducted in the child's mother tongue to build strong language foundations before English and Kiswahili.", color: "#2196F3" },
+          { title: "Holistic Development", desc: "The curriculum targets physical, cognitive, social, emotional and moral development simultaneously — not just academic skills.", color: "#04AA6D" },
+          { title: "Child-Centred Approach", desc: "The teacher is a guide and facilitator. Children explore and discover knowledge at their own pace with teacher support.", color: "#9C27B0" },
+          { title: "Continuous Assessment", desc: "No written exams in Early Years. Teachers assess through observation, portfolios and activity records throughout the year.", color: "#F44336" },
+          { title: "Inclusive Education", desc: "The curriculum accommodates children with diverse learning needs, disabilities and backgrounds so no child is left behind.", color: "#607D8B" },
+        ].map(p => (
+          <div key={p.title} style={{ border: "1px solid #eee", borderTop: "4px solid " + p.color, borderRadius: "3px", padding: "16px 14px", background: "#fafafa" }}>
+            <div style={{ fontWeight: 700, fontSize: "14px", marginBottom: "6px", color: p.color }}>{p.title}</div>
+            <div style={{ fontSize: "13px", color: "#555", lineHeight: 1.7 }}>{p.desc}</div>
+          </div>
+        ))}
+      </div>
+
+      <h2>The 5 Early Years Learning Areas</h2>
+      <p style={{ fontSize: "14px", lineHeight: 1.9, color: "#333", marginBottom: "20px" }}>
+        The KICD Early Years curriculum is organised into <strong>5 learning areas</strong> taught in both PP1 and PP2.
+        These are not called subjects at this level — they are called learning areas to reflect the integrated, activity-based nature of early childhood learning.
+      </p>
+      <div style={{ marginBottom: "28px" }}>
+        {learningAreas.map(la => (
+          <div key={la.area} style={{ background: "#fafafa", padding: "18px 22px", marginBottom: "14px", borderRadius: "0 4px 4px 0", border: "1px solid #eee", borderLeft: "5px solid " + la.color }}>
+            <h3 style={{ margin: "0 0 8px 0", fontSize: "16px", color: la.color }}>{la.area}</h3>
+            <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "10px" }}>
+              {la.strands.map(s => <span key={s} style={{ background: la.color, color: "#fff", fontSize: "11px", padding: "2px 10px", borderRadius: "10px" }}>{s}</span>)}
+            </div>
+            <p style={{ margin: "0 0 12px 0", fontSize: "14px", color: "#444", lineHeight: 1.8 }}>{la.desc}</p>
+            <div style={{ background: "#fff", border: "1px solid #eee", borderRadius: "3px", padding: "12px 16px" }}>
+              <div style={{ fontWeight: 700, fontSize: "12px", color: "#666", marginBottom: "6px", textTransform: "uppercase" as const, letterSpacing: "0.5px" }}>Key Learning Outcomes</div>
+              <ul style={{ margin: 0, paddingLeft: "18px", fontSize: "13px", color: "#444", lineHeight: 2 }}>
+                {la.outcomes.map(o => <li key={o}>{o}</li>)}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2>PP1 vs PP2 — What Changes?</h2>
+      <p style={{ fontSize: "14px", lineHeight: 1.9, color: "#333" }}>Both PP1 and PP2 cover the same 5 learning areas. The difference is in the depth, complexity and expectations at each level.</p>
+      <table style={{ marginBottom: "28px" }}>
+        <thead>
+          <tr><th>Learning Area</th><th>PP1 (Age 4) Focus</th><th>PP2 (Age 5) Focus</th></tr>
+        </thead>
+        <tbody>
+          {[
+            ["Language Activities", "Oral language, listening, letter recognition, pre-writing strokes", "Phonics, sight words, simple sentence reading and early writing"],
+            ["Mathematical Activities", "Counting 1-20, sorting, matching, basic shapes", "Counting 1-100, simple addition and subtraction, measurement"],
+            ["Environmental Activities", "Home, family, body parts, immediate surroundings", "School, community, weather, food groups, safety"],
+            ["Psychomotor & Creative", "Gross motor play, free art, simple songs and rhymes", "Fine motor tasks, structured art, drama, musical instruments"],
+            ["Religious Education", "Values: love, sharing, kindness through stories and play", "Moral decision-making, prayer, religious celebrations"],
+          ].map(([area, pp1, pp2]) => (
+            <tr key={area}>
+              <td style={{ fontWeight: 700, color: "#FF9800" }}>{area}</td>
+              <td style={{ fontSize: "13px" }}>{pp1}</td>
+              <td style={{ fontSize: "13px" }}>{pp2}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2>Assessment in Early Years (SBA)</h2>
+      <p style={{ fontSize: "14px", lineHeight: 1.9, color: "#333" }}>
+        There are <strong>no written examinations</strong> in the Early Years pathway. Assessment is entirely through
+        <strong> School Based Assessment (SBA)</strong> — a continuous, observational process conducted by the class teacher throughout the year.
+      </p>
+      <div className="example-box" style={{ marginBottom: "28px" }}>
+        <div className="example-box-header">How Teachers Assess Early Years Learners</div>
+        <div className="example-box-body">
+          <table style={{ margin: 0 }}>
+            <thead><tr><th>Tool</th><th>Description</th></tr></thead>
+            <tbody>
+              {[
+                ["Observation Records", "Teacher observes and records each child's participation, behaviour and skill development during daily activities"],
+                ["Portfolio", "Collection of each child's work samples — drawings, crafts, written attempts — showing growth over time"],
+                ["Anecdotal Notes", "Brief written notes recording significant learning moments or concerns about individual children"],
+                ["Checklists", "Structured lists of expected competencies the teacher marks off as each child demonstrates them"],
+                ["Parent Reports", "Regular communication with parents about the child's progress at home and school"],
+              ].map(([tool, desc]) => (
+                <tr key={tool}><td style={{ fontWeight: 700 }}>{tool}</td><td>{desc}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h2>Start Learning — Choose a Grade</h2>
+      <div className="subject-grid" style={{ marginBottom: "28px" }}>
+        {[
+          { label: "PP1", href: "/pp1", age: "Age 4", desc: "The first year of formal schooling. Children learn through play, songs, stories and hands-on activities in all 5 learning areas." },
+          { label: "PP2", href: "/pp2", age: "Age 5", desc: "Builds on PP1 foundations with deeper phonics, number work and creative expression to prepare children for Grade 1." },
+        ].map(g => (
+          <Link key={g.label} href={g.href} className="subject-card">
+            <div className="subject-card-header" style={{ background: "#FF9800" }}>
+              <div style={{ fontSize: "28px", fontWeight: 900 }}>{g.label}</div>
+              <div style={{ fontSize: "12px", opacity: 0.9, marginTop: "2px" }}>{g.age} &bull; Early Years</div>
+            </div>
+            <div className="subject-card-body">
+              <p style={{ margin: 0, fontSize: "13px", color: "#444", lineHeight: 1.6 }}>{g.desc}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="note-box">
+        <strong>For Parents and Teachers:</strong> The KICD Early Years curriculum designs, teacher guides and SBA tools are available free from the official KICD website.{" "}
+        <a href="https://kicd.ac.ke" target="_blank" rel="noreferrer" style={{ color: "#FF9800" }}>Visit kicd.ac.ke &rarr;</a>
+      </div>
+
+      <PrevNext prev={prev} next={next} bottom />
+    </div>
+  );
+}
+
+
+
+--- FILE: C:\Projects\w3clone-next\app\pathway\junior-secondary\page.tsx ---
+import Link from "next/link";
+
+export default function JuniorSecondaryPage() {
+  const grades = [
+    { label: "Grade 7", href: "/grade-7", age: "Age 12", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Health Education", "Pre-Technical Studies", "Agriculture", "Social Studies", "Creative Arts & Sports"] },
+    { label: "Grade 8", href: "/grade-8", age: "Age 13", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Health Education", "Pre-Technical Studies", "Agriculture", "Social Studies", "Creative Arts & Sports"] },
+    { label: "Grade 9", href: "/grade-9", age: "Age 14", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Health Education", "Pre-Technical Studies", "Agriculture", "Social Studies", "Creative Arts & Sports"] },
+  ];
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Junior Secondary Pathway</span>
+      </div>
+      <div style={{ background: "linear-gradient(135deg, #F44336 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>JSS &bull; Ages 12–14</div>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>Junior Secondary Pathway</h1>
+        <p style={{ margin: "0 0 16px 0", opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>Grade 7 to Grade 9 gives learners broad exposure to all subject areas before choosing a Senior Secondary pathway. Includes new subjects like Pre-Technical Studies and Health Education. Ends with <strong>KILEA</strong> at Grade 9.</p>
+        <div style={{ fontSize: "13px", opacity: 0.85 }}>Grades: <strong>Grade 7, 8, 9</strong></div>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          {["9 subjects", "Pre-Technical Studies", "Health Education", "Broad exposure before specialisation", "KILEA at Grade 9", "Pathway selection at Grade 10"].map(h => (
+            <span key={h} style={{ background: "#fff", border: "1px solid #c3e6cb", borderRadius: "20px", padding: "4px 14px", fontSize: "12px", color: "#1a5c35" }}>&#10003; {h}</span>
+          ))}
+        </div>
+      </div>
+      <div style={{ background: "#fff8e1", border: "1px solid #FFB300", borderRadius: "4px", padding: "14px 20px", marginBottom: "24px" }}>
+        <strong style={{ color: "#856404" }}>&#9733; National Exam: KILEA — Kenya Junior Secondary Education Assessment</strong>
+        <p style={{ margin: "6px 0 0 0", fontSize: "13px", color: "#856404" }}>Sat at the end of Grade 9. Results guide pathway selection (STEM, Arts & Sports, or Social Sciences) for Senior Secondary.</p>
+      </div>
+      <h2>Grades in This Pathway</h2>
+      <div className="subject-grid" style={{ marginBottom: "28px" }}>
+        {grades.map(g => (
+          <Link key={g.label} href={g.href} className="subject-card">
+            <div className="subject-card-header" style={{ background: "#F44336" }}>
+              <div style={{ fontSize: "18px", fontWeight: 700 }}>{g.label}</div>
+              <div style={{ fontSize: "12px", opacity: 0.85 }}>{g.age}</div>
+            </div>
+            <div className="subject-card-body">
+              <ul style={{ margin: 0, paddingLeft: "16px", fontSize: "12px", color: "#555" }}>
+                {g.subjects.map(s => <li key={s}>{s}</li>)}
+              </ul>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="prev-next">
+        <Link href="/pathway/upper-primary" className="prev">Upper Primary</Link>
+        <Link href="/pathway/senior-secondary" className="next">Senior Secondary</Link>
+      </div>
+    </div>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\pathway\lower-primary\page.tsx ---
+import Link from "next/link";
+
+export default function LowerPrimaryPage() {
+  const grades = [
+    { label: "Grade 1", href: "/grade-1", age: "Age 6", subjects: ["English", "Kiswahili", "Mathematics", "Environmental Activities", "Creative Arts", "Hygiene & Nutrition", "Religious Education"] },
+    { label: "Grade 2", href: "/grade-2", age: "Age 7", subjects: ["English", "Kiswahili", "Mathematics", "Environmental Activities", "Creative Arts", "Hygiene & Nutrition", "Religious Education"] },
+    { label: "Grade 3", href: "/grade-3", age: "Age 8", subjects: ["English", "Kiswahili", "Mathematics", "Environmental Activities", "Creative Arts", "Hygiene & Nutrition", "Religious Education"] },
+  ];
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Lower Primary Pathway</span>
+      </div>
+
+      <div className="prev-next" style={{ marginBottom: "28px" }}>
+        <Link href="/pathway/early-years" className="prev">Early Years</Link>
+        <Link href="/pathway/upper-primary" className="next">Upper Primary</Link>
+      </div>
+
+            <div style={{ background: "linear-gradient(135deg, #2196F3 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>LP &bull; Ages 6-8</div>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>Lower Primary Pathway</h1>
+        <p style={{ margin: "0 0 16px 0", opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>Grade 1 to Grade 3 builds foundational literacy and numeracy. Learners transition from play-based Early Years learning into structured subjects while keeping activity-based, learner-centred approaches at the heart of every lesson.</p>
+        <div style={{ fontSize: "13px", opacity: 0.85 }}>Grades: <strong>Grade 1, 2, 3</strong></div>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          {["7 learning areas", "English & Kiswahili literacy", "Foundational Mathematics", "Activity-based learning", "Continuous SBA", "No national exam"].map(h => (
+            <span key={h} style={{ background: "#fff", border: "1px solid #c3e6cb", borderRadius: "20px", padding: "4px 14px", fontSize: "12px", color: "#1a5c35" }}>&#10003; {h}</span>
+          ))}
+        </div>
+      </div>
+
+      <h2>What is the Lower Primary Pathway?</h2>
+      <p>Lower Primary covers <strong>Grade 1, Grade 2 and Grade 3</strong> — the first three years of formal primary school for children aged 6 to 8. It builds directly on the play-based foundations of the Early Years pathway and transitions learners into structured subject-based learning.</p>
+      <p>At this level, the <strong>mother tongue or local language</strong> continues to be used as the language of instruction in early Grade 1, gradually transitioning to English and Kiswahili. All learning remains activity-based and learner-centred.</p>
+
+      <div style={{ background: "#e3f2fd", border: "1px solid #90caf9", borderRadius: "4px", padding: "14px 20px", marginBottom: "24px" }}>
+        <strong style={{ color: "#0d47a1" }}>&#9432; No National Exam at Lower Primary</strong>
+        <p style={{ margin: "6px 0 0 0", fontSize: "13px", color: "#1565c0" }}>Assessment is entirely through continuous School Based Assessment (SBA). Learners are assessed by their class teacher through observation, portfolios, oral work and classroom activities throughout the year.</p>
+      </div>
+
+      <h2>The 7 Lower Primary Subjects</h2>
+      <div style={{ marginBottom: "28px" }}>
+        {[
+          { name: "English", color: "#04AA6D", desc: "Develops reading, writing, listening and speaking in English. Phonics, comprehension, creative writing and grammar are core components.", strands: ["Listening & Speaking", "Reading", "Writing", "Grammar & Usage"] },
+          { name: "Kiswahili", color: "#FF9800", desc: "Builds Kiswahili language competency alongside English. Oral communication, reading and writing in Kiswahili are developed systematically.", strands: ["Kusikiliza & Kuzungumza", "Kusoma", "Kuandika", "Sarufi"] },
+          { name: "Mathematics", color: "#2196F3", desc: "Foundational numeracy — number operations, measurement, geometry and data handling. Uses concrete materials before abstract concepts.", strands: ["Numbers & Operations", "Measurement", "Geometry", "Data Handling"] },
+          { name: "Environmental Activities", color: "#4CAF50", desc: "Explores the natural and built environment — plants, animals, weather, the human body, community and basic science concepts.", strands: ["Living Things", "Non-Living Things", "Our Environment", "Health & Safety"] },
+          { name: "Creative Arts", color: "#E91E63", desc: "Develops creativity through visual art, music, drama and movement. Builds fine motor skills, self-expression and cultural appreciation.", strands: ["Visual Art", "Music", "Drama", "Movement"] },
+          { name: "Hygiene & Nutrition", color: "#00BCD4", desc: "Teaches personal hygiene, healthy eating, disease prevention and basic first aid. Develops healthy habits for life.", strands: ["Personal Hygiene", "Nutrition & Food", "Disease Prevention", "Safety"] },
+          { name: "Religious Education", color: "#9C27B0", desc: "Values-based education through CRE, IRE or HRE depending on the learner's background. Focuses on moral development and character.", strands: ["Values & Morals", "Religious Stories", "Prayer & Worship", "Community Life"] },
+        ].map((s, i) => (
+          <div key={s.name} style={{ border: "1px solid #eee", borderLeft: `5px solid ${s.color}`, borderRadius: "0 4px 4px 0", padding: "14px 18px", background: "#fafafa", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "16px", flexWrap: "wrap" }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                <span style={{ background: s.color, color: "#fff", fontSize: "11px", padding: "2px 10px", borderRadius: "2px", fontWeight: 700 }}>Subject {i + 1}</span>
+                <strong style={{ fontSize: "15px" }}>{s.name}</strong>
+              </div>
+              <p style={{ margin: "0 0 8px 0", fontSize: "13px", color: "#555", lineHeight: 1.7 }}>{s.desc}</p>
+              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                {s.strands.map(st => <span key={st} style={{ background: "#fff", border: `1px solid ${s.color}`, color: s.color, fontSize: "11px", padding: "2px 8px", borderRadius: "10px" }}>{st}</span>)}
+              </div>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px", flexShrink: 0 }}>
+              {["Grade 1","Grade 2","Grade 3"].map(g => (
+                <Link key={g} href={`/${g.toLowerCase().replace(" ","-")}/${s.name.toLowerCase().replace(/ & /g,"-and-").replace(/ /g,"-")}`}
+                  style={{ background: s.color, color: "#fff", fontSize: "11px", padding: "3px 10px", borderRadius: "2px", textDecoration: "none", fontWeight: 700, whiteSpace: "nowrap" }}>
+                  {g} &rarr;
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2>Grades in This Pathway</h2>
+      <div className="subject-grid" style={{ marginBottom: "28px" }}>
+        {grades.map(g => (
+          <Link key={g.label} href={g.href} className="subject-card">
+            <div className="subject-card-header" style={{ background: "#2196F3" }}>
+              <div style={{ fontSize: "18px", fontWeight: 700 }}>{g.label}</div>
+              <div style={{ fontSize: "12px", opacity: 0.85 }}>{g.age}</div>
+            </div>
+            <div className="subject-card-body">
+              <ul style={{ margin: 0, paddingLeft: "16px", fontSize: "12px", color: "#555" }}>
+                {g.subjects.map(s => <li key={s}>{s}</li>)}
+              </ul>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="note-box">
+        <strong>Mother Tongue Instruction:</strong> KICD requires that in Grade 1, the language of instruction is the mother tongue or local community language. English and Kiswahili are introduced as subjects from Grade 1 but become the primary languages of instruction progressively from Grade 2 onwards.
+      </div>
+
+      <div className="prev-next">
+        <Link href="/pathway/early-years" className="prev">Early Years</Link>
+        <Link href="/pathway/upper-primary" className="next">Upper Primary</Link>
+      </div>
+    </div>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\pathway\senior-arts\page.tsx ---
+import Link from "next/link";
+
+const SUBJECTS = [
+  { name: "Fine Art", desc: "Drawing, painting, sculpture, printmaking, design and art history. Develops visual creativity and aesthetic thinking.", strands: ["Drawing & Painting","Sculpture","Printmaking","Art History & Criticism"] },
+  { name: "Music", desc: "Theory, composition, performance and music technology. Covers African, Western and contemporary music traditions.", strands: ["Music Theory","Composition","Performance","Music Technology"] },
+  { name: "Theatre Arts", desc: "Acting, directing, stagecraft, scriptwriting and performance studies. Develops confidence, creativity and communication.", strands: ["Acting","Directing","Scriptwriting","Stagecraft"] },
+  { name: "Sports Science", desc: "Exercise physiology, sports psychology, nutrition, coaching and sports management.", strands: ["Exercise Physiology","Sports Psychology","Coaching","Sports Nutrition"] },
+  { name: "English", desc: "Advanced literature, creative writing, critical analysis, oral communication and media literacy.", strands: ["Literature","Creative Writing","Critical Analysis","Media Literacy"] },
+  { name: "Kiswahili", desc: "Advanced Kiswahili language, literature, oral traditions and written communication.", strands: ["Fasihi","Uandishi wa Ubunifu","Lugha","Mawasiliano"] },
+];
+
+export default function SeniorArtsPage() {
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <Link href="/pathway/senior-secondary">Senior Secondary</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Arts & Sports Pathway</span>
+      </div>
+
+      <div style={{ background: "linear-gradient(135deg, #E91E63 0%, #880E4F 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>ARTS &bull; Grade 10–12 &bull; Ages 15–17</div>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>Senior Secondary — Arts & Sports Science</h1>
+        <p style={{ margin: "0 0 20px 0", opacity: 0.92, fontSize: "15px", maxWidth: "600px", lineHeight: 1.8 }}>
+          The Arts & Sports Science pathway develops creative, performing and sports talents. It leads to careers in fine art, music, theatre, sports coaching, journalism, education and the creative industries.
+        </p>
+        <Link href="/grade-10" style={{ background: "#fff", color: "#E91E63", padding: "10px 24px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>
+          Start Grade 10 Arts &rarr;
+        </Link>
+      </div>
+      <div style={{ background: "#fce4ec", border: "1px solid #f48fb1", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          {["Grade 10, 11, 12","Creative expression","Performance arts","Sports science","KSCE at Grade 12","Creative industry careers"].map(h => (
+            <span key={h} style={{ background: "#fff", border: "1px solid #f48fb1", borderRadius: "20px", padding: "4px 14px", fontSize: "12px", color: "#880E4F" }}>&#10003; {h}</span>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ background: "#fff8e1", border: "1px solid #FFB300", borderRadius: "4px", padding: "14px 20px", marginBottom: "28px" }}>
+        <strong style={{ color: "#856404" }}>&#9733; National Exam: KSCE — Kenya Secondary Certificate of Education (End of Grade 12)</strong>
+      </div>
+
+      <h2>Arts & Sports Science Subjects</h2>
+      <div style={{ marginBottom: "28px" }}>
+        {SUBJECTS.map((s, i) => (
+          <Link key={s.name} href={`/grade-10/${s.name.toLowerCase().replaceAll(" ", "-")}`} style={{ textDecoration: "none", display: "block", marginBottom: "12px" }}>
+            <div style={{ border: "1px solid #eee", borderLeft: "5px solid #E91E63", borderRadius: "0 4px 4px 0", padding: "16px 20px", background: "#fafafa" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <span style={{ background: "#E91E63", color: "#fff", fontSize: "11px", padding: "2px 10px", borderRadius: "2px", fontWeight: 700 }}>Subject {i + 1}</span>
+                  <strong style={{ fontSize: "15px", color: "#222" }}>{s.name}</strong>
+                </div>
+                <span style={{ color: "#E91E63", fontWeight: 700, fontSize: "13px" }}>Start &rarr;</span>
+              </div>
+              <p style={{ margin: "0 0 10px 0", fontSize: "13px", color: "#555", lineHeight: 1.7 }}>{s.desc}</p>
+              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                {s.strands.map(st => <span key={st} style={{ background: "#fff", border: "1px solid #E91E63", color: "#E91E63", fontSize: "11px", padding: "2px 10px", borderRadius: "10px" }}>{st}</span>)}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="prev-next">
+        <Link href="/pathway/senior-stem" className="prev">STEM Pathway</Link>
+        <Link href="/pathway/senior-social" className="next">Social Sciences Pathway</Link>
+      </div>
+    </div>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\pathway\senior-secondary\page.tsx ---
+import Link from "next/link";
+
+export default function SeniorSecondaryPage() {
+  const pathways = [
+    { label: "STEM", color: "#04AA6D", desc: "Sciences, Technology, Engineering & Mathematics", subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science", "Agriculture"], href: "/grade-10" },
+    { label: "Arts & Sports Science", color: "#E91E63", desc: "Creative, Performing and Sports Sciences", subjects: ["Fine Art", "Music", "Theatre Arts", "Sports Science", "English", "Kiswahili"], href: "/grade-10" },
+    { label: "Social Sciences", color: "#795548", desc: "Humanities, Business and Social Studies", subjects: ["History", "Geography", "Economics", "Business Studies", "English", "Kiswahili"], href: "/grade-10" },
+  ];
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Senior Secondary Pathway</span>
+      </div>
+      <div style={{ background: "linear-gradient(135deg, #607D8B 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>SSS &bull; Ages 15–17</div>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>Senior Secondary Pathway</h1>
+        <p style={{ margin: "0 0 16px 0", opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>Grade 10 to Grade 12 is where learners specialise. Based on KILEA results and personal aptitude, each learner chooses one of three pathways — STEM, Arts & Sports Science, or Social Sciences — leading to <strong>KSCE</strong> at Grade 12.</p>
+        <div style={{ fontSize: "13px", opacity: 0.85 }}>Grades: <strong>Grade 10, 11, 12</strong></div>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          {["3 specialised pathways", "STEM pathway", "Arts & Sports pathway", "Social Sciences pathway", "KSCE at Grade 12", "University & TVET entry"].map(h => (
+            <span key={h} style={{ background: "#fff", border: "1px solid #c3e6cb", borderRadius: "20px", padding: "4px 14px", fontSize: "12px", color: "#1a5c35" }}>&#10003; {h}</span>
+          ))}
+        </div>
+      </div>
+      <div style={{ background: "#fff8e1", border: "1px solid #FFB300", borderRadius: "4px", padding: "14px 20px", marginBottom: "28px" }}>
+        <strong style={{ color: "#856404" }}>&#9733; National Exam: KSCE — Kenya Secondary Certificate of Education</strong>
+        <p style={{ margin: "6px 0 0 0", fontSize: "13px", color: "#856404" }}>Sat at the end of Grade 12. Replaces the old KCSE. Results used for university placement, TVET and other tertiary pathways.</p>
+      </div>
+      <h2>Choose Your Senior Secondary Pathway</h2>
+      <div className="subject-grid" style={{ marginBottom: "28px" }}>
+        {pathways.map(p => (
+          <Link key={p.label} href={p.href} className="subject-card">
+            <div className="subject-card-header" style={{ background: p.color }}>
+              <div style={{ fontSize: "16px", fontWeight: 700 }}>{p.label}</div>
+              <div style={{ fontSize: "11px", opacity: 0.85, marginTop: "2px" }}>{p.desc}</div>
+            </div>
+            <div className="subject-card-body">
+              <ul style={{ margin: 0, paddingLeft: "16px", fontSize: "12px", color: "#555" }}>
+                {p.subjects.map(s => <li key={s}>{s}</li>)}
+              </ul>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="prev-next">
+        <Link href="/pathway/junior-secondary" className="prev">Junior Secondary</Link>
+        <Link href="/pathway/senior-stem" className="next">STEM Pathway</Link>
+      </div>
+    </div>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\pathway\senior-social\page.tsx ---
+import Link from "next/link";
+
+const SUBJECTS = [
+  { name: "History & Government", desc: "Kenyan and world history, government systems, democracy, human rights and international relations.", strands: ["Kenyan History","World History","Government","Human Rights"] },
+  { name: "Geography", desc: "Physical and human geography, environmental science, cartography, climate and natural resources.", strands: ["Physical Geography","Human Geography","Cartography","Environment"] },
+  { name: "Economics", desc: "Micro and macroeconomics, national development, international trade, banking and fiscal policy.", strands: ["Microeconomics","Macroeconomics","International Trade","Development Economics"] },
+  { name: "Business Studies", desc: "Business management, entrepreneurship, accounting principles, marketing and business law.", strands: ["Business Management","Entrepreneurship","Accounting","Marketing"] },
+  { name: "English", desc: "Advanced literature, creative writing, critical analysis, oral communication and media literacy.", strands: ["Literature","Creative Writing","Critical Analysis","Media Literacy"] },
+  { name: "Kiswahili", desc: "Advanced Kiswahili language, literature, oral traditions and written communication.", strands: ["Fasihi","Uandishi","Lugha","Mawasiliano"] },
+];
+
+export default function SeniorSocialPage() {
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <Link href="/pathway/senior-secondary">Senior Secondary</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Social Sciences Pathway</span>
+      </div>
+
+      <div style={{ background: "linear-gradient(135deg, #795548 0%, #3e2723 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>SOCIAL &bull; Grade 10–12 &bull; Ages 15–17</div>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>Senior Secondary — Social Sciences</h1>
+        <p style={{ margin: "0 0 20px 0", opacity: 0.92, fontSize: "15px", maxWidth: "600px", lineHeight: 1.8 }}>
+          The Social Sciences pathway develops analytical, economic and humanities skills. It leads to careers in law, economics, journalism, public administration, teaching, diplomacy, business and the social sector.
+        </p>
+        <Link href="/grade-10" style={{ background: "#fff", color: "#795548", padding: "10px 24px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>
+          Start Grade 10 Social &rarr;
+        </Link>
+      </div>
+      <div style={{ background: "#efebe9", border: "1px solid #bcaaa4", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          {["Grade 10, 11, 12","Humanities focus","Business & Economics","Law & Governance","KSCE at Grade 12","Public service careers"].map(h => (
+            <span key={h} style={{ background: "#fff", border: "1px solid #bcaaa4", borderRadius: "20px", padding: "4px 14px", fontSize: "12px", color: "#4e342e" }}>&#10003; {h}</span>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ background: "#fff8e1", border: "1px solid #FFB300", borderRadius: "4px", padding: "14px 20px", marginBottom: "28px" }}>
+        <strong style={{ color: "#856404" }}>&#9733; National Exam: KSCE — Kenya Secondary Certificate of Education (End of Grade 12)</strong>
+      </div>
+
+      <h2>Social Sciences Subjects</h2>
+      <div style={{ marginBottom: "28px" }}>
+        {SUBJECTS.map((s, i) => (
+          <Link key={s.name} href={`/grade-10/${s.name.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and")}`} style={{ textDecoration: "none", display: "block", marginBottom: "12px" }}>
+            <div style={{ border: "1px solid #eee", borderLeft: "5px solid #795548", borderRadius: "0 4px 4px 0", padding: "16px 20px", background: "#fafafa" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <span style={{ background: "#795548", color: "#fff", fontSize: "11px", padding: "2px 10px", borderRadius: "2px", fontWeight: 700 }}>Subject {i + 1}</span>
+                  <strong style={{ fontSize: "15px", color: "#222" }}>{s.name}</strong>
+                </div>
+                <span style={{ color: "#795548", fontWeight: 700, fontSize: "13px" }}>Start &rarr;</span>
+              </div>
+              <p style={{ margin: "0 0 10px 0", fontSize: "13px", color: "#555", lineHeight: 1.7 }}>{s.desc}</p>
+              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                {s.strands.map(st => <span key={st} style={{ background: "#fff", border: "1px solid #795548", color: "#795548", fontSize: "11px", padding: "2px 10px", borderRadius: "10px" }}>{st}</span>)}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="prev-next">
+        <Link href="/pathway/senior-arts" className="prev">Arts &amp; Sports Pathway</Link>
+        <Link href="/exercises" className="next">Exercises</Link>
+      </div>
+    </div>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\pathway\senior-stem\page.tsx ---
+import Link from "next/link";
+
+const SUBJECTS = [
+  { name: "Mathematics", desc: "Advanced algebra, calculus, statistics, trigonometry and linear programming. Core for all STEM learners.", strands: ["Algebra","Calculus Intro","Statistics","Trigonometry"] },
+  { name: "Physics", desc: "Mechanics, electricity, magnetism, waves, optics and modern physics. Includes practical laboratory work.", strands: ["Mechanics","Electricity","Waves & Optics","Modern Physics"] },
+  { name: "Chemistry", desc: "Organic and inorganic chemistry, electrochemistry, rates of reaction and industrial chemistry.", strands: ["Organic Chemistry","Electrochemistry","Rates of Reaction","Industrial Chemistry"] },
+  { name: "Biology", desc: "Cell biology, genetics, ecology, evolution, human physiology and biotechnology.", strands: ["Cell Biology","Genetics","Ecology","Human Physiology"] },
+  { name: "Computer Science", desc: "Programming, algorithms, data structures, networks, cybersecurity and artificial intelligence.", strands: ["Programming","Algorithms","Networks","AI & Cybersecurity"] },
+  { name: "Agriculture", desc: "Crop production, animal husbandry, soil science, agribusiness and food technology.", strands: ["Crop Production","Animal Husbandry","Soil Science","Agribusiness"] },
+];
+
+export default function SeniorStemPage() {
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <Link href="/pathway/senior-secondary">Senior Secondary</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>STEM Pathway</span>
+      </div>
+
+      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>STEM &bull; Grade 10–12 &bull; Ages 15–17</div>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>Senior Secondary — STEM Pathway</h1>
+        <p style={{ margin: "0 0 20px 0", opacity: 0.92, fontSize: "15px", maxWidth: "600px", lineHeight: 1.8 }}>
+          The STEM pathway prepares learners for careers in Science, Technology, Engineering and Mathematics. It leads to university programmes in Medicine, Engineering, Computer Science, Agriculture, Education and more.
+        </p>
+        <Link href="/grade-10" style={{ background: "#fff", color: "#04AA6D", padding: "10px 24px", borderRadius: "3px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>
+          Start Grade 10 STEM &rarr;
+        </Link>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          {["Grade 10, 11, 12","6 core subjects","KSCE at Grade 12","University entry","TVET pathways","Research & Innovation"].map(h => (
+            <span key={h} style={{ background: "#fff", border: "1px solid #c3e6cb", borderRadius: "20px", padding: "4px 14px", fontSize: "12px", color: "#1a5c35" }}>&#10003; {h}</span>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ background: "#fff8e1", border: "1px solid #FFB300", borderRadius: "4px", padding: "14px 20px", marginBottom: "28px" }}>
+        <strong style={{ color: "#856404" }}>&#9733; National Exam: KSCE — Kenya Secondary Certificate of Education (End of Grade 12)</strong>
+        <p style={{ margin: "6px 0 0 0", fontSize: "13px", color: "#856404" }}>STEM learners sit Mathematics, Sciences and their optional subjects. Results used for university and TVET placement.</p>
+      </div>
+
+      <h2>STEM Subjects</h2>
+      <p>Click any subject to start learning. All content is KICD CBC aligned for Grade 10–12.</p>
+      <div style={{ marginBottom: "28px" }}>
+        {SUBJECTS.map((s, i) => (
+          <Link key={s.name} href={`/grade-10/${s.name.toLowerCase().replaceAll(" ", "-")}`} style={{ textDecoration: "none", display: "block", marginBottom: "12px" }}>
+            <div style={{ border: "1px solid #eee", borderLeft: "5px solid #04AA6D", borderRadius: "0 4px 4px 0", padding: "16px 20px", background: "#fafafa" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <span style={{ background: "#04AA6D", color: "#fff", fontSize: "11px", padding: "2px 10px", borderRadius: "2px", fontWeight: 700 }}>Subject {i + 1}</span>
+                  <strong style={{ fontSize: "15px", color: "#222" }}>{s.name}</strong>
+                </div>
+                <span style={{ color: "#04AA6D", fontWeight: 700, fontSize: "13px" }}>Start &rarr;</span>
+              </div>
+              <p style={{ margin: "0 0 10px 0", fontSize: "13px", color: "#555", lineHeight: 1.7 }}>{s.desc}</p>
+              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                {s.strands.map(st => <span key={st} style={{ background: "#fff", border: "1px solid #04AA6D", color: "#04AA6D", fontSize: "11px", padding: "2px 10px", borderRadius: "10px" }}>{st}</span>)}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="note-box">
+        <strong>Pathway Selection:</strong> Learners choose the STEM pathway based on their KILEA results, aptitude assessment and career interests at the end of Grade 9.
+      </div>
+      <div className="prev-next">
+        <Link href="/pathway/senior-secondary" className="prev">Senior Secondary</Link>
+        <Link href="/pathway/senior-arts" className="next">Arts &amp; Sports Pathway</Link>
+      </div>
+    </div>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\pathway\upper-primary\page.tsx ---
+import Link from "next/link";
+
+export default function UpperPrimaryPage() {
+  const grades = [
+    { label: "Grade 4", href: "/grade-4", age: "Age 9", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Social Studies", "Creative Arts & Sports", "Religious Education", "Agriculture"] },
+    { label: "Grade 5", href: "/grade-5", age: "Age 10", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Social Studies", "Creative Arts & Sports", "Religious Education", "Agriculture"] },
+    { label: "Grade 6", href: "/grade-6", age: "Age 11", subjects: ["English", "Kiswahili", "Mathematics", "Integrated Science", "Social Studies", "Creative Arts & Sports", "Religious Education", "Agriculture"] },
+  ];
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Upper Primary Pathway</span>
+      </div>
+
+      <div className="prev-next" style={{ marginBottom: "28px" }}>
+        <Link href="/pathway/lower-primary" className="prev">Lower Primary</Link>
+        <Link href="/pathway/junior-secondary" className="next">Junior Secondary</Link>
+      </div>
+
+            <div style={{ background: "linear-gradient(135deg, #9C27B0 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <div style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", display: "inline-block", padding: "2px 10px", borderRadius: "10px", marginBottom: "10px" }}>UP &bull; Ages 9–11</div>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>Upper Primary Pathway</h1>
+        <p style={{ margin: "0 0 16px 0", opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>Grade 4 to Grade 6 deepens core subjects and introduces Agriculture, Integrated Science and Social Studies. This pathway ends with the <strong>KPSEA</strong> national assessment at Grade 6 which determines transition to Junior Secondary.</p>
+        <div style={{ fontSize: "13px", opacity: 0.85 }}>Grades: <strong>Grade 4, 5, 6</strong></div>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          {["8 subjects", "Agriculture introduced", "Integrated Science", "Social Studies", "KPSEA at Grade 6", "SBA throughout"].map(h => (
+            <span key={h} style={{ background: "#fff", border: "1px solid #c3e6cb", borderRadius: "20px", padding: "4px 14px", fontSize: "12px", color: "#1a5c35" }}>&#10003; {h}</span>
+          ))}
+        </div>
+      </div>
+      <div style={{ background: "#fff8e1", border: "1px solid #FFB300", borderRadius: "4px", padding: "14px 20px", marginBottom: "24px" }}>
+        <strong style={{ color: "#856404" }}>&#9733; National Exam: KPSEA — Kenya Primary School Education Assessment</strong>
+        <p style={{ margin: "6px 0 0 0", fontSize: "13px", color: "#856404" }}>Sat at the end of Grade 6. Results combined with SBA scores to determine transition to Junior Secondary School (Grade 7).</p>
+      </div>
+      <h2>Grades in This Pathway</h2>
+      <div className="subject-grid" style={{ marginBottom: "28px" }}>
+        {grades.map(g => (
+          <Link key={g.label} href={g.href} className="subject-card">
+            <div className="subject-card-header" style={{ background: "#9C27B0" }}>
+              <div style={{ fontSize: "18px", fontWeight: 700 }}>{g.label}</div>
+              <div style={{ fontSize: "12px", opacity: 0.85 }}>{g.age}</div>
+            </div>
+            <div className="subject-card-body">
+              <ul style={{ margin: 0, paddingLeft: "16px", fontSize: "12px", color: "#555" }}>
+                {g.subjects.map(s => <li key={s}>{s}</li>)}
+              </ul>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="prev-next">
+        <Link href="/pathway/lower-primary" className="prev">Lower Primary</Link>
+        <Link href="/pathway/junior-secondary" className="next">Junior Secondary</Link>
+      </div>
+    </div>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\quizzes\page.tsx ---
+import Link from "next/link";
+
+export default function QuizzesPage() {
+  const quizzes = [
+    { title: "What is CBC?", desc: "Test your knowledge of the Competency Based Curriculum framework.", level: "General", color: "#04AA6D" },
+    { title: "Early Years — Language Activities", desc: "Basic language and literacy quiz for PP1 and PP2 level.", level: "PP1 / PP2", color: "#FF9800" },
+    { title: "Grade 3 Mathematics", desc: "Numbers, addition, subtraction and basic shapes.", level: "Grade 3", color: "#2196F3" },
+    { title: "Grade 6 Integrated Science", desc: "Living things, matter, energy and environment.", level: "Grade 6", color: "#9C27B0" },
+    { title: "Grade 9 Social Studies", desc: "Kenya geography, history, government and citizenship.", level: "Grade 9", color: "#F44336" },
+    { title: "CBC Core Competencies", desc: "Can you name all 7 core competencies of the CBC?", level: "General", color: "#607D8B" },
+  ];
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link><span className="breadcrumb-sep">&rsaquo;</span>
+        <span>Quizzes</span>
+      </div>
+      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>CBC Quizzes</h1>
+        <p style={{ margin: 0, opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>
+          Test your understanding of CBC subjects with our free quizzes. Each quiz is curriculum-aligned and gives you instant results and explanations.
+        </p>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <p style={{ margin: 0, fontSize: "14px", color: "#1a5c35" }}>Quizzes help reinforce learning after each topic. Use them to prepare for School Based Assessments (SBA) and national exams.</p>
+      </div>
+      <h2>Available Quizzes</h2>
+      <div className="subject-grid" style={{ marginBottom: "32px" }}>
+        {quizzes.map(q => (
+          <div key={q.title} className="subject-card" style={{ cursor: "pointer" }}>
+            <div className="subject-card-header" style={{ background: q.color }}>
+              <div style={{ fontSize: "13px", fontWeight: 700 }}>{q.title}</div>
+              <div style={{ fontSize: "11px", opacity: 0.85, marginTop: "4px" }}>Level: {q.level}</div>
+            </div>
+            <div className="subject-card-body">
+              <p style={{ margin: "0 0 10px 0", fontSize: "12px", color: "#555" }}>{q.desc}</p>
+              <span style={{ background: q.color, color: "#fff", fontSize: "11px", padding: "4px 12px", borderRadius: "2px", fontWeight: 700 }}>Start Quiz &rarr;</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="note-box">
+        <strong>More quizzes coming soon!</strong> We are building quizzes for every topic across all grades. New quizzes are added weekly.
+      </div>
+      <div className="prev-next">
+        <Link href="/exercises" className="prev">Exercises</Link>
+        <Link href="/certificates" className="next">Certificates</Link>
+      </div>
+    </div>
+  );
+}
+
+
+--- FILE: C:\Projects\w3clone-next\app\references\page.tsx ---
+import Link from "next/link";
+
+const REFS = [
+  { section: "Official KICD Documents", color: "#04AA6D", items: [
+    { title: "KICD Official Website", href: "https://kicd.ac.ke", ext: true, desc: "Kenya Institute of Curriculum Development — official curriculum designs, teacher guides and policy documents." },
+    { title: "Early Years Curriculum Design", href: "https://kicd.ac.ke", ext: true, desc: "The official KICD curriculum design for PP1 and PP2 (2017). Covers all 5 learning areas." },
+    { title: "Lower Primary Curriculum Design", href: "https://kicd.ac.ke", ext: true, desc: "Grade 1–3 curriculum design covering all 7 subjects." },
+    { title: "Upper Primary Curriculum Design", href: "https://kicd.ac.ke", ext: true, desc: "Grade 4–6 curriculum design including Agriculture, Integrated Science and Social Studies." },
+    { title: "Junior Secondary Curriculum Design", href: "https://kicd.ac.ke", ext: true, desc: "Grade 7–9 curriculum design including Pre-Technical Studies and Health Education." },
+    { title: "Senior Secondary Curriculum Design", href: "https://kicd.ac.ke", ext: true, desc: "Grade 10–12 curriculum designs for STEM, Arts & Sports Science and Social Sciences pathways." },
+  ]},
+  { section: "Assessment & SBA", color: "#2196F3", items: [
+    { title: "SBA Assessment Guide", href: "/references/sba-guides", ext: false, desc: "How School Based Assessment works across all CBC levels — tools, frequency and reporting." },
+    { title: "KPSEA Information", href: "/references/kpsea", ext: false, desc: "Kenya Primary School Education Assessment — sat at end of Grade 6. Format, grading and what to expect." },
+    { title: "KILEA Information", href: "/references/kilea", ext: false, desc: "Kenya Junior Secondary Education Assessment — sat at end of Grade 9. Pathway selection implications." },
+    { title: "KSCE Information", href: "/references/ksce", ext: false, desc: "Kenya Secondary Certificate of Education — sat at end of Grade 12. University and TVET entry requirements." },
+  ]},
+  { section: "Curriculum Guides", color: "#9C27B0", items: [
+    { title: "CBC Core Competencies", href: "/about", ext: false, desc: "All 7 core competencies of the CBC explained with examples across grade levels." },
+    { title: "CBC Core Values", href: "/about", ext: false, desc: "The 8 national core values embedded in every CBC subject from PP1 to Grade 12." },
+    { title: "Pertinent & Contemporary Issues", href: "/kicd", ext: false, desc: "Cross-cutting themes like environmental education, gender, financial literacy and life skills." },
+    { title: "Community Service Learning", href: "/kicd", ext: false, desc: "How CBC uses community service as a learning tool across all grade levels." },
+  ]},
+  { section: "For Parents & Teachers", color: "#F44336", items: [
+    { title: "Parent Handbook", href: "/references/parent-guide", ext: false, desc: "Understanding CBC as a parent — what to expect at each level, how to support learning at home." },
+    { title: "Teacher Implementation Guide", href: "/references/teacher-guide", ext: false, desc: "How to implement CBC pedagogy — learner-centred approaches, activity-based learning and SBA tools." },
+    { title: "CBC Glossary", href: "/references/glossary", ext: false, desc: "Key CBC terms defined — competency, strand, sub-strand, SBA, PCI, and more." },
+    { title: "Ministry of Education", href: "https://education.go.ke", ext: true, desc: "Official Ministry of Education website — policy documents, circulars and CBC implementation updates." },
+  ]},
+];
+
+export default function ReferencesPage() {
+  return (
+    <div>
+      <div className="breadcrumb">
+        <Link href="/">Home</Link>
+        <span className="breadcrumb-sep">&rsaquo;</span>
+        <span>References</span>
+      </div>
+
+      <div style={{ background: "linear-gradient(135deg, #04AA6D 0%, #036b45 100%)", color: "#fff", padding: "36px 32px 48px 32px", borderRadius: "4px 4px 0 0", marginBottom: 0 }}>
+        <h1 style={{ margin: "0 0 10px 0", fontSize: "32px", fontWeight: 700 }}>CBC References</h1>
+        <p style={{ margin: 0, opacity: 0.92, fontSize: "15px", maxWidth: "580px", lineHeight: 1.8 }}>
+          Complete reference materials for the Kenya Competency Based Curriculum — official KICD documents, assessment guides, curriculum designs and resources for parents and teachers.
+        </p>
+      </div>
+      <div style={{ background: "#d4edda", border: "1px solid #c3e6cb", borderTop: "none", padding: "14px 32px 18px 32px", marginBottom: "28px" }}>
+        <p style={{ margin: 0, fontSize: "14px", color: "#1a5c35" }}>All content on this site is aligned to official KICD curriculum designs. External links open the official KICD or government websites.</p>
+      </div>
+
+      {REFS.map(section => (
+        <div key={section.section} style={{ marginBottom: "32px" }}>
+          <h2 style={{ borderBottom: `3px solid ${section.color}`, paddingBottom: "8px", marginBottom: "14px" }}>{section.section}</h2>
+          <table>
+            <thead>
+              <tr><th>Reference</th><th>Description</th><th></th></tr>
+            </thead>
+            <tbody>
+              {section.items.map(item => (
+                <tr key={item.title}>
+                  <td style={{ fontWeight: 700, whiteSpace: "nowrap" }}>
+                    {item.ext ? (
+                      <a href={item.href} target="_blank" rel="noreferrer" style={{ color: section.color, textDecoration: "none" }}>{item.title} &#8599;</a>
+                    ) : (
+                      <Link href={item.href} style={{ color: section.color, textDecoration: "none" }}>{item.title}</Link>
+                    )}
+                  </td>
+                  <td style={{ fontSize: "13px", color: "#555" }}>{item.desc}</td>
+                  <td>
+                    {item.ext ? (
+                      <a href={item.href} target="_blank" rel="noreferrer" style={{ color: section.color, fontSize: "13px", textDecoration: "none", whiteSpace: "nowrap" }}>Open &rarr;</a>
+                    ) : (
+                      <Link href={item.href} style={{ color: section.color, fontSize: "13px", textDecoration: "none", whiteSpace: "nowrap" }}>View &rarr;</Link>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+
+      <div className="note-box">
+        <strong>Disclaimer:</strong> CBC Kenya Schools is an independent educational resource. We are not affiliated with KICD or the Ministry of Education. All curriculum content is sourced from publicly available KICD documents and aligned to the official CBC framework.
+      </div>
+      <div className="prev-next">
+        <Link href="/certificates" className="prev">Certificates</Link>
+        <Link href="/how-to" className="next">How To</Link>
+      </div>
+    </div>
+  );
+}
+
+--- FILE: C:\Projects\w3clone-next\app\[grade]\page.tsx ---
+
+--- FILE: C:\Projects\w3clone-next\app\[grade]\[subject]\page.tsx ---
+
+--- FILE: C:\Projects\w3clone-next\app\[grade]\[subject]\[topic]\page.tsx ---
+
+--- FILE: C:\Projects\w3clone-next\app\globals.css ---
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; color: #000; background: #fff; }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 0 16px; border-bottom: 1px solid #ddd; background: #fff; position: sticky; top: 0; z-index: 100000; height: 46px; }
+.topbar-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #000; flex-shrink: 0; }
+.topbar-logo-box { background: #04AA6D; color: #fff; font-weight: 900; font-size: 15px; padding: 4px 9px; letter-spacing: 1px; border-radius: 2px; }
+.topbar-logo-text { font-size: 15px; font-weight: 700; white-space: nowrap; }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.topbar-search { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 2px; overflow: hidden; }
+.topbar-search input { border: none; padding: 6px 10px; font-size: 14px; width: 200px; outline: none; font-family: Verdana, sans-serif; }
+.topbar-search-btn { background: #04AA6D; border: none; padding: 6px 12px; cursor: pointer; color: #fff; font-size: 15px; display: flex; align-items: center; }
+.topbar-btn { background: #04AA6D; color: #fff; border: none; padding: 7px 16px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: Verdana, sans-serif; border-radius: 2px; white-space: nowrap; }
+.topbar-btn:hover { background: #059862; }
+
+.tabbar { background: #f8f8f8; border-bottom: 1px solid #ddd; display: flex; align-items: center; padding: 0 8px; position: sticky; top: 46px; z-index: 99998; height: 38px; overflow-x: auto; scrollbar-width: none; }
+.tabbar::-webkit-scrollbar { display: none; }
+.tabbar-btn { padding: 0 14px; height: 38px; font-size: 14px; font-family: Verdana, sans-serif; cursor: pointer; border: none; background: transparent; color: #333; white-space: nowrap; border-bottom: 3px solid transparent; font-weight: 600; display: flex; align-items: center; text-decoration: none; }
+.tabbar-btn:hover { background: #efefef; }
+.tabbar-btn.active { color: #04AA6D; border-bottom: 3px solid #04AA6D; }
+.tabbar-divider { width: 1px; height: 20px; background: #ddd; margin: 0 4px; flex-shrink: 0; }
+
+.gradenav { background: #000; color: #fff; display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: visible; position: sticky; top: 84px; z-index: 99999; scrollbar-width: none; height: 48px; align-items: center; }
+.gradenav::-webkit-scrollbar { display: none; }
+.gradenav-item { padding: 0 14px; cursor: pointer; white-space: nowrap; font-size: 13px; font-weight: 700; height: 48px; display: flex; align-items: center; color: #fff; }
+.gradenav-item:hover { background: #333; }
+.gradenav-item.active { background: #04AA6D; }
+
+.layout { display: flex; min-height: calc(100vh - 132px); }
+
+.sidebar { width: 228px; min-width: 228px; border-right: 1px solid #ddd; position: sticky; top: 132px; height: calc(100vh - 132px); overflow-y: auto; background: #fff; scrollbar-width: thin; flex-shrink: 0; }
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: #ddd; }
+
+.sidebar-header { background: #04AA6D; color: #fff; padding: 12px 16px; font-size: 15px; font-weight: 700; display: block; text-decoration: none; border-bottom: 2px solid #038a58; }
+.sidebar-header:hover { background: #059862; color: #fff; }
+.sidebar-title { font-size: 13px; font-weight: 700; padding: 10px 16px 6px 16px; display: block; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
+.sidebar a { display: flex; align-items: center; justify-content: space-between; padding: 7px 16px; text-decoration: none; color: #000; font-size: 14px; line-height: 1.4; background: #fff; }
+.sidebar a.active { background: #04AA6D; color: #fff; font-weight: 700; }
+.sidebar a:hover:not(.active):not(.sidebar-header) { background: #f1f1f1; }
+.sidebar a:not(.sidebar-header)::after { content: ">"; font-size: 14px; color: #aaa; }
+.sidebar a.active:not(.sidebar-header)::after { color: #fff; }
+.sidebar-header::after { content: "" !important; display: none !important; }
+.sidebar-section { font-size: 11px; font-weight: 700; color: #999; padding: 10px 16px 3px 16px; text-transform: uppercase; letter-spacing: 0.8px; border-top: 1px solid #f0f0f0; margin-top: 4px; }
+
+.content { flex: 1; padding: 24px 40px 60px 30px; max-width: 860px; min-width: 0; line-height: 1.8; }
+.content h1 { font-size: 30px; font-weight: 400; margin-bottom: 10px; }
+.content h2 { font-size: 20px; margin: 28px 0 10px 0; font-weight: 700; }
+.content h3 { font-size: 17px; margin: 20px 0 8px 0; font-weight: 700; }
+.content p { margin-bottom: 14px; color: #333; font-size: 15px; }
+.content ul, .content ol { margin: 0 0 14px 24px; font-size: 15px; color: #333; }
+.content li { margin-bottom: 4px; line-height: 1.7; }
+
+.breadcrumb { font-size: 13px; color: #888; margin-bottom: 16px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.breadcrumb a { color: #04AA6D; text-decoration: none; font-size: 13px; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb-sep { color: #bbb; }
+
+.example-box { background: #fff; margin: 20px 0; border: 1px solid #ddd; }
+.example-box-header { background: #04AA6D; color: #fff; padding: 7px 16px; font-size: 13px; font-weight: 700; }
+.example-box-body { padding: 16px 18px 12px 18px; font-size: 14px; color: #333; background: #f9f9f9; }
+
+.code-block { background: #fff; border: 1px solid #ddd; border-left: 4px solid #04AA6D; padding: 14px 16px; font-family: 'Courier New', monospace; font-size: 14px; color: #000; margin: 10px 0; overflow-x: auto; line-height: 1.7; white-space: pre; }
+
+.try-btn { display: inline-block; background: #04AA6D; color: #fff; border: none; padding: 8px 18px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: Verdana, sans-serif; border-radius: 2px; margin-top: 8px; text-decoration: none; }
+.try-btn:hover { background: #059862; color: #fff; }
+
+.note-box { background: #ffffcc; border-left: 6px solid #ffeb3b; padding: 12px 16px; margin: 16px 0; font-size: 14px; color: #333; }
+.warning-box { background: #fff3cd; border-left: 6px solid #ffc107; padding: 12px 16px; margin: 16px 0; font-size: 14px; }
+
+.prev-next { display: flex; justify-content: center; gap: 20px; align-items: center; margin-top: 48px; padding-top: 16px; border-top: 2px solid #04AA6D; gap: 10px; }
+.prev-next a { background: #04AA6D; color: #fff; text-decoration: none; padding: 10px 22px; font-size: 14px; font-weight: 700; font-family: Verdana, sans-serif; border-radius: 2px; }
+.prev-next a:hover { background: #059862; }
+.prev-next a.prev::before { content: "< "; }
+.prev-next a.next::after { content: " >"; }
+
+.right-sidebar { width: 220px; min-width: 220px; flex-shrink: 0; padding: 16px 12px; border-left: 1px solid #ddd; background: #fff; position: sticky; top: 132px; height: calc(100vh - 132px); overflow-y: auto; }
+.rs-card { border: 1px solid #ddd; border-radius: 3px; padding: 14px 12px; margin-bottom: 16px; text-align: center; background: #fafafa; }
+.rs-logo-box { background: #04AA6D; color: #fff; font-weight: 900; font-size: 14px; padding: 4px 8px; border-radius: 2px; display: inline-block; margin-bottom: 6px; }
+.rs-card-title { font-size: 13px; font-weight: 700; margin: 6px 0 4px; }
+.rs-card-sub { font-size: 12px; color: #666; margin-bottom: 10px; line-height: 1.5; }
+.rs-card-icon { font-size: 36px; margin: 6px 0; }
+.rs-btn { background: #04AA6D; color: #fff; border: none; padding: 7px 14px; font-size: 12px; font-weight: 700; cursor: pointer; border-radius: 2px; font-family: Verdana, sans-serif; width: 100%; margin-top: 4px; }
+.rs-btn:hover { background: #059862; }
+.rs-section-title { font-size: 12px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 2px solid #04AA6D; }
+.rs-link-list { list-style: none; padding: 0; margin: 0 0 16px 0; }
+.rs-link-list li a { display: block; font-size: 13px; color: #04AA6D; text-decoration: none; padding: 4px 0; border-bottom: 1px solid #f0f0f0; }
+.rs-link-list li a:hover { text-decoration: underline; }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200000; display: flex; align-items: center; justify-content: center; }
+.modal-box { background: #fff; width: 92vw; max-width: 1100px; height: 82vh; border-radius: 4px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.modal-header { background: #04AA6D; color: #fff; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.modal-header-left { display: flex; align-items: center; gap: 12px; }
+.modal-close { background: transparent; border: none; color: #fff; font-size: 22px; cursor: pointer; }
+.modal-run-btn { background: #fff; color: #04AA6D; border: none; padding: 6px 18px; font-size: 13px; font-weight: 700; cursor: pointer; border-radius: 2px; font-family: Verdana, sans-serif; }
+.editor-layout { display: flex; flex: 1; overflow: hidden; }
+.editor-pane { flex: 1; display: flex; flex-direction: column; border-right: 1px solid #ddd; min-width: 0; }
+.editor-pane:last-child { border-right: none; }
+.pane-title { background: #f1f1f1; padding: 7px 14px; font-size: 13px; font-weight: 700; border-bottom: 1px solid #ddd; flex-shrink: 0; }
+.code-editor-area { flex: 1; border: none; outline: none; padding: 14px; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.7; resize: none; background: #1e1e1e; color: #d4d4d4; }
+.result-frame { flex: 1; border: none; width: 100%; background: #fff; }
+
+.pathway-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 10px; color: #fff; margin-bottom: 8px; }
+
+table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+th { background: #04AA6D; color: #fff; padding: 10px 12px; text-align: left; }
+td { padding: 9px 12px; border-bottom: 1px solid #ddd; }
+tr:hover td { background: #f5f5f5; }
+
+.subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 20px 0; }
+.subject-card { border: 1px solid #ddd; border-radius: 3px; text-decoration: none; color: #000; display: flex; flex-direction: column; overflow: hidden; transition: box-shadow 0.15s; }
+.subject-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
+.subject-card-header { padding: 12px 14px; font-weight: 700; font-size: 14px; color: #fff; }
+.subject-card-body { padding: 10px 14px; font-size: 13px; color: #555; flex: 1; }
+
+.footer { background: #444; color: #fff; text-align: center; padding: 20px; font-size: 13px; }
+.footer a { color: #aaa; text-decoration: none; }
+.footer a:hover { color: #fff; }
+
+@media (max-width: 900px) { .right-sidebar { display: none; } .content { padding: 16px 20px 40px; } }
+@media (max-width: 680px) { .sidebar { display: none; } .topbar-search { display: none; } }
+
+--- FILE: C:\Projects\w3clone-next\app\page.module.css ---
+.page {
+  --background: #fafafa;
+  --foreground: #fff;
+
+  --text-primary: #000;
+  --text-secondary: #666;
+
+  --button-primary-hover: #383838;
+  --button-secondary-hover: #f2f2f2;
+  --button-secondary-border: #ebebeb;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-sans);
+  background-color: var(--background);
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  max-width: 800px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: var(--foreground);
+  padding: 120px 60px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 24px;
+}
+
+.intro h1 {
+  max-width: 320px;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 48px;
+  letter-spacing: -2.4px;
+  text-wrap: balance;
+  color: var(--text-primary);
+}
+
+.intro p {
+  max-width: 440px;
+  font-size: 18px;
+  line-height: 32px;
+  text-wrap: balance;
+  color: var(--text-secondary);
+}
+
+.intro a {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ctas {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 440px;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.ctas a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 128px;
+  border: 1px solid transparent;
+  transition: 0.2s;
+  cursor: pointer;
+  width: fit-content;
+  font-weight: 500;
+}
+
+a.primary {
+  background: var(--text-primary);
+  color: var(--background);
+  gap: 8px;
+}
+
+a.secondary {
+  border-color: var(--button-secondary-border);
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  a.primary:hover {
+    background: var(--button-primary-hover);
+    border-color: transparent;
+  }
+
+  a.secondary:hover {
+    background: var(--button-secondary-hover);
+    border-color: transparent;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 48px 24px;
+  }
+
+  .intro {
+    gap: 16px;
+  }
+
+  .intro h1 {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.92px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    filter: invert();
+  }
+
+  .page {
+    --background: #000;
+    --foreground: #000;
+
+    --text-primary: #ededed;
+    --text-secondary: #999;
+
+    --button-primary-hover: #ccc;
+    --button-secondary-hover: #1a1a1a;
+    --button-secondary-border: #1a1a1a;
+  }
+}
+
+
+--- FILE: C:\Projects\w3clone-next\public\style.css ---
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 15px;
+  background: #fff;
+  color: #000;
+}
+
+/* â”€â”€ TOPBAR â”€â”€ */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo { display: flex; align-items: center; gap: 6px; }
+.logo-box {
+  background: #04aa6d;
+  color: #fff;
+  font-weight: 900;
+  font-size: 13px;
+  padding: 4px 7px;
+  border-radius: 3px;
+  line-height: 1.2;
+  text-align: center;
+}
+.logo-box span { display: block; font-size: 20px; }
+.logo-text { font-size: 11px; color: #999; font-weight: 700; }
+
+.nav-links { display: flex; gap: 2px; flex: 1; }
+.nav-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: #222;
+  border-radius: 3px;
+  font-family: inherit;
+}
+.nav-btn:hover { background: #f1f1f1; }
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  overflow: hidden;
+  max-width: 220px;
+}
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 6px 10px;
+  font-size: 13px;
+  width: 100%;
+  font-family: inherit;
+}
+.search-box button {
+  background: #04aa6d;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+}
+
+.signup-btn {
+  background: #04aa6d;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.signup-btn:hover { background: #059862; }
+
+/* â”€â”€ LANG BAR â”€â”€ */
+.lang-bar {
+  background: #000;
+  display: flex;
+  overflow-x: auto;
+  position: sticky;
+  top: 57px;
+  z-index: 99;
+}
+.lang-bar::-webkit-scrollbar { height: 3px; }
+.lang-bar::-webkit-scrollbar-thumb { background: #04aa6d; }
+
+.lang-tab {
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  font-family: Verdana, sans-serif;
+}
+.lang-tab:hover { background: #04aa6d; }
+.lang-tab.active { background: #04aa6d; }
+
+/* â”€â”€ LAYOUT â”€â”€ */
+.main-layout {
+  display: flex;
+  min-height: calc(100vh - 97px);
+}
+
+/* â”€â”€ LEFT SIDEBAR â”€â”€ */
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+  position: sticky;
+  top: 97px;
+  height: calc(100vh - 97px);
+  background: #fff;
+}
+.sidebar h3 {
+  padding: 14px 16px 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #000;
+}
+.sidebar-link:hover { background: #f1f1f1; }
+.sidebar-link.active { background: #04aa6d; color: #fff; font-weight: 700; }
+.sidebar-link .arrow { font-size: 11px; color: #aaa; }
+.sidebar-link.active .arrow { color: #fff; }
+
+/* â”€â”€ CONTENT â”€â”€ */
+.content-area {
+  flex: 1;
+  padding: 30px 40px;
+  max-width: 760px;
+  overflow-y: auto;
+}
+.content-area h1 { font-size: 2rem; font-weight: 400; margin-bottom: 20px; }
+.content-area h2 { font-size: 1.25rem; margin: 28px 0 12px; font-weight: 700; }
+.content-area p { margin-bottom: 14px; line-height: 1.7; }
+
+.nav-btns { display: flex; justify-content: space-between; margin: 16px 0 28px; }
+.nav-pg-btn {
+  background: #04aa6d;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 3px;
+  font-family: inherit;
+}
+.nav-pg-btn:hover { background: #038a58; }
+
+.example-box {
+  background: #f9f9f9;
+  border-left: 4px solid #04aa6d;
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-radius: 0 4px 4px 0;
+}
+.ex-title { font-weight: 700; font-size: 13px; margin-bottom: 10px; color: #555; text-transform: uppercase; }
+
+.code-block {
+  background: #282c34;
+  color: #abb2bf;
+  padding: 14px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  border-radius: 4px;
+  margin: 10px 0;
+  overflow-x: auto;
+  line-height: 1.7;
+  white-space: pre;
+}
+.code-block .tag { color: #e06c75; }
+.code-block .attr { color: #d19a66; }
+.code-block .str { color: #98c379; }
+
+.try-btn {
+  background: #4cae4c;
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 10px;
+  font-family: inherit;
+}
+.try-btn:hover { background: #3a943a; }
+
+/* â”€â”€ RIGHT SIDEBAR â”€â”€ */
+.right-sidebar {
+  width: 200px;
+  min-width: 200px;
+  padding: 16px 12px;
+  border-left: 1px solid #ddd;
+  background: #fff;
+  position: sticky;
+  top: 97px;
+  height: calc(100vh - 97px);
+  overflow-y: auto;
+}
+.rs-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.rs-logo { color: #04aa6d; font-size: 20px; font-weight: 900; }
+.rs-logo span { font-size: 11px; color: #555; display: block; font-weight: 400; }
+.rs-title { font-size: 12px; font-weight: 700; margin: 8px 0 4px; }
+.mortar { font-size: 34px; margin: 6px 0; }
+.learn-more-btn {
+  background: #04aa6d;
+  color: #fff;
+  border: none;
+  padding: 7px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 6px;
+  font-family: inherit;
+}
+.rs-section-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.color-picker-hex {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
+  margin: 8px auto;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+
+/* â”€â”€ MODAL / EDITOR â”€â”€ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-box {
+  background: #fff;
+  width: 90vw;
+  max-width: 1000px;
+  height: 80vh;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.modal-header {
+  background: #04aa6d;
+  color: #fff;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+.close-btn { background: transparent; border: none; color: #fff; font-size: 16px; cursor: pointer; }
+.editor-layout { display: flex; flex: 1; overflow: hidden; }
+.editor-pane { flex: 1; display: flex; flex-direction: column; border-right: 1px solid #ddd; }
+.editor-pane:last-child { border-right: none; }
+.pane-title { background: #f1f1f1; padding: 6px 12px; font-size: 13px; font-weight: 700; border-bottom: 1px solid #ddd; }
+#code-editor {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  resize: none;
+  background: #1e1e1e;
+  color: #d4d4d4;
+}
+.run-btn {
+  background: #04aa6d;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: inherit;
+}
+.run-btn:hover { background: #038a58; }
+#result-frame { flex: 1; border: none; width: 100%; }
+
+.sidebar-link { text-decoration: none; color: inherit; display: block; }
+
+.sidebar-link { text-decoration: none; color: inherit; display: block; }
+
+
+--- FILE: C:\Projects\w3clone-next\package.json ---
+{
+  "name": "w3clone-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.105.1",
+    "next": "16.2.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "typescript": "^5"
+  }
+}
+
+
+--- FILE: C:\Projects\w3clone-next\tsconfig.json ---
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+
+
+--- FILE: C:\Projects\w3clone-next\.vercel\project.json ---
+{
+  "projectId": "prj_K382xs59nS4CpLhXFCnxd6qNRCIi",
+  "orgId": "team_Q9lyQC0SRCBQmzJ0LAsgJX1J",
+  "projectName": "w3clone-next",
+  "settings": {
+    "createdAt": 1777651823322,
+    "framework": "nextjs",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}
+
+
+===== GIT HISTORY =====
+ae7b427 fix RightSidebar encoding emojis and special chars
+8443da9 center prev next buttons
+b4659b5 rewrite globals.css completely clean
+e15c897 fix globals.css BOM and trailing characters
+36ccc97 fix globals.css missing final newline
+8bc1159 fix: newline
+8092a97 fix: remove force rebuild comment
+33bdcfc fix: remove BOM byte-safe
+46a9212 fix: clean up CSS file ending
+84c7ebb fix: force Vercel rebuild
+8f85cf5 fix: remove corrupted CSS comment
+13991df fix: remove BOM from globals.css
+15b73db fix: all prev/next buttons show Previous and Next only, not page names
+03747b2 fix: home flow includes grade overview pages, subject pages use grade sidebar, prev/next say Previous/Next only
+67205fb feat: GradeNav shows subject dropdown before navigating, Sidebar has working prev/next buttons
+8e0265e fix: rewrite early-years page cleanly, no duplicate properties, full W3Schools style
+9617a25 fix: all home pages now have prev/next top and bottom in correct sidebar sequence
+8a9bcb7 fix: remove BOM from globals.css causing CSS parse error
+e0fd317 fix: remove > arrow from sidebar links to match W3Schools clean style
+5506ce9 feat: full homepage with every grade/subject listed + expanded sidebar with all site pages coloured by pathway
+
+Git Status:
+On branch main Your branch is up to date with 'origin/main'.  Untracked files:   (use "git add <file>..." to include in what will be committed) 	claude_snapshot.txt  nothing added to commit but untracked files present (use "git add" to track)

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SmartPrevNext } from "../components/Navigation";
 
 export default function AboutPage() {
   return (
@@ -10,10 +11,7 @@ export default function AboutPage() {
         <span>About CBC</span>
       </div>
 
-      <div className="prev-next" style={{ marginTop: 0, paddingTop: 0, borderTop: "none", marginBottom: "24px" }}>
-        <Link href="/" className="prev">Home</Link>
-        <Link href="/kicd" className="next">KICD Framework</Link>
-      </div>
+      <SmartPrevNext position="top" />
 
       <h1>About CBC / CBE</h1>
       <p>
@@ -172,10 +170,7 @@ export default function AboutPage() {
         for official documents and syllabus downloads.
       </div>
 
-      <div className="prev-next">
-        <Link href="/" className="prev">Home</Link>
-        <Link href="/kicd" className="next">KICD Framework</Link>
-      </div>
+      <SmartPrevNext />
 
     </div>
   );
