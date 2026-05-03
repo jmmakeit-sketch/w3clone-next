@@ -1,4 +1,4 @@
-ï»¿import Link from "next/link";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
@@ -17,7 +17,7 @@ export default function AboutPage() {
         <Link href="/kicd" className="next">KICD Framework</Link>
       </div>
 
-      {/* TOP Prev/Next â€” W3Schools style, appears before content */}
+      {/* TOP Prev/Next — W3Schools style, appears before content */}
       <div className="prev-next" style={{ marginTop: 0, paddingTop: 0, borderTop: "none", marginBottom: "28px" }}>
         <Link href="/" className="prev">Home</Link>
         <Link href="/kicd" className="next">KICD Framework</Link>
@@ -38,14 +38,14 @@ export default function AboutPage() {
         every Kenyan child for life, work and active citizenship.
       </p>
 
-      {/* Example box â€” W3Schools style */}
+      {/* Example box — W3Schools style */}
       <div className="example-box">
         <div className="example-box-header">CBC at a Glance</div>
         <div className="example-box-body">
           <table style={{ margin: 0 }}>
             <tbody>
               {[
-                ["Introduced", "2017 â€” rolled out from Early Years upward"],
+                ["Introduced", "2017 — rolled out from Early Years upward"],
                 ["Structure", "2-6-3-3 replacing 8-4-4"],
                 ["Levels", "Early Years, Primary, Junior Secondary, Senior Secondary"],
                 ["National Exams", "KPSEA (Gr 6), KILEA (Gr 9), KSCE (Gr 12)"],
@@ -101,7 +101,7 @@ export default function AboutPage() {
             ["Focus",            "Content knowledge and memorisation",          "Competencies, skills and values"],
             ["Assessment",       "End-of-year exams (KCPE, KCSE)",             "Continuous SBA + national exams at Gr 6, 9, 12"],
             ["National Exams",   "KCPE (Std 8), KCSE (Form 4)",                "KPSEA (Gr 6), KILEA (Gr 9), KSCE (Gr 12)"],
-            ["Transition",       "Based on exam marks only",                    "Holistic â€” SBA + aptitude + talents"],
+            ["Transition",       "Based on exam marks only",                    "Holistic — SBA + aptitude + talents"],
             ["Senior Secondary", "Same subjects for all students",              "3 pathways: STEM, Arts & Sports, Social Sciences"],
             ["Teaching Style",   "Teacher-centred, lecture-based",             "Learner-centred, activity-based"],
             ["Values",           "Not explicitly taught or assessed",           "8 core values embedded in every subject"],
@@ -122,11 +122,11 @@ export default function AboutPage() {
         level covers, the age range, and the national assessment at the end:
       </p>
       {[
-        { label: "PP1, PP2",         color: "#FF9800", level: "Early Years (2 years)",        age: "Ages 4â€“5",   exam: "No national exam â€” continuous observation & portfolio",   desc: "Learning through play. Covers Language Activities, Mathematical Activities, Environmental Activities, Psychomotor & Creative Activities and Religious Education. Mother tongue used as the language of instruction." },
-        { label: "Grade 1, 2, 3",    color: "#2196F3", level: "Lower Primary (3 years)",      age: "Ages 6â€“8",   exam: "No national exam â€” continuous SBA",                       desc: "Building literacy and numeracy. Subjects: English, Kiswahili, Mathematics, Environmental Activities, Creative Arts, Hygiene & Nutrition and Religious Education. Activity-based approach." },
-        { label: "Grade 4, 5, 6",    color: "#9C27B0", level: "Upper Primary (3 years)",      age: "Ages 9â€“11",  exam: "KPSEA â€” Kenya Primary School Education Assessment (End of Grade 6)", desc: "Introduces Agriculture, Integrated Science and Social Studies. Continuous SBA throughout; national KPSEA at end of Grade 6 to transition to Junior Secondary." },
-        { label: "Grade 7, 8, 9",    color: "#F44336", level: "Junior Secondary (3 years)",   age: "Ages 12â€“14", exam: "KILEA â€” Kenya Junior Secondary Education Assessment (End of Grade 9)", desc: "Broad exposure before pathway selection. Adds Pre-Technical Studies, Health Education and Creative Arts & Sports. Results inform Senior Secondary pathway choice." },
-        { label: "Grade 10, 11, 12", color: "#607D8B", level: "Senior Secondary (3 years)",   age: "Ages 15â€“17", exam: "KSCE â€” Kenya Secondary Certificate of Education (End of Grade 12)", desc: "Learner chooses a pathway: STEM (Sciences), Arts & Sports Science, or Social Sciences. Each pathway has core and optional subjects tailored to career and university goals." },
+        { label: "PP1, PP2",         color: "#FF9800", level: "Early Years (2 years)",        age: "Ages 4–5",   exam: "No national exam — continuous observation & portfolio",   desc: "Learning through play. Covers Language Activities, Mathematical Activities, Environmental Activities, Psychomotor & Creative Activities and Religious Education. Mother tongue used as the language of instruction." },
+        { label: "Grade 1, 2, 3",    color: "#2196F3", level: "Lower Primary (3 years)",      age: "Ages 6–8",   exam: "No national exam — continuous SBA",                       desc: "Building literacy and numeracy. Subjects: English, Kiswahili, Mathematics, Environmental Activities, Creative Arts, Hygiene & Nutrition and Religious Education. Activity-based approach." },
+        { label: "Grade 4, 5, 6",    color: "#9C27B0", level: "Upper Primary (3 years)",      age: "Ages 9–11",  exam: "KPSEA — Kenya Primary School Education Assessment (End of Grade 6)", desc: "Introduces Agriculture, Integrated Science and Social Studies. Continuous SBA throughout; national KPSEA at end of Grade 6 to transition to Junior Secondary." },
+        { label: "Grade 7, 8, 9",    color: "#F44336", level: "Junior Secondary (3 years)",   age: "Ages 12–14", exam: "KILEA — Kenya Junior Secondary Education Assessment (End of Grade 9)", desc: "Broad exposure before pathway selection. Adds Pre-Technical Studies, Health Education and Creative Arts & Sports. Results inform Senior Secondary pathway choice." },
+        { label: "Grade 10, 11, 12", color: "#607D8B", level: "Senior Secondary (3 years)",   age: "Ages 15–17", exam: "KSCE — Kenya Secondary Certificate of Education (End of Grade 12)", desc: "Learner chooses a pathway: STEM (Sciences), Arts & Sports Science, or Social Sciences. Each pathway has core and optional subjects tailored to career and university goals." },
       ].map(l => (
         <div key={l.label} style={{ borderLeft: `5px solid ${l.color}`, background: "#fafafa", padding: "16px 20px", marginBottom: "14px", borderRadius: "0 3px 3px 0" }}>
           <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "8px", marginBottom: "8px" }}>
@@ -166,11 +166,11 @@ export default function AboutPage() {
             <thead><tr><th>Component</th><th>Details</th></tr></thead>
             <tbody>
               {[
-                ["Formative Assessment", "Ongoing â€” classwork, projects, oral tasks, portfolios, observations"],
+                ["Formative Assessment", "Ongoing — classwork, projects, oral tasks, portfolios, observations"],
                 ["Summative Assessment", "End of term / unit tests designed by the class teacher"],
                 ["National Exams",       "KPSEA (Grade 6), KILEA (Grade 9), KSCE (Grade 12)"],
                 ["SBA Weighting",        "SBA results count alongside national exam scores for progression"],
-                ["Reporting",            "Learner reports show competency levels â€” not just raw marks"],
+                ["Reporting",            "Learner reports show competency levels — not just raw marks"],
                 ["SBA Tools",            "Observation schedules, rubrics, portfolios, checklists, projects"],
               ].map(([k, v]) => (
                 <tr key={k}><td style={{ fontWeight: 700 }}>{k}</td><td>{v}</td></tr>
@@ -180,7 +180,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Exercises strip â€” W3Schools style */}
+      {/* Exercises strip — W3Schools style */}
       <div style={{ background: "#f9f9f9", border: "1px solid #ddd", padding: "18px 22px", margin: "28px 0 20px 0", borderRadius: "3px" }}>
         <h2 style={{ margin: "0 0 10px 0", fontSize: "18px" }}>Test Yourself</h2>
         <p style={{ margin: "0 0 14px 0", fontSize: "14px", color: "#555" }}>
@@ -201,7 +201,10 @@ export default function AboutPage() {
         for official documents and syllabus downloads.
       </div>
 
-      {/* BOTTOM Prev/Next â€” identical to top */}
+            <div className="prev-next">
+        <Link href="/" className="prev">Home</Link>
+        <Link href="/kicd" className="next">KICD Framework</Link>
+      </div>
 
     </div>
   );
