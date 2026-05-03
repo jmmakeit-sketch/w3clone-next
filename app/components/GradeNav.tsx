@@ -36,14 +36,14 @@ export default function GradeNav() {
 
   return (
     <>
-      <div style={{ background: "#000", position: "sticky", top: "84px", zIndex: 2000, display: "flex", alignItems: "center", height: "40px", borderBottom: "1px solid #333" }}>
+      <div style={{ background: pathname === "/" ? "#04AA6D" : "#000", position: "sticky", top: "84px", zIndex: 2000, display: "flex", alignItems: "center", height: "40px", borderBottom: "1px solid #333" }}>
         <button onClick={() => scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" })}
           style={{ background: "#222", color: "#fff", border: "none", padding: "0 10px", height: "40px", cursor: "pointer", fontSize: "16px", flexShrink: 0 }}>
           &#8249;
         </button>
 
         <Link href="/" onClick={() => setOpenIndex(null)}
-          style={{ color: "#fff", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "40px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent", background: "#000", transition: "background 0.12s" }}>
+          style={{ color: "#fff", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "40px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent", background: pathname === "/" ? "#04AA6D" : "#000", transition: "background 0.12s" }}>
           HOME
         </Link>
 
