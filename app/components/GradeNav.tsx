@@ -1,4 +1,4 @@
-ï»¿"use client";
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
@@ -47,7 +47,7 @@ export default function GradeNav() {
 
   function handleMouseEnter(i: number) {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    setOpenIndex(i); // immediately switch â€” collapses previous, opens new
+    setOpenIndex(i); // immediately switch — collapses previous, opens new
   }
 
   function handleMouseLeave() {
@@ -101,12 +101,12 @@ export default function GradeNav() {
         </button>
       </div>
 
-      {/* Dropdown â€” hover keeps it open, leaving closes after 200ms */}
+      {/* Dropdown — hover keeps it open, leaving closes after 200ms */}
       {openGrade && (
         <div
           onMouseEnter={handleDropdownMouseEnter}
           onMouseLeave={handleDropdownMouseLeave}
-          style={{ position: "fixed", left: 0, top: "124px", width: "240px", background: "#f1f1f1", borderTop: "3px solid " + openGrade.color, borderRight: "1px solid #ddd", zIndex: 999, maxHeight: "calc(100vh - 124px)", overflowY: "auto", boxShadow: "2px 0 8px rgba(0,0,0,0.10)" }}>
+          style={{ position: "fixed", left: "220px", top: "124px", width: "240px", background: "#f1f1f1", borderTop: "3px solid " + openGrade.color, borderRight: "1px solid #ddd", zIndex: 999, maxHeight: "calc(100vh - 124px)", overflowY: "auto", boxShadow: "2px 0 8px rgba(0,0,0,0.10)" }}>
           <Link href={openGrade.href} onClick={() => setOpenIndex(null)}
             style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: openGrade.color, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "15px" }}>
             <span>{openGrade.label} Overview</span>
