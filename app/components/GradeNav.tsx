@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
@@ -120,9 +120,7 @@ export default function GradeNav() {
               minWidth: "260px",
               maxWidth: "320px",
               background: "#fff",
-              borderTop: `3px solid ${openGrade.color}`,
-              border: `1px solid #ddd`,
-              borderTop: `3px solid ${openGrade.color}`,
+              borderTop: `3px solid $($openGrade.color)`,
               zIndex: 1500,
               maxHeight: "calc(100vh - 130px)",
               overflowY: "auto",
