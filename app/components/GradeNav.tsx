@@ -43,7 +43,7 @@ export default function GradeNav() {
         </button>
 
         <Link href="/" onClick={() => setOpenIndex(null)}
-          style={{ color: pathname === "/" ? "#04AA6D" : "#ccc", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "40px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent", background: "#000", transition: "background 0.12s" }}>
+          style={{ color: "#fff", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "40px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent", background: "#000", transition: "background 0.12s" }}>
           HOME
         </Link>
 
