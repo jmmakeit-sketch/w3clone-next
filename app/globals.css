@@ -33,11 +33,11 @@ body { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; color:
 .sidebar::-webkit-scrollbar-thumb { background: #000; border-radius: 0; }
 .sidebar::-webkit-scrollbar-track { background: #f1f1f1; }
 
-.sidebar-header { background: #04AA6D; color: #fff; padding: 12px 16px; font-size: 15px; font-weight: 700; display: block; text-decoration: none; border-bottom: 2px solid #038a58; }
+.sidebar-header { background: #04AA6D !important; color: #fff; padding: 12px 16px; font-size: 15px; font-weight: 700; display: block; text-decoration: none; border-bottom: 2px solid #038a58; }
 .sidebar-header:hover { background: #059862; color: #fff; }
 .sidebar-title { font-size: 13px; font-weight: 700; padding: 10px 16px 6px 16px; display: block; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
 .sidebar a { display: flex; align-items: center; justify-content: space-between; padding: 7px 16px; text-decoration: none; color: #000; font-size: 14px; line-height: 1.4; background: #f1f1f1 !important; }
-.sidebar a.active { background: #04AA6D; color: #fff; font-weight: 700; }
+.sidebar a.active { background: #04AA6D !important; color: #fff; font-weight: 700; }
 .sidebar a:hover:not(.active):not(.sidebar-header) { background: #ddd; color: #000; }
 
 .sidebar-section { font-size: 11px; font-weight: 700; color: #888; padding: 10px 16px 3px 16px; text-transform: uppercase; letter-spacing: 0.8px; border-top: 1px solid #ddd; margin-top: 4px; background: #e8e8e8; }
