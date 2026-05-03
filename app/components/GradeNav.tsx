@@ -36,7 +36,6 @@ export default function GradeNav() {
 
   return (
     <>
-      {/* Black grade bar */}
       <div style={{ background: "#000", position: "sticky", top: "84px", zIndex: 2000, display: "flex", alignItems: "center", height: "40px", borderBottom: "1px solid #333" }}>
         <button onClick={() => scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" })}
           style={{ background: "#222", color: "#fff", border: "none", padding: "0 10px", height: "40px", cursor: "pointer", fontSize: "16px", flexShrink: 0 }}>
@@ -44,7 +43,7 @@ export default function GradeNav() {
         </button>
 
         <Link href="/" onClick={() => setOpenIndex(null)}
-          style={{ color: pathname === "/" ? "#04AA6D" : "#ccc", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "40px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent", background: "#000" }}>
+          style={{ color: pathname === "/" ? "#04AA6D" : "#ccc", padding: "0 14px", fontSize: "13px", fontWeight: 700, height: "40px", display: "flex", alignItems: "center", textDecoration: "none", borderRight: "1px solid #333", flexShrink: 0, borderBottom: pathname === "/" ? "3px solid #04AA6D" : "3px solid transparent", background: pathname === "/" ? "#04AA6D" : "#000", transition: "background 0.12s" }}>
           HOME
         </Link>
 
@@ -55,7 +54,7 @@ export default function GradeNav() {
             return (
               <button key={g.href}
                 onClick={() => setOpenIndex(isOpen ? null : i)}
-                style={{ flexShrink: 0, height: "40px", padding: "0 14px", fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap", cursor: "pointer", border: "none", fontFamily: "Verdana, sans-serif", color: "#fff", background: isUrlActive ? "#04AA6D" : isOpen ? "#333" : "#000", borderBottom: isUrlActive ? "3px solid #038a58" : isOpen ? "3px solid #04AA6D" : "3px solid transparent", transition: "background 0.12s" }}>
+                style={{ flexShrink: 0, height: "40px", padding: "0 14px", fontSize: "13px", fontWeight: 700, whiteSpace: "nowrap", cursor: "pointer", border: "none", fontFamily: "Verdana, sans-serif", color: "#fff", background: isUrlActive ? "#04AA6D" : isOpen ? "#04AA6D" : "#000", borderBottom: isUrlActive ? "3px solid #038a58" : isOpen ? "3px solid #038a58" : "3px solid transparent", transition: "background 0.12s" }}>
                 {g.label} <span style={{ fontSize: "9px", opacity: 0.7 }}>&#9660;</span>
               </button>
             );
@@ -68,13 +67,9 @@ export default function GradeNav() {
         </button>
       </div>
 
-      {/* Sticky top-left dropdown — replaces left sidebar area when open */}
       {openGrade && (
         <>
-          {/* Backdrop — click anywhere outside to close */}
           <div style={{ position: "fixed", inset: 0, zIndex: 1499 }} onClick={() => setOpenIndex(null)} />
-
-          {/* Dropdown pinned to top-left, same position as left sidebar */}
           <div style={{
             position: "fixed",
             left: 0,
@@ -90,17 +85,14 @@ export default function GradeNav() {
             display: "flex",
             flexDirection: "column",
           }}>
-            {/* Grade header */}
             <Link href={openGrade.href} onClick={() => setOpenIndex(null)}
               style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: openGrade.color, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "14px", flexShrink: 0 }}>
               <span>{openGrade.label} Overview</span>
               <span style={{ fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 8px", borderRadius: "10px" }}>{openGrade.pathway}</span>
             </Link>
-
             <div style={{ padding: "6px 16px 4px", fontSize: "10px", color: "#999", textTransform: "uppercase", letterSpacing: "0.8px", borderBottom: "1px solid #eee", flexShrink: 0 }}>
               Select a subject
             </div>
-
             <div style={{ flex: 1, overflowY: "auto" }}>
               {openGrade.subjects.map(sub => (
                 <Link key={sub} href={openGrade.href + "/" + slugify(sub)}
@@ -112,8 +104,6 @@ export default function GradeNav() {
                 </Link>
               ))}
             </div>
-
-            {/* Close button at bottom */}
             <button onClick={() => setOpenIndex(null)}
               style={{ padding: "10px", background: "#f5f5f5", border: "none", borderTop: "1px solid #ddd", fontSize: "12px", color: "#666", cursor: "pointer", fontFamily: "Verdana, sans-serif", flexShrink: 0 }}>
               ✕ Close
