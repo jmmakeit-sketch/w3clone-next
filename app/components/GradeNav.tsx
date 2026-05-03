@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
@@ -31,7 +31,6 @@ export default function GradeNav() {
   const navRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Close on any click outside the nav bar + dropdown
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
@@ -42,7 +41,6 @@ export default function GradeNav() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Close on route change
   useEffect(() => { setOpenIndex(null); }, [pathname]);
 
   function handleMouseEnter(i: number) {
@@ -65,9 +63,24 @@ export default function GradeNav() {
   const activeGradeIndex = GRADES.findIndex(g => pathname === g.href || pathname.startsWith(g.href + "/"));
   const openGrade = openIndex !== null ? GRADES[openIndex] : null;
 
+  const dropdownStyle: React.CSSProperties = openGrade ? {
+    position: "fixed",
+    left: "220px",
+    top: "124px",
+    minWidth: "260px",
+    maxWidth: "320px",
+    background: "#fff",
+    borderTop: "3px solid " + openGrade.color,
+    border: "1px solid #ddd",
+    zIndex: 1500,
+    maxHeight: "calc(100vh - 130px)",
+    overflowY: "auto",
+    boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+    borderRadius: "0 0 4px 4px",
+  } : {};
+
   return (
     <div ref={navRef}>
-      {/* Black grade bar */}
       <div style={{ background: "#000", position: "sticky", top: "84px", zIndex: 2000, display: "flex", alignItems: "center", height: "40px", borderBottom: "1px solid #333" }}>
         <button onClick={() => scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" })}
           style={{ background: "#222", color: "#fff", border: "none", padding: "0 10px", height: "40px", cursor: "pointer", fontSize: "16px", flexShrink: 0 }}>
@@ -102,32 +115,10 @@ export default function GradeNav() {
         </button>
       </div>
 
-      {/* Dropdown — floats BELOW the black bar, does NOT overlap left sidebar */}
       {openGrade && (
         <>
-          {/* Invisible full-screen backdrop — click anywhere to close */}
-          <div
-            style={{ position: "fixed", inset: 0, zIndex: 1499 }}
-            onClick={() => setOpenIndex(null)}
-          />
-          <div
-            onMouseEnter={handleDropdownMouseEnter}
-            onMouseLeave={handleDropdownMouseLeave}
-            style={{
-              position: "fixed",
-              left: "220px",       // sits AFTER the left sidebar
-              top: "124px",        // just below the black bar
-              minWidth: "260px",
-              maxWidth: "320px",
-              background: "#fff",
-              borderTop: `3px solid $($openGrade.color)`,
-              zIndex: 1500,
-              maxHeight: "calc(100vh - 130px)",
-              overflowY: "auto",
-              boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-              borderRadius: "0 0 4px 4px",
-            }}>
-            {/* Grade header */}
+          <div style={{ position: "fixed", inset: 0, zIndex: 1499 }} onClick={() => setOpenIndex(null)} />
+          <div onMouseEnter={handleDropdownMouseEnter} onMouseLeave={handleDropdownMouseLeave} style={dropdownStyle}>
             <Link href={openGrade.href} onClick={() => setOpenIndex(null)}
               style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", background: openGrade.color, color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "15px" }}>
               <span>{openGrade.label} Overview</span>
@@ -137,7 +128,7 @@ export default function GradeNav() {
               Select a subject
             </div>
             {openGrade.subjects.map(sub => (
-              <Link key={sub} href={`${openGrade.href}/${slugify(sub)}`}
+              <Link key={sub} href={openGrade.href + "/" + slugify(sub)}
                 onClick={() => setOpenIndex(null)}
                 style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0", background: "#fff" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = openGrade.color; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
@@ -151,4 +142,3 @@ export default function GradeNav() {
     </div>
   );
 }
-
