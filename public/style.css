@@ -127,7 +127,7 @@ body {
   position: sticky;
   top: 97px;
   height: calc(100vh - 97px);
-  background: #fff;
+  background: #f5f5f5;
 }
 .sidebar h3 {
   padding: 14px 16px 10px;
