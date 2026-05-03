@@ -118,7 +118,7 @@ body {
   min-height: calc(100vh - 97px);
 }
 
-/* ── LEFT SIDEBAR ── */
+/* -- LEFT SIDEBAR -- */
 .sidebar {
   width: 220px;
   min-width: 220px;
@@ -148,7 +148,7 @@ body {
 .sidebar-link .arrow { font-size: 11px; color: #aaa; }
 .sidebar-link.active .arrow { color: #fff; }
 
-/* ── CONTENT ── */
+/* -- CONTENT -- */
 .content-area {
   flex: 1;
   padding: 30px 40px;
@@ -211,7 +211,7 @@ body {
 }
 .try-btn:hover { background: #3a943a; }
 
-/* ── RIGHT SIDEBAR ── */
+/* -- RIGHT SIDEBAR -- */
 .right-sidebar {
   width: 200px;
   min-width: 200px;
