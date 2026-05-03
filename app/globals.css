@@ -37,7 +37,7 @@ body { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; color:
 .sidebar-title { font-size: 13px; font-weight: 700; padding: 10px 16px 6px 16px; display: block; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
 .sidebar a { display: flex; align-items: center; justify-content: space-between; padding: 7px 16px; text-decoration: none; color: #000; font-size: 14px; line-height: 1.4; background: #f5f5f5; }
 .sidebar a.active { background: #04AA6D; color: #fff; font-weight: 700; }
-.sidebar a:hover:not(.active):not(.sidebar-header) { background: #ddd; }
+.sidebar a:hover:not(.active):not(.sidebar-header) { background: #f1f1f1; }
 
 
 
