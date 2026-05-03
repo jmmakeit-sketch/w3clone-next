@@ -72,9 +72,9 @@ export default function GradeNav() {
           <div style={{ position: "fixed", inset: 0, zIndex: 1499 }} onClick={() => setOpenIndex(null)} />
           <div style={{
             position: "fixed",
-            left: 0, right: "auto", marginLeft: 0,
+            left: 0, right: "auto",
             top: "124px",
-            width: "280px",
+            width: "240px",
             bottom: 0,
             background: "#f5f5f5",
             borderTop: "3px solid " + openGrade.color,
@@ -99,7 +99,7 @@ export default function GradeNav() {
                   onClick={() => setOpenIndex(null)}
                   style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", fontSize: "14px", color: "#000", textDecoration: "none", borderBottom: "1px solid #f0f0f0", background: "#f5f5f5" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = openGrade.color; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f5f5f5"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.color = "#000"; }}>
                   {sub} <span style={{ fontSize: "12px" }}>&#8250;</span>
                 </Link>
               ))}
