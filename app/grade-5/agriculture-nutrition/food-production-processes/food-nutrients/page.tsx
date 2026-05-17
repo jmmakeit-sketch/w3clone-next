@@ -1,36 +1,61 @@
 ﻿import React from 'react';
+import { grade5AgriNutritionContent } from '../../data/content';
 
-export default function FoodNutrients() {
+export default function FoodNutrientsDynamic() {
+  const data = grade5AgriNutritionContent["food-production-processes"].subStrands["food-nutrients"];
+
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <div className="border-b pb-4">
-        <span className="text-sm font-semibold text-rose-600 uppercase tracking-wider">Strand 2.4</span>
-        <h1 className="text-3xl font-extrabold text-slate-800 mt-1">Food Nutrients & Dietary Classification</h1>
-        <p className="text-slate-600 mt-2">Categorizing everyday foods by major nutrients to design health-promoting meals.</p>
+        <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md tracking-wider">
+          SUB-STRAND {data.id}
+        </span>
+        <h1 className="text-3xl font-extrabold text-slate-800 mt-2">{data.title}</h1>
+        <p className="text-slate-600 text-sm mt-1">Allocated Lessons: {data.lessons} periods</p>
       </div>
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 border rounded-xl bg-amber-50/50 border-amber-200">
-          <h3 className="font-bold text-amber-950 text-sm">Carbohydrates</h3>
-          <p className="text-xs text-slate-600 mt-1">Energy-giving foods supporting cellular functions and physical stamina.</p>
+      <div className="bg-slate-50 border p-4 rounded-xl">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Key Inquiry Question</h3>
+        <p className="text-base font-semibold text-slate-800 mt-1">"{data.inquiryQuestion}"</p>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Learning Objectives</h2>
+          <ul className="space-y-1.5">
+            {data.objectives.map((obj, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-emerald-500 mr-2">✓</span> {obj}
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="p-4 border rounded-xl bg-emerald-50/50 border-emerald-200">
-          <h3 className="font-bold text-emerald-950 text-sm">Vitamins & Minerals</h3>
-          <p className="text-xs text-slate-600 mt-1">Protective foods crucial for immunity and disease prevention profiles.</p>
-        </div>
-        <div className="p-4 border rounded-xl bg-blue-50/50 border-blue-200">
-          <h3 className="font-bold text-blue-950 text-sm">Proteins</h3>
-          <p className="text-xs text-slate-600 mt-1">Body-building blocks necessary for tissue growth, repair, and synthesis.</p>
-        </div>
-        <div className="p-4 border rounded-xl bg-purple-50/50 border-purple-200">
-          <h3 className="font-bold text-purple-950 text-sm">Fats</h3>
-          <p className="text-xs text-slate-600 mt-1">Concentrated energy reserves protecting critical anatomical systems.</p>
+
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Suggested Experiences</h2>
+          <ul className="space-y-1.5">
+            {data.experiences.map((exp, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-slate-400 mr-2">👉</span> {exp}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl text-sm text-slate-700">
-        <span className="font-bold text-slate-800 block mb-1">Cross-Subject Alignment:</span>
-        Learners explicitly connect balanced nutritional intake to the active prevention of non-communicable diseases covered within Science & Technology modules.
+      <div className="border-t pt-4 grid sm:grid-cols-3 gap-4 text-xs">
+        <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+          <span className="font-bold text-blue-900 block">Core Competencies</span>
+          <p className="text-slate-600 mt-1"><strong>{data.coreCompetencies.name}:</strong> {data.coreCompetencies.description}</p>
+        </div>
+        <div className="p-3 bg-amber-50/50 rounded-xl border border-amber-100">
+          <span className="font-bold text-amber-900 block">Values & PCIs</span>
+          <p className="text-slate-600 mt-1"><strong>{data.values.name}:</strong> {data.values.description}</p>
+        </div>
+        <div className="p-3 bg-purple-50/50 rounded-xl border border-purple-100">
+          <span className="font-bold text-purple-900 block">Cross-Subject Link</span>
+          <p className="text-slate-600 mt-1">{data.crossSubjectLink}</p>
+        </div>
       </div>
     </div>
   );
