@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { grade6ContentMatrix } from '../../../grade-5/agriculture-nutrition/data/grade6Content';
+import { grade6ContentMatrix } from '../../../../grade-5/agriculture-nutrition/data/grade6Content';
 
 export default function Grade6SmallLivestockDynamic() {
   const data = grade6ContentMatrix["food-production-processes"].subStrands["rearing-small-livestock"];
@@ -60,3 +60,4 @@ export default function Grade6SmallLivestockDynamic() {
     </div>
   );
 }
+
