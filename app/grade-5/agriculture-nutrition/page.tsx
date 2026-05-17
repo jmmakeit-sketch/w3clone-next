@@ -1,17 +1,15 @@
 ﻿import React from 'react';
 import Link from 'next/link';
 import GradeNavigator from './data/GradeNavigator';
-import { grade5AgriNutritionContent, grade5FoodHygieneContent, grade5ProductionContent } from './data/content';
+import * as g5Data from './data/content';
 
 export default function Grade5AgricultureDashboard() {
-  const strandsG5 = [
-    ...Object.entries(grade5AgriNutritionContent),
-    ...Object.entries(grade5FoodHygieneContent),
-    ...Object.entries(grade5ProductionContent)
-  ];
+  // Dynamically grab all exported strand objects safely regardless of their exact prefix
+  const strandsG5 = Object.entries(g5Data).filter(([_, val]) => val && typeof val === 'object' && 'id' in val);
+  
   const totalStrands = strandsG5.length;
-  const totalLessons = strandsG5.reduce((acc, [_, strand]) => {
-    return acc + Object.values(strand.subStrands).reduce((sum, sub) => sum + sub.lessons, 0);
+  const totalLessons = strandsG5.reduce((acc, [_, strand]: [string, any]) => {
+    return acc + Object.values(strand.subStrands).reduce((sum: number, sub: any) => sum + sub.lessons, 0);
   }, 0);
 
   return (
@@ -58,7 +56,7 @@ export default function Grade5AgricultureDashboard() {
       <div className="space-y-4">
         <h2 className="text-xl font-black text-slate-800">Curriculum Content Explorer</h2>
         <div className="grid md:grid-cols-2 gap-6">
-          {strandsG5.map(([key, strand]) => (
+          {strandsG5.map(([key, strand]: [string, any]) => (
             <div key={strand.id} className="bg-white border border-slate-200 rounded-2xl shadow-xs p-5 flex flex-col justify-between space-y-4">
               <div className="border-b pb-3">
                 <span className="text-[10px] font-black tracking-widest text-slate-400 uppercase">Strand {strand.id}</span>
@@ -67,7 +65,7 @@ export default function Grade5AgricultureDashboard() {
               <div className="space-y-2 flex-grow">
                 <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">Select Sub-strand Target:</span>
                 <div className="grid gap-1.5">
-                  {Object.entries(strand.subStrands).map(([subKey, sub]) => (
+                  {Object.entries(strand.subStrands).map(([subKey, sub]: [string, any]) => (
                     <Link
                       key={sub.id}
                       href={`/grade-5/agriculture-nutrition/${key}/${subKey}`}
