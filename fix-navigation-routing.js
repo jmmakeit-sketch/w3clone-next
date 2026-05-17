@@ -1,4 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
+const fs = require('fs');
+const path = require('path');
+
+const targetPath = path.join(__dirname, 'src', 'app', 'subjects', 'page.jsx');
+
+const automatedRoutingCode = `import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 
 export const revalidate = 0;
@@ -34,7 +39,7 @@ export default async function SubjectsPortalPage() {
             const dynamicRouteId = sub.id;
             
             return (
-              <Link href={`/subjects/${dynamicRouteId}`} key={dynamicRouteId} style={{ textDecoration: 'none' }}>
+              <Link href={\`/subjects/\${dynamicRouteId}\`} key={dynamicRouteId} style={{ textDecoration: 'none' }}>
                 <div style={{ 
                   padding: '24px', 
                   backgroundColor: '#ffffff',
@@ -61,4 +66,7 @@ export default async function SubjectsPortalPage() {
       </div>
     </div>
   );
-}
+}`;
+
+fs.writeFileSync(targetPath, automatedRoutingCode);
+console.log("📥 Automated database-id link injector written successfully!");
