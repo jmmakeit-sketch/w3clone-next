@@ -1,4 +1,20 @@
-﻿import { StrandSchema } from './content';
+﻿export interface SubStrandSchema {
+  id: string;
+  title: string;
+  lessons: number;
+  inquiryQuestion: string;
+  objectives: string[];
+  experiences: string[];
+  coreCompetencies: { name: string; description: string };
+  values: { name: string; description: string };
+  crossSubjectLink: string;
+}
+
+export interface StrandSchema {
+  id: string;
+  title: string;
+  subStrands: Record<string, SubStrandSchema>;
+}
 
 export const grade6ContentMatrix: Record<string, StrandSchema> = {
   "conservation-of-resources": {
