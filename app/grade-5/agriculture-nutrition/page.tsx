@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { grade5AgriNutritionContent } from './data/content';
 
+import GradeNavigator from './data/GradeNavigator';
+
 export default function Grade5AgriNutritionDashboard() {
   const strands = Object.entries(grade5AgriNutritionContent);
 
@@ -110,3 +112,4 @@ export default function Grade5AgriNutritionDashboard() {
     </div>
   );
 }
+

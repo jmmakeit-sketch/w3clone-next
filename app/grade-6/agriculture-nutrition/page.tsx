@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { grade6ContentMatrix } from '../../grade-5/agriculture-nutrition/data/grade6Content';
 
+import GradeNavigator from '../../grade-5/agriculture-nutrition/data/GradeNavigator';
+
 export default function Grade6AgricultureDashboard() {
   const strandsG6 = Object.entries(grade6ContentMatrix);
 
@@ -12,7 +14,7 @@ export default function Grade6AgricultureDashboard() {
   }, 0);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen">
+    <div className="p-6 max-w-7xl`n      <GradeNavigator currentGrade="6" /> mx-auto space-y-8 bg-slate-50/50 min-h-screen">
       
       {/* Upper Primary KICD Grade 6 Capstone Banner */}
       <div className="bg-gradient-to-r from-blue-800 to-indigo-900 rounded-3xl p-6 md:p-8 text-white shadow-md relative overflow-hidden">
@@ -105,3 +107,4 @@ export default function Grade6AgricultureDashboard() {
     </div>
   );
 }
+

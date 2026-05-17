@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { grade4AgriNutritionContent, grade4FoodAndHygieneContent } from '../../grade-5/agriculture-nutrition/data/grade4Content';
 
+import GradeNavigator from '../../grade-5/agriculture-nutrition/data/GradeNavigator';
+
 export default function Grade4AgricultureDashboard() {
   // Combine data maps for local layout statistics
   const strandsG4 = [
@@ -16,7 +18,7 @@ export default function Grade4AgricultureDashboard() {
   }, 0);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8 bg-slate-50/50 min-h-screen">
+    <div className="p-6 max-w-7xl`n      <GradeNavigator currentGrade="4" /> mx-auto space-y-8 bg-slate-50/50 min-h-screen">
       
       {/* KICD Primary Header Banner */}
       <div className="bg-gradient-to-r from-emerald-800 to-teal-900 rounded-3xl p-6 md:p-8 text-white shadow-md relative overflow-hidden">
@@ -109,5 +111,6 @@ export default function Grade4AgricultureDashboard() {
     </div>
   );
 }
+
 
 
