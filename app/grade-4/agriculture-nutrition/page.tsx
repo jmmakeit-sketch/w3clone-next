@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import Link from 'next/link';
-import { grade4AgriNutritionContent, grade4FoodAndHygieneContent } from './data/grade4Content';
+import { grade4AgriNutritionContent, grade4FoodAndHygieneContent } from '../../grade-5/agriculture-nutrition/data/grade4Content';
 
 export default function Grade4AgricultureDashboard() {
   // Combine data maps for local layout statistics
@@ -109,3 +109,4 @@ export default function Grade4AgricultureDashboard() {
     </div>
   );
 }
+
