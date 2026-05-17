@@ -1,66 +1,62 @@
-﻿"use client";
-import React from "react";
-import { W3ExampleCard, W3NoteCard } from "../../../../components/W3ContentPackagers";
-import { W3AssessmentCard } from "../../../../components/W3AssessmentCard";
+﻿import React from 'react';
+import { grade4FoodAndHygieneContent } from '../../../grade-5/agriculture-nutrition/data/grade4Content';
 
-export default function BalancedDietLesson() {
+export default function Grade4BalancedDiet() {
+  const data = grade4FoodAndHygieneContent["food-production-processes"].subStrands["balanced-diet"];
+
   return (
-    <div className="content" style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
-      <div className="breadcrumb" style={{ fontSize: "14px", marginBottom: "15px", color: "#555" }}>
-        <a href="/">Home</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4">Grade 4</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4/agriculture-nutrition">Agriculture & Nutrition</a> <span className="breadcrumb-sep">&gt;</span>
-        <span>Balanced Diet</span>
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <div className="border-b pb-4">
+        <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-md tracking-wider">
+          GRADE 4 SUB-STRAND {data.id}
+        </span>
+        <h1 className="text-3xl font-extrabold text-slate-800 mt-2">{data.title}</h1>
+        <p className="text-slate-600 text-sm mt-1">Allocated Lessons: {data.lessons} periods</p>
       </div>
 
-      <h1>2.3 Balanced Diet</h1>
-      <p>
-        Eating a variety of food helps our bodies grow strong, fight diseases, and keep energy levels high. 
-        A <strong>balanced diet</strong> means eating a meal containing the correct proportions of nutrients from different food groups.
-      </p>
+      <div className="bg-slate-50 border p-4 rounded-xl">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Key Inquiry Question</h3>
+        <p className="text-base font-semibold text-slate-800 mt-1">"{data.inquiryQuestion}"</p>
+      </div>
 
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "20px 0" }} />
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Learning Objectives</h2>
+          <ul className="space-y-1.5">
+            {data.objectives.map((obj, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-sky-500 mr-2">✓</span> {obj}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <h2>The Three Essential Food Groups</h2>
-      <p>To compose a balanced plate using locally available foods, we select items from each of these main categories:</p>
-      
-      <ul>
-        <li><strong>Energy-Giving Foods (Carbohydrates):</strong> Foods like maize, millet, cassava, and sweet potatoes that fuel our bodies for work and play.</li>
-        <li><strong>Body-Building Foods (Proteins):</strong> Foods like eggs, beans, peas, meat, and milk that repair our bodies and help us grow.</li>
-        <li><strong>Protective Foods (Vitamins & Minerals):</strong> Fruits and vegetables like kales (sukuma wiki), carrots, mangoes, and oranges that protect us from illnesses.</li>
-      </ul>
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Suggested Experiences</h2>
+          <ul className="space-y-1.5">
+            {data.experiences.map((exp, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-slate-400 mr-2">👉</span> {exp}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
-      <W3ExampleCard 
-        title="The Balanced Plate Guide"
-        objective="Proportion layout for a typical healthy meal plan:"
-        visualPreview={
-          <div style={{ display: "flex", gap: "10px", padding: "10px", background: "#f9f9f9", borderRadius: "5px" }}>
-            <div style={{ padding: "10px", background: "#FFE082", borderRadius: "4px", flex: "1", textAlign: "center" }}>🌾 1/4 Carbohydrates</div>
-            <div style={{ padding: "10px", background: "#FFAB91", borderRadius: "4px", flex: "1", textAlign: "center" }}>🍗 1/4 Proteins</div>
-            <div style={{ padding: "10px", background: "#A5D6A7", borderRadius: "4px", flex: "2", textAlign: "center" }}>🥦 1/2 Fruits & Vegetables</div>
-          </div>
-        }
-        sandboxLink="/sandboxes/diet-builder"
-      />
-
-      <W3NoteCard 
-        title="Key Inquiry Question" 
-        text="How does variety in diet impact on health? Eating only one type of food leads to nutrient deficiencies. Variety ensures the body gets all the materials it requires to stay healthy, energetic, and fully immune to infections!" 
-      />
-
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "30px 0" }} />
-
-      <W3AssessmentCard 
-        question="A Grade 4 learner prepared a lunch comprising of Ugali (Carbohydrate) and Roasted Meat (Protein). Which food group is missing to make this a truly balanced diet?"
-        type="radio"
-        options={[
-          "More Energy-Giving foods like cassava",
-          "Protective foods like Kales (Sukuma Wiki) or a slice of ripe mango",
-          "An extra helping of body-building beans"
-        ]}
-        correctAnswer="1"
-        hint="Think about which group protects the body from common sicknesses and vitamins."
-      />
+      <div className="border-t pt-4 grid sm:grid-cols-3 gap-4 text-xs">
+        <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+          <span className="font-bold text-blue-900 block">Core Competencies</span>
+          <p className="text-slate-600 mt-1"><strong>{data.coreCompetencies.name}:</strong> {data.coreCompetencies.description}</p>
+        </div>
+        <div className="p-3 bg-amber-50/50 rounded-xl border border-amber-100">
+          <span className="font-bold text-amber-900 block">Values & PCIs</span>
+          <p className="text-slate-600 mt-1"><strong>{data.values.name}:</strong> {data.values.description}</p>
+        </div>
+        <div className="p-3 bg-purple-50/50 rounded-xl border border-purple-100">
+          <span className="font-bold text-purple-900 block">Cross-Subject Link</span>
+          <p className="text-slate-600 mt-1">{data.crossSubjectLink}</p>
+        </div>
+      </div>
     </div>
   );
 }

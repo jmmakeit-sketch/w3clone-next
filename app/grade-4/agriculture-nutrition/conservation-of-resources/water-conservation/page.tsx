@@ -1,67 +1,62 @@
-﻿"use client";
-import React from "react";
-import { W3ExampleCard, W3NoteCard } from "../../../../components/W3ContentPackagers";
-import { W3AssessmentCard } from "../../../../components/W3AssessmentCard";
+﻿import React from 'react';
+import { grade4AgriNutritionContent } from '../../../grade-5/agriculture-nutrition/data/grade4Content';
 
-export default function WaterConservationLesson() {
+export default function Grade4WaterDynamic() {
+  const data = grade4AgriNutritionContent["conservation-of-resources"].subStrands["water-conservation"];
+
   return (
-    <div className="content" style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
-      <div className="breadcrumb" style={{ fontSize: "14px", marginBottom: "15px", color: "#555" }}>
-        <a href="/">Home</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4">Grade 4</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4/agriculture-nutrition">Agriculture & Nutrition</a> <span className="breadcrumb-sep">&gt;</span>
-        <span>Water Conservation</span>
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <div className="border-b pb-4">
+        <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md tracking-wider">
+          GRADE 4 SUB-STRAND {data.id}
+        </span>
+        <h1 className="text-3xl font-extrabold text-slate-800 mt-2">{data.title}</h1>
+        <p className="text-slate-600 text-sm mt-1">Allocated Lessons: {data.lessons} periods</p>
       </div>
 
-      <h1>1.2 Water Conservation</h1>
-      <p>
-        Water is one of our most precious scarce resources. In farming, managing water efficiently ensures that 
-        crops survive dry seasons without exhausting municipal or local water sources.
-      </p>
+      <div className="bg-slate-50 border p-4 rounded-xl">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Key Inquiry Question</h3>
+        <p className="text-base font-semibold text-slate-800 mt-1">"{data.inquiryQuestion}"</p>
+      </div>
 
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "20px 0" }} />
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Learning Objectives</h2>
+          <ul className="space-y-1.5">
+            {data.objectives.map((obj, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-emerald-500 mr-2">✓</span> {obj}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <h2>Introduction to Drip Irrigation</h2>
-      <p>
-        <strong>Drip irrigation</strong> is a highly effective method of watering crops where water is delivered 
-        slowly and directly to the base or root zone of individual plants. 
-      </p>
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Suggested Experiences</h2>
+          <ul className="space-y-1.5">
+            {data.experiences.map((exp, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-slate-400 mr-2">👉</span> {exp}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
-      {/* Visual Component Concept */}
-      <W3ExampleCard 
-        title="Homemade Drip Irrigation System"
-        objective="How to innovate a water-conserving drip bottle using recycled containers:"
-        visualPreview={
-          <div style={{ border: "1px solid #42A5F5", padding: "15px", borderRadius: "6px", background: "#E3F2FD" }}>
-            <h4 style={{ margin: "0 0 10px 0", color: "#1E88E5" }}>🪛 Bottle Drip Rig Assembly</h4>
-            <ol style={{ margin: 0, paddingLeft: "20px", fontSize: "14px" }}>
-              <li>Obtain a clean, discarded plastic plastic water bottle.</li>
-              <li>Make a tiny pinhole pierce at the bottom cap or lower profile using a small pin.</li>
-              <li>Fill the container with water, tighten the top lid partially to regulate air pressure, and secure it next to the crop's roots.</li>
-            </ol>
-          </div>
-        }
-        sandboxLink="/sandboxes/drip-irrigation"
-      />
-
-      <W3NoteCard 
-        title="Key Inquiry Question: How does drip irrigation conserve water?" 
-        text="By dropping water slowly only where the roots live, it entirely avoids throwing water onto empty spaces between pathways and drastically lowers losses caused by surface evaporation!" 
-      />
-
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "30px 0" }} />
-
-      <W3AssessmentCard 
-        question="Why is drip irrigation preferred over overhead sprinkler watering options when dealing with limited water reserves?"
-        type="radio"
-        options={[
-          "It sprays water across a wide area to wet leaves",
-          "It delivers water directly to the plant root zone, minimizing evaporation losses",
-          "It washes away topsoil layers to help seed coats crack open easily"
-        ]}
-        correctAnswer="1"
-        hint="Think about precision application directly where the plant absorbs its moisture."
-      />
+      <div className="border-t pt-4 grid sm:grid-cols-3 gap-4 text-xs">
+        <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+          <span className="font-bold text-blue-900 block">Core Competencies</span>
+          <p className="text-slate-600 mt-1"><strong>{data.coreCompetencies.name}:</strong> {data.coreCompetencies.description}</p>
+        </div>
+        <div className="p-3 bg-amber-50/50 rounded-xl border border-amber-100">
+          <span className="font-bold text-amber-900 block">Values & PCIs</span>
+          <p className="text-slate-600 mt-1"><strong>{data.values.name}:</strong> {data.values.description}</p>
+        </div>
+        <div className="p-3 bg-purple-50/50 rounded-xl border border-purple-100">
+          <span className="font-bold text-purple-900 block">Cross-Subject Link</span>
+          <p className="text-slate-600 mt-1">{data.crossSubjectLink}</p>
+        </div>
+      </div>
     </div>
   );
 }

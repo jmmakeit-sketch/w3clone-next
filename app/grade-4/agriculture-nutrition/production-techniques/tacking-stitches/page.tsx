@@ -1,81 +1,62 @@
-﻿"use client";
-import React from "react";
-import { W3ExampleCard, W3NoteCard } from "../../../../components/W3ContentPackagers";
-import { W3AssessmentCard } from "../../../../components/W3AssessmentCard";
+﻿import React from 'react';
+import { grade4FoodAndHygieneContent } from '../../../grade-5/agriculture-nutrition/data/grade4Content';
 
-export default function TackingStitchesLesson() {
+export default function Grade4TackingStitches() {
+  const data = grade4FoodAndHygieneContent["production-techniques"].subStrands["tacking-stitches"];
+
   return (
-    <div className="content" style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
-      <div className="breadcrumb" style={{ fontSize: "14px", marginBottom: "15px", color: "#555" }}>
-        <a href="/">Home</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4">Grade 4</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4/agriculture-nutrition">Agriculture & Nutrition</a> <span className="breadcrumb-sep">&gt;</span>
-        <span>Production Techniques</span>
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <div className="border-b pb-4">
+        <span className="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md tracking-wider">
+          GRADE 4 SUB-STRAND {data.id}
+        </span>
+        <h1 className="text-3xl font-extrabold text-slate-800 mt-2">{data.title}</h1>
+        <p className="text-slate-600 text-sm mt-1">Allocated Lessons: {data.lessons} periods</p>
       </div>
 
-      <h1>4.1 Making Tacking Stitches</h1>
-      <p>
-        In needlework, <strong>tacking stitches</strong> (sometimes called basting stitches) are loose, temporary stitches. 
-        Tailors and dressmakers use them to hold pieces of fabric securely together before making the final, permanent machine or hand stitches.
-      </p>
+      <div className="bg-slate-50 border p-4 rounded-xl">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Key Inquiry Question</h3>
+        <p className="text-base font-semibold text-slate-800 mt-1">"{data.inquiryQuestion}"</p>
+      </div>
 
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "20px 0" }} />
-
-      <h2>The Two Primary Types of Tacking Stitches</h2>
-      <p>The KICD curriculum requires Grade 4 learners to master two classic needle patterns:</p>
-
-      <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", marginBottom: "25px" }}>
-        <div style={{ border: "1px solid #ddd", padding: "15px", borderRadius: "5px", background: "#f9f9f9", flex: "1", minWidth: "250px" }}>
-          <h4 style={{ margin: "0 0 8px 0", color: "#2E4053" }}>🪡 1. Even Tacking Stitches</h4>
-          <p style={{ margin: 0, fontSize: "14px", color: "#555" }}>
-            The stitches and the spaces between them are of <strong>equal length</strong> (usually about 6mm to 1cm). 
-            This provides uniform holding power along flat fabric edges.
-          </p>
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Learning Objectives</h2>
+          <ul className="space-y-1.5">
+            {data.objectives.map((obj, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-purple-500 mr-2">✓</span> {obj}
+              </li>
+            ))}
+          </ul>
         </div>
-        <div style={{ border: "1px solid #ddd", padding: "15px", borderRadius: "5px", background: "#f9f9f9", flex: "1", minWidth: "250px" }}>
-          <h4 style={{ margin: "0 0 8px 0", color: "#2E4053" }}>🪡 2. Long and Short Tacking Stitches</h4>
-          <p style={{ margin: 0, fontSize: "14px", color: "#555" }}>
-            Consists of one long stitch followed by a short space or short stitch. This method is incredibly quick to stitch 
-            and works perfectly for holding long straight fabric blocks before permanent joining.
-          </p>
+
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Suggested Experiences</h2>
+          <ul className="space-y-1.5">
+            {data.experiences.map((exp, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-slate-400 mr-2">👉</span> {exp}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      <W3ExampleCard 
-        title="Class Project: Designing a Handkerchief"
-        objective="Applying stitches while practicing creative design and math measurements:"
-        visualPreview={
-          <div style={{ border: "2px dashed #95A5A6", padding: "15px", borderRadius: "4px", background: "#fff", position: "relative" }}>
-            <span style={{ position: "absolute", top: "5px", right: "10px", fontSize: "11px", color: "#95A5A6", fontFamily: "monospace" }}>15cm x 15cm Fabric Block</span>
-            <h5 style={{ margin: "0 0 6px 0", color: "#34495E" }}>✂️ Materials Required:</h5>
-            <p style={{ margin: 0, fontSize: "13px", color: "#555" }}>
-              • Square pieces of locally sourced cotton material<br />
-              • Bright sewing threads (makes the temporary stitches easy to see and pull out later)<br />
-              • A hand sewing needle and safety thimble
-            </p>
-          </div>
-        }
-        sandboxLink="/sandboxes/stitch-simulator"
-      />
-
-      <W3NoteCard 
-        title="Key Inquiry Question" 
-        text="How can we use tacking stitches in making items? By using them to perfectly secure folds or hems on things like square handkerchiefs or custom scarecrow clothes. It keeps the fabric flat so our hands don't slip while working!" 
-      />
-
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "30px 0" }} />
-
-      <W3AssessmentCard 
-        question="What makes tacking stitches different from permanent seams like running or backstitches?"
-        type="radio"
-        options={[
-          "They are sewn very tight using steel wires so they can never be removed",
-          "They are loose, temporary stitches made to hold fabric ready, and are designed to be removed later",
-          "They are only used to attach heavy wooden buttons to large animal blankets"
-        ]}
-        correctAnswer="1"
-        hint="Think about why we make them fast and easily visible using a contrast colored thread."
-      />
+      <div className="border-t pt-4 grid sm:grid-cols-3 gap-4 text-xs">
+        <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+          <span className="font-bold text-blue-900 block">Core Competencies</span>
+          <p className="text-slate-600 mt-1"><strong>{data.coreCompetencies.name}:</strong> {data.coreCompetencies.description}</p>
+        </div>
+        <div className="p-3 bg-amber-50/50 rounded-xl border border-amber-100">
+          <span className="font-bold text-amber-900 block">Values & PCIs</span>
+          <p className="text-slate-600 mt-1"><strong>{data.values.name}:</strong> {data.values.description}</p>
+        </div>
+        <div className="p-3 bg-purple-50/50 rounded-xl border border-purple-100">
+          <span className="font-bold text-purple-900 block">Cross-Subject Link</span>
+          <p className="text-slate-600 mt-1">{data.crossSubjectLink}</p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,111 +1,62 @@
-﻿"use client";
-import React from "react";
-import { W3ExampleCard, W3NoteCard } from "../../../../components/W3ContentPackagers";
-import { W3AssessmentCard } from "../../../../components/W3AssessmentCard";
+﻿import React from 'react';
+import { grade4AgriNutritionContent } from '../../../grade-5/agriculture-nutrition/data/grade4Content';
 
-export default function SoilConservationLesson() {
+export default function Grade4SoilDynamic() {
+  const data = grade4AgriNutritionContent["conservation-of-resources"].subStrands["soil-conservation"];
+
   return (
-    <div className="content" style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
-      <div className="breadcrumb" style={{ fontSize: "14px", marginBottom: "15px", color: "#555" }}>
-        <a href="/">Home</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4">Grade 4</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4/agriculture-nutrition">Agriculture & Nutrition</a> <span className="breadcrumb-sep">&gt;</span>
-        <span>Soil Conservation</span>
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <div className="border-b pb-4">
+        <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md tracking-wider">
+          GRADE 4 SUB-STRAND {data.id}
+        </span>
+        <h1 className="text-3xl font-extrabold text-slate-800 mt-2">{data.title}</h1>
+        <p className="text-slate-600 text-sm mt-1">Allocated Lessons: {data.lessons} periods</p>
       </div>
 
-      <h1>1.1 Soil Conservation</h1>
-      <p>
-        Welcome to your first lesson in resource conservation! <strong>Soil conservation</strong> is the practice of 
-        protecting the soil from erosion and loss of fertility. Soil is a scarce resource that takes hundreds of years 
-        to form, making its preservation vital for food security in Kenya.
-      </p>
+      <div className="bg-slate-50 border p-4 rounded-xl">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Key Inquiry Question</h3>
+        <p className="text-base font-semibold text-slate-800 mt-1">"{data.inquiryQuestion}"</p>
+      </div>
 
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "20px 0" }} />
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Learning Objectives</h2>
+          <ul className="space-y-1.5">
+            {data.objectives.map((obj, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-emerald-500 mr-2">✓</span> {obj}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <h2>Lesson 1: Identifying Suitable Soil for Gardening</h2>
-      <p>
-        Not all soil is created equal when it comes to farming or establishing kitchen gardens. To grow healthy crops, 
-        we must identify the characteristics of the three primary soil types found in our environment:
-      </p>
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Suggested Experiences</h2>
+          <ul className="space-y-1.5">
+            {data.experiences.map((exp, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-slate-400 mr-2">👉</span> {exp}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
-      <ul>
-        <li><strong>Loam Soil:</strong> The ideal mix! It contains a perfect balance of sand, clay, and organic matter (humus). It retains the right amount of moisture and nutrients.</li>
-        <li><strong>Clay Soil:</strong> Made of very fine particles. It holds water tightly, drains poorly, and becomes hard and sticky, making it difficult for delicate root systems to expand.</li>
-        <li><strong>Sandy Soil:</strong> Formed of large, loose particles. Water drains away almost instantly, washing nutrients along with it and leaving crops dry.</li>
-      </ul>
-
-      <W3ExampleCard 
-        title="Classroom Experiment: Soil Water Retention Test"
-        objective="Observe how different soil types hold or drain water differently:"
-        visualPreview={
-          <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", padding: "10px" }}>
-            <div style={{ border: "1px solid #ddd", padding: "12px", background: "#f9f9f9", borderRadius: "4px", flex: "1", minWidth: "180px" }}>
-              <h5 style={{ margin: "0 0 8px 0", color: "#E67E22" }}>⌛ Sandy Soil</h5>
-              <p style={{ margin: 0, fontSize: "13px", color: "#555" }}>Water pours through instantly. Very little moisture is captured.</p>
-            </div>
-            <div style={{ border: "1px solid #ddd", padding: "12px", background: "#f9f9f9", borderRadius: "4px", flex: "1", minWidth: "180px" }}>
-              <h5 style={{ margin: "0 0 8px 0", color: "#2ECC71" }}>🌱 Loam Soil</h5>
-              <p style={{ margin: 0, fontSize: "13px", color: "#555" }}>Drains steadily. Captures a rich sponge-layer of water perfect for plants.</p>
-            </div>
-            <div style={{ border: "1px solid #ddd", padding: "12px", background: "#f9f9f9", borderRadius: "4px", flex: "1", minWidth: "180px" }}>
-              <h5 style={{ margin: "0 0 8px 0", color: "#3498DB" }}>💧 Clay Soil</h5>
-              <p style={{ margin: 0, fontSize: "13px", color: "#555" }}>Water pools on top and barely drops through, causing waterlogging.</p>
-            </div>
-          </div>
-        }
-        sandboxLink="/sandboxes/soil-test"
-      />
-
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "30px 0" }} />
-
-      <h2>Lesson 2: Making Compost Manure (Heap Method)</h2>
-      <p>
-        Instead of wasting organic materials, we can use them to restore soil fertility through <strong>composting</strong>. 
-        Composting turns organic waste into valuable nutrients for our crops.
-      </p>
-
-      <h3>Suitable Materials vs Unsuitable Materials</h3>
-      <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "20px" }}>
-        <thead>
-          <tr style={{ background: "#f2f2f2", textAlign: "left" }}>
-            <th style={{ padding: "10px", border: "1px solid #ddd" }}>✔️ Suitable (Organic Waste)</th>
-            <th style={{ padding: "10px", border: "1px solid #ddd" }}>❌ Unsuitable (Do Not Use)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>Slashed vegetation, dry leaves, weeds</td>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>Plastics, polythene bags, glass bottles</td>
-          </tr>
-          <tr>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>Kitchen fruit peels, vegetable scraps</td>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>Chemicals, synthetic synthetic materials</td>
-          </tr>
-          <tr>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>Animal manure, wood ash</td>
-            <td style={{ padding: "10px", border: "1px solid #ddd" }}>Diseased plants or meat remnants</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <W3NoteCard 
-        title="Key Inquiry Question: How can composting conserve the environment?" 
-        text="Composting recycles organic waste back into the ecosystem naturally. This prevents trash pileups, enriches topsoil structures, and reduces the need for costly commercial fertilizers!" 
-      />
-
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "30px 0" }} />
-
-      <W3AssessmentCard 
-        question="Which of the following items is suitable for collection and processing into organic heap compost manure?"
-        type="radio"
-        options={[
-          "Polythene carrier bags and plastic straws",
-          "Slashed garden vegetation and fruit kitchen scraps",
-          "Broken glass panes and metallic soda cans"
-        ]}
-        correctAnswer="1"
-        hint="Organic composting requires natural materials that decay easily under microbial action."
-      />
+      <div className="border-t pt-4 grid sm:grid-cols-3 gap-4 text-xs">
+        <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+          <span className="font-bold text-blue-900 block">Core Competencies</span>
+          <p className="text-slate-600 mt-1"><strong>{data.coreCompetencies.name}:</strong> {data.coreCompetencies.description}</p>
+        </div>
+        <div className="p-3 bg-amber-50/50 rounded-xl border border-amber-100">
+          <span className="font-bold text-amber-900 block">Values & PCIs</span>
+          <p className="text-slate-600 mt-1"><strong>{data.values.name}:</strong> {data.values.description}</p>
+        </div>
+        <div className="p-3 bg-purple-50/50 rounded-xl border border-purple-100">
+          <span className="font-bold text-purple-900 block">Cross-Subject Link</span>
+          <p className="text-slate-600 mt-1">{data.crossSubjectLink}</p>
+        </div>
+      </div>
     </div>
   );
 }

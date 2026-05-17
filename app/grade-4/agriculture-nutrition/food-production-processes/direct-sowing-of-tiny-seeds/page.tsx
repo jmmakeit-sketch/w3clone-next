@@ -1,77 +1,62 @@
-﻿"use client";
-import React from "react";
-import { W3ExampleCard, W3NoteCard } from "../../../../components/W3ContentPackagers";
-import { W3AssessmentCard } from "../../../../components/W3AssessmentCard";
+﻿import React from 'react';
+import { grade4FoodAndHygieneContent } from '../../../grade-5/agriculture-nutrition/data/grade4Content';
 
-export default function DirectSowingLesson() {
+export default function Grade4DirectSowing() {
+  const data = grade4FoodAndHygieneContent["food-production-processes"].subStrands["direct-sowing-of-tiny-seeds"];
+
   return (
-    <div className="content" style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
-      <div className="breadcrumb" style={{ fontSize: "14px", marginBottom: "15px", color: "#555" }}>
-        <a href="/">Home</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4">Grade 4</a> <span className="breadcrumb-sep">&gt;</span> 
-        <a href="/grade-4/agriculture-nutrition">Agriculture & Nutrition</a> <span className="breadcrumb-sep">&gt;</span>
-        <span>Direct Sowing</span>
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <div className="border-b pb-4">
+        <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-md tracking-wider">
+          GRADE 4 SUB-STRAND {data.id}
+        </span>
+        <h1 className="text-3xl font-extrabold text-slate-800 mt-2">{data.title}</h1>
+        <p className="text-slate-600 text-sm mt-1">Allocated Lessons: {data.lessons} periods</p>
       </div>
 
-      <h1>2.1 Direct Sowing of Tiny Seeds</h1>
-      <p>
-        In agriculture, some crops have seeds so tiny or delicate that moving them after they sprout can damage their root systems. 
-        Instead of growing them in a nursery and transplanting them, we use <strong>direct sowing</strong>—planting them directly 
-        into their final growing bed.
-      </p>
+      <div className="bg-slate-50 border p-4 rounded-xl">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Key Inquiry Question</h3>
+        <p className="text-base font-semibold text-slate-800 mt-1">"{data.inquiryQuestion}"</p>
+      </div>
 
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "20px 0" }} />
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Learning Objectives</h2>
+          <ul className="space-y-1.5">
+            {data.objectives.map((obj, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-sky-500 mr-2">✓</span> {obj}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <h2>Crops Established via Direct Sowing</h2>
-      <p>
-        According to the KICD curriculum framework, examples of important food crops established using direct sowing include:
-      </p>
-      <ul>
-        <li><strong>Carrots:</strong> Root crops that require clean, loose soil expansion. Transplanting carrots causes bent or split roots.</li>
-        <li><strong>Millet:</strong> A valuable grain crop sown directly over larger field surface profiles.</li>
-        <li><strong>Kale / Sukuma Wiki (Optional Container method):</strong> Can also be directly established in specialized household containers.</li>
-      </ul>
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-800">Suggested Experiences</h2>
+          <ul className="space-y-1.5">
+            {data.experiences.map((exp, i) => (
+              <li key={i} className="text-sm text-slate-600 flex items-start">
+                <span className="text-slate-400 mr-2">👉</span> {exp}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
-      <W3ExampleCard 
-        title="Sowing Methods: Drilling in Furrows vs. Broadcasting"
-        objective="Understand the two primary techniques used for tiny seed placement:"
-        visualPreview={
-          <div style={{ display: "flex", gap: "15px", flexWrap: "wrap", padding: "5px" }}>
-            <div style={{ border: "1px solid #ddd", padding: "12px", borderRadius: "4px", background: "#fcf8e3", flex: "1", minWidth: "240px" }}>
-              <h5 style={{ margin: "0 0 6px 0", color: "#8A6D3B" }}>📏 1. Drilling in Furrows (Recommended)</h5>
-              <p style={{ margin: 0, fontSize: "13px", color: "#555" }}>
-                Make shallow, straight grooves (furrows) using a stick. Mix tiny seeds with dry sand or ash to ensure even spacing, drop them along the row, and cover lightly with loose soil.
-              </p>
-            </div>
-            <div style={{ border: "1px solid #ddd", padding: "12px", borderRadius: "4px", background: "#fcf8e3", flex: "1", minWidth: "240px" }}>
-              <h5 style={{ margin: "0 0 6px 0", color: "#A1887F" }}>🌾 2. Broadcasting</h5>
-              <p style={{ margin: 0, fontSize: "13px", color: "#555" }}>
-                Scattering seeds evenly over the entire finely tilted soil surface by hand. This requires careful thinning out later so plants don't crowd each other.
-              </p>
-            </div>
-          </div>
-        }
-        sandboxLink="/sandboxes/seed-sowing"
-      />
-
-      <W3NoteCard 
-        title="Key Inquiry Question" 
-        text="How does direct sowing of tiny seeds enhance food production process? By eliminating transplant shock! Growth starts immediately, reducing field labor requirements and improving crop survival rates for food security." 
-      />
-
-      <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "30px 0" }} />
-
-      <W3AssessmentCard 
-        question="Why do we mix tiny seeds like carrots with sand or dry wood ash prior to drilling them into soil furrows?"
-        type="radio"
-        options={[
-          "To poison crop pests that feed on young seedling roots",
-          "To help distribute the tiny seeds evenly and avoid overcrowding them in one spot",
-          "To make the seedbeds dark so they absorb heat from sunshine faster"
-        ]}
-        correctAnswer="1"
-        hint="Think about how hard it is to separate tiny dark seeds using just your fingertips."
-      />
+      <div className="border-t pt-4 grid sm:grid-cols-3 gap-4 text-xs">
+        <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+          <span className="font-bold text-blue-900 block">Core Competencies</span>
+          <p className="text-slate-600 mt-1"><strong>{data.coreCompetencies.name}:</strong> {data.coreCompetencies.description}</p>
+        </div>
+        <div className="p-3 bg-amber-50/50 rounded-xl border border-amber-100">
+          <span className="font-bold text-amber-900 block">Values & PCIs</span>
+          <p className="text-slate-600 mt-1"><strong>{data.values.name}:</strong> {data.values.description}</p>
+        </div>
+        <div className="p-3 bg-purple-50/50 rounded-xl border border-purple-100">
+          <span className="font-bold text-purple-900 block">Cross-Subject Link</span>
+          <p className="text-slate-600 mt-1">{data.crossSubjectLink}</p>
+        </div>
+      </div>
     </div>
   );
 }
