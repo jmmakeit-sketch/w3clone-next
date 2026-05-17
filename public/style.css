@@ -319,3 +319,55 @@ body {
 .sidebar-link { text-decoration: none; color: inherit; display: block; }
 
 .sidebar-link { text-decoration: none; color: inherit; display: block; }
+
+/* —— W3SCHOOLS SPECIFIC CONTENT PACKAGING EXTENSIONS —— */
+.example-box {
+  background-color: #E7E9EB;
+  margin: 20px 0;
+  padding: 16px;
+  border-left: 4px solid #04AA6D;
+}
+.example-title {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: #000;
+}
+.example-display-window {
+  background-color: #fff;
+  padding: 16px;
+  border: 1px solid #ddd;
+  margin: 8px 0 16px 0;
+  font-family: inherit;
+  font-size: 15px;
+}
+.w3-btn-action {
+  background-color: #04AA6D;
+  color: white;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  font-family: Verdana, sans-serif;
+}
+.w3-btn-action:hover {
+  background-color: #059862;
+}
+
+/* —— NOTE & ALERT ACCENT CARDS —— */
+.w3-panel-note {
+  background-color: #FFF4A3;
+  border-left: 6px solid #FF9800;
+  padding: 16px;
+  margin: 20px 0;
+}
+.w3-panel-fact {
+  background-color: #E7F3FE;
+  border-left: 6px solid #2196F3;
+  padding: 16px;
+  margin: 20px 0;
+}
