@@ -123,7 +123,7 @@ export default async function GradePage({ params }: { params: Promise<{ grade: s
     <div className="space-y-6">
       {isUpperPrimary && (
         <div className="mb-4">
-          <GradeNavigator currentGrade={gradeNum.toString()} />
+          <GradeNavigator currentGrade={gradeNum.toString() as "4" | "5" | "6"} />
         </div>
       )}
 
