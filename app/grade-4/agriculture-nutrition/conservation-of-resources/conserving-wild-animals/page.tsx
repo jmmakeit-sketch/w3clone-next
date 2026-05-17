@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { grade4AgriNutritionContent } from '../../../grade-5/agriculture-nutrition/data/grade4Content';
+import { grade4AgriNutritionContent } from '../../../../grade-5/agriculture-nutrition/data/grade4Content';
 
 export default function Grade4WildAnimalsDynamic() {
   const data = grade4AgriNutritionContent["conservation-of-resources"].subStrands["conserving-wild-animals"];
@@ -60,3 +60,4 @@ export default function Grade4WildAnimalsDynamic() {
     </div>
   );
 }
+

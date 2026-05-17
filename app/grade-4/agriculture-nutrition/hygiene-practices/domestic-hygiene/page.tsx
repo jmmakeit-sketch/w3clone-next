@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { grade4FoodAndHygieneContent } from '../../../grade-5/agriculture-nutrition/data/grade4Content';
+import { grade4FoodAndHygieneContent } from '../../../../grade-5/agriculture-nutrition/data/grade4Content';
 
 export default function Grade4DomesticHygiene() {
   const data = grade4FoodAndHygieneContent["hygiene-practices"].subStrands["domestic-hygiene"];
@@ -60,3 +60,4 @@ export default function Grade4DomesticHygiene() {
     </div>
   );
 }
+

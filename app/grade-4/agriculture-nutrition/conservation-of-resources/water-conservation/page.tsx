@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { grade4AgriNutritionContent } from '../../../grade-5/agriculture-nutrition/data/grade4Content';
+import { grade4AgriNutritionContent } from '../../../../grade-5/agriculture-nutrition/data/grade4Content';
 
 export default function Grade4WaterDynamic() {
   const data = grade4AgriNutritionContent["conservation-of-resources"].subStrands["water-conservation"];
@@ -60,3 +60,4 @@ export default function Grade4WaterDynamic() {
     </div>
   );
 }
+

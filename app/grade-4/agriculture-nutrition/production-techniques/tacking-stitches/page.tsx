@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { grade4FoodAndHygieneContent } from '../../../grade-5/agriculture-nutrition/data/grade4Content';
+import { grade4FoodAndHygieneContent } from '../../../../grade-5/agriculture-nutrition/data/grade4Content';
 
 export default function Grade4TackingStitches() {
   const data = grade4FoodAndHygieneContent["production-techniques"].subStrands["tacking-stitches"];
@@ -60,3 +60,4 @@ export default function Grade4TackingStitches() {
     </div>
   );
 }
+
