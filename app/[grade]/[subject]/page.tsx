@@ -62,10 +62,8 @@ export default function SubjectPage() {
   async function fetchData() {
     try {
       setLoading(true);
-      // Reconstitute both standard spaces and potential ampersands
       const subjectDecoded = subject.replaceAll("-", " ");
       
-      // Attempt broad matching to handle ampersand variations seamlessly
       let queryName = subjectDecoded;
       if (subjectDecoded === "agriculture nutrition") {
         queryName = "Agriculture & Nutrition";
@@ -149,7 +147,7 @@ export default function SubjectPage() {
         </div>
       ) : (
         <div style={{ padding: "24px", border: "1px solid #ffcc80", background: "#fffde7", borderRadius: "4px", color: "#e65100" }}>
-          No lessons found under the key "{queryName}" for this track yet. We are currently configuring these files.
+          No lessons found under the key "{subjectName}" for this track yet. We are currently configuring these files.
         </div>
       )}
     </div>
