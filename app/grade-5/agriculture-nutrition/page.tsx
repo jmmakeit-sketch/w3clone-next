@@ -1,13 +1,13 @@
 ﻿import React from 'react';
 import Link from 'next/link';
 import GradeNavigator from './data/GradeNavigator';
-import { agricultureNutritionContent, foodAndHygieneContent, productionContent } from './data/content';
+import { grade5AgriNutritionContent, grade5FoodHygieneContent, grade5ProductionContent } from './data/content';
 
 export default function Grade5AgricultureDashboard() {
   const strandsG5 = [
-    ...Object.entries(agricultureNutritionContent),
-    ...Object.entries(foodAndHygieneContent),
-    ...Object.entries(productionContent)
+    ...Object.entries(grade5AgriNutritionContent),
+    ...Object.entries(grade5FoodHygieneContent),
+    ...Object.entries(grade5ProductionContent)
   ];
   const totalStrands = strandsG5.length;
   const totalLessons = strandsG5.reduce((acc, [_, strand]) => {
