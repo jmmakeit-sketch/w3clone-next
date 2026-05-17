@@ -1,58 +1,101 @@
 ﻿import React from 'react';
+import Link from 'next/link';
 
-export default function CommunityServiceLearning() {
-  const steps = [
-    { title: "1. Preparation Phase", desc: "Map core competencies, source local materials, align stakeholder timelines (parents/teachers), and set up observation checklists." },
-    { title: "2. Implementation Phase", desc: "Assign structured group roles, track continuous activity participation, and run formative rubric evaluations on the process." },
-    { title: "3. Reflection Loop", desc: "Conduct peer self-evaluation circles mapping what succeeded, what failed, what can be done differently, and key takeaways." }
-  ];
-
-  const initiatives = [
-    { title: "Soil Conservation Action", work: "Identify erosion or nutrient-deficient layouts in the school community and implement structural remediation." },
-    { title: "Water Preservation Audit", work: "Map structural water wastage leakage points on school premises and install micro-catchment solutions." },
-    { title: "Avian Biodiversity Support", work: "Design and build localized bird feeding tables using excess kitchen food scraps to nourish wild birds safely." }
+export default function CommunityProjectHub() {
+  const projectPhases = [
+    {
+      step: "01",
+      title: "Problem Identification",
+      bg: "bg-emerald-50 border-emerald-200 text-emerald-800",
+      badge: "Week 1-2",
+      desc: "Surveying local homesteads to map soil degradation, unmanaged organic waste vectors, or poor crop moisture conservation approaches."
+    },
+    {
+      step: "02",
+      title: "Resource & Solution Mapping",
+      bg: "bg-sky-50 border-sky-200 text-sky-800",
+      badge: "Week 3-4",
+      desc: "Designing localized organic waste pits, sourcing safe deterrents for wild animal crop destruction, and collecting discarded plastics for innovative gardens."
+    },
+    {
+      step: "03",
+      title: "Community Execution Plan",
+      bg: "bg-amber-50 border-amber-200 text-amber-800",
+      badge: "Week 5-7",
+      desc: "Setting up functional demonstration models (like vertical spatial arrays or hermetic grain units) in community spaces to educate neighbors."
+    },
+    {
+      step: "04",
+      title: "Reflective Exhibition",
+      bg: "bg-purple-50 border-purple-200 text-purple-800",
+      badge: "Week 8",
+      desc: "Compiling learner activity portfolios, tracking collective feedback, and reviewing non-formal community impact metrics."
+    }
   ];
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-8">
-      {/* Header Banner */}
-      <div className="border-b pb-4">
-        <span className="text-sm font-semibold text-amber-600 uppercase tracking-wider">Appendix 1 & 2</span>
-        <h1 className="text-3xl font-extrabold text-slate-800 mt-1">Integrated Community Service Learning (CSL)</h1>
-        <p className="text-slate-600 mt-2">Connecting classroom agronomic theories to real-life eco-system problems and community interactions.</p>
+      {/* Breadcrumb Navigation */}
+      <div className="text-xs font-semibold text-slate-500 space-x-2">
+        <Link href="/grade-5/agriculture-nutrition" className="hover:text-slate-800 hover:underline">
+          Grade 5 Agriculture & Nutrition
+        </Link>
+        <span>/</span>
+        <span className="text-slate-800 font-bold">Community Project Hub</span>
       </div>
 
-      {/* CSL Methodology Steps */}
+      {/* Hero Banner */}
+      <div className="bg-gradient-to-br from-amber-700 to-amber-900 text-white p-8 rounded-2xl shadow-sm space-y-3">
+        <span className="bg-amber-600/50 text-amber-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/30">
+          Appendix I & II — Core Capstone
+        </span>
+        <h1 className="text-3xl md:text-4xl font-black">Integrated Community Service Learning Project</h1>
+        <p className="text-amber-100 text-sm max-w-3xl leading-relaxed">
+          An experiential cross-subject framework designed to channel classroom agronomic insights, waste safety strategies, and innovative gardening techniques directly into solving critical localized community issues.
+        </p>
+      </div>
+
+      {/* Strategic Project Matrix */}
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-slate-800">The Whole School Approach (WSA) Iteration Cycle</h2>
-        <div className="grid md:grid-cols-3 gap-4">
-          {steps.map((step, index) => (
-            <div key={index} className="p-4 border rounded-xl bg-slate-50 border-slate-200">
-              <h3 className="font-bold text-slate-800 text-base mb-1">{step.title}</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">{step.desc}</p>
+        <h2 className="text-xl font-bold text-slate-800">Syllabus-Mapped Implementation Roadmap</h2>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {projectPhases.map((phase) => (
+            <div key={phase.step} className={`border p-5 rounded-xl space-y-3 shadow-xs flex flex-col justify-between ${phase.bg}`}>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-2xl font-black opacity-40">{phase.step}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-white/80 px-2 py-0.5 rounded border border-inherit">
+                    {phase.badge}
+                  </span>
+                </div>
+                <h3 className="text-base font-bold">{phase.title}</h3>
+                <p className="text-xs leading-relaxed opacity-90">{phase.desc}</p>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Non-Formal Initiatives Matrix */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold text-slate-800">Suggested Syllabus Non-Formal Activities</h2>
-        <div className="grid md:grid-cols-3 gap-4">
-          {initiatives.map((init, index) => (
-            <div key={index} className="p-4 border border-amber-100 bg-amber-50/30 rounded-xl">
-              <h3 className="font-bold text-amber-950 text-sm flex items-center">
-                <span className="mr-2">🌱</span> {init.title}
-              </h3>
-              <p className="text-xs text-slate-700 mt-2 leading-relaxed">{init.work}</p>
-            </div>
-          ))}
+      {/* Cross-Subject Core Values Ledger */}
+      <div className="grid md:grid-cols-3 gap-4 border-t pt-6">
+        <div className="p-4 bg-slate-50 border rounded-xl space-y-1">
+          <span className="text-sm font-bold text-slate-800 block">💡 Core Competency</span>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            <strong>Citizenship & Collaboration:</strong> Learners work hand-in-hand with local agricultural officers, community leaders, and peers to secure local food frameworks.
+          </p>
         </div>
-      </div>
-
-      {/* Evaluation Safeguard Note */}
-      <div className="p-4 border border-slate-200 rounded-xl bg-slate-100 text-xs text-slate-600 leading-relaxed">
-        <strong>KICD Assessment Criteria Notice:</strong> CSL evaluations are group-centric. Instructors deploy explicit metrics to grade both the live active process loop and the final functional outputs, tracking Core Competency execution alongside basic subject knowledge.
+        <div className="p-4 bg-slate-50 border rounded-xl space-y-1">
+          <span className="text-sm font-bold text-slate-800 block">🌿 Embedded Values</span>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            <strong>Social Justice & Responsibility:</strong> Bridging environmental equity gaps by deploying sustainable soil care and crop safety models directly to disadvantaged households.
+          </p>
+        </div>
+        <div className="p-4 bg-slate-50 border rounded-xl space-y-1">
+          <span className="text-sm font-bold text-slate-800 block">⛓️ Non-Formal Pathways</span>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            <strong>Agriculture Clubs Partnership:</strong> Translating project outcomes directly into persistent institutional actions like 4-K Clubs and Environmental Youth Action panels.
+          </p>
+        </div>
       </div>
     </div>
   );
