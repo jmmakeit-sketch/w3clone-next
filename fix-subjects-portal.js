@@ -1,4 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
+const fs = require('fs');
+const path = require('path');
+
+const targetPath = path.join(__dirname, 'src', 'app', 'subjects', 'page.jsx');
+
+const fixedPortalCode = `import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 
 export const revalidate = 0; // Fresh database state retrieval on every load
@@ -35,7 +40,7 @@ export default async function SubjectsPortalPage() {
             const currentName = sub.name || 'Creative Arts Stream';
             
             return (
-              <Link href={`/subjects/${currentId}`} key={currentId} style={{ textDecoration: 'none' }}>
+              <Link href={\`/subjects/\${currentId}\`} key={currentId} style={{ textDecoration: 'none' }}>
                 <div style={{ 
                   padding: '24px', 
                   backgroundColor: '#ffffff',
@@ -64,4 +69,7 @@ export default async function SubjectsPortalPage() {
       </div>
     </div>
   );
-}
+}`;
+
+fs.writeFileSync(targetPath, fixedPortalCode);
+console.log("📥 Successfully wrote un-broken map parsing layer to src/app/subjects/page.jsx!");
